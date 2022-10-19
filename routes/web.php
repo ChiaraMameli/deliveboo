@@ -22,7 +22,8 @@ Auth::routes();
 Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
 
-
+    //Restaurant routes
+    Route::resource('restaurants', 'RestaurantController');
 
     Route::get('/{any}', function(){
         // e mostrare la page 404
