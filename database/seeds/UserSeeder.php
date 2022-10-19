@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Restaurant;
 use App\User;
 
 class UserSeeder extends Seeder
@@ -16,10 +17,19 @@ class UserSeeder extends Seeder
 
         foreach($users as $user){
             $new_user = new User();
+            $user_restaurant = new Restaurant();
             $new_user->business_name = $user['business_name'];
             $new_user->email = $user['email'];
             $new_user->password = bcrypt($user['password']);
             $new_user->save();
         }
+
+        // $new_user = new User();
+        // $user_restaurant = new Restaurant();
+        // $new_user->business_name = $user['business_name'];
+        // $new_user->email = $user['email'];
+        // $new_user->password = bcrypt($user['password']);
+        // $new_user->save();
+
     }
 }
