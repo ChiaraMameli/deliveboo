@@ -13,11 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
+
 
 Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
@@ -26,7 +28,6 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
     Route::resource('restaurants', 'RestaurantController');
 
     Route::get('/{any}', function(){
-        // e mostrare la page 404
         abort('404');
     })->where('any', '.*' );    
 });
