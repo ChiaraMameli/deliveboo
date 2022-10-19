@@ -15,6 +15,7 @@ class OrderSeeder extends Seeder
     {
         for($i = 0; $i < 5; $i++){
             $new_order = new Order();
+            $new_order->restaurant_id = 1;
             $new_order->status = $faker->word();
             $new_order->amount = $faker->numberBetween(0, 3000);
             $new_order->customer_name = $faker->name();
