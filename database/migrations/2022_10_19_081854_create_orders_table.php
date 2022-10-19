@@ -15,10 +15,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('restaurant_id')->onDelete('cascade')->constrained();
+            $table->foreignId('restaurant_id')->onDelete('set null')->constrained();
             $table->string('status');
             $table->smallInteger('amount');
             $table->string('customer_name');
+            $table->string('customer_phone', 15);
             $table->string('customer_email');
             $table->string('customer_address');
             $table->timestamps();

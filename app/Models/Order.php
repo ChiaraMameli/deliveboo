@@ -10,4 +10,9 @@ class Order extends Model
         return $this->belongsTo('App\Models\Restaurant');
     }
 
+        public function dishes(){
+        return $this->belongsToMany('App\Models\Dish');
+    }
+
+
 }

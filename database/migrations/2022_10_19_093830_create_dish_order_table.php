@@ -15,6 +15,16 @@ class CreateDishOrderTable extends Migration
     {
         Schema::create('dish_order', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('dish_id')->nullable();
+            $table->foreign('dish_id')->references('id')->on('dishes')->onDelete('set null');
+
+            $table->unsignedBigInteger('order_id')->nullable();
+            // ! CASCADE O SET NULL? VERIFICA COMPORTAMENTO
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+
+            $table->tinyInteger('quantity');
+
             $table->timestamps();
         });
     }

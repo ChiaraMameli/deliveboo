@@ -19,6 +19,7 @@ class OrderSeeder extends Seeder
             $new_order->status = $faker->word();
             $new_order->amount = $faker->numberBetween(0, 3000);
             $new_order->customer_name = $faker->name();
+            $new_order->customer_phone = $faker->phoneNumber();
             $new_order->customer_email = $faker->email();
             $new_order->customer_address = $faker->address();
             $new_order->save();
