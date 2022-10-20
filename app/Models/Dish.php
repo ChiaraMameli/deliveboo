@@ -14,4 +14,13 @@ class Dish extends Model
         return $this->belongsToMany('App\Models\Order');
     }
 
+    public function setDescriptionExtract(){
+        return substr($this->description, 0, 30) . '...';
+    }
+
+    public function setIngredientsExtract(){
+        return substr($this->ingredients, 0, 30) . '...';
+    }
+
+
 }

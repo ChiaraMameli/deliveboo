@@ -27,6 +27,9 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
     //Restaurant routes
     Route::resource('restaurants', 'RestaurantController');
 
+    //Dish routes
+    Route::resource('dishes', 'DishController');
+
     Route::get('/{any}', function(){
         abort('404');
     })->where('any', '.*' );    
