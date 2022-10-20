@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container">
+
+        <a class="btn btn-success" href="{{ route('admin.dishes.create') }}">Crea un nuovo piatto</a>
+
         <table class="table table-hover">
         <thead>
             <tr>
@@ -14,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($dishes as $dish)
+            @forelse($dishes as $dish)
                 <tr>
                     <td>{{$dish->id}}</td>
                     <th scope="row">{{$dish->name}}</th>
@@ -23,16 +26,21 @@
                     <td>{{$dish->price}}</td>
                     <td>
                         <div class="d-flex">
-                            <a class="btn btn-primary" href="{{route('admin.dishes.show', $dish)}}">Show</a>
+                            <a class="btn btn-primary btn-sm ml-1" href="{{route('admin.dishes.show', $dish)}}">Vedi</a>
+                            <a class="btn btn-warning btn-sm ml-1" href="{{route('admin.dishes.edit', $dish)}}">Modifica</a>
                             <form action="{{route('admin.dishes.destroy', $dish->id)}}" method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Elimina</button>
+                                <button type="submit" class="btn btn-danger btn-sm ml-1">Elimina</button>
                             </form>
                         </div>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="6">Nessun piatto trovato</td>
+                </tr>
+            @endforelse
         </tbody>
         </table>
     </div>

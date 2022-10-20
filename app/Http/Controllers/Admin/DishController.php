@@ -26,7 +26,8 @@ class DishController extends Controller
      */
     public function create()
     {
-        //
+        $dish = new Dish();
+        return view('admin.dishes.create', compact('dish'));
     }
 
     /**
@@ -37,7 +38,29 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|min:1|max:30|string',
+            'ingredients' => 'required',
+            'price' => 'required',
+            'dish_image' => 'nullable|url',
+
+        ],
+        [
+            'required' => 'Questo campo non può rimanere vuoto',
+            'string' => 'Il formato non è valido',
+            'name.min' => "$request->name è troppo corto",
+            'name.max' => "$request->name è troppo lungo",
+            'dish_image.url' => 'Il formato non è valido',
+        ]);
+
+
+        $data = $request->all();
+        $dish = new Dish();
+        $dish->fill($data);
+        $dish->save();
+
+        return redirect()->route('admin.dishes.index')->with('message', 'Il piatto è stato creato con successo')->with('type', 'success');
+
     }
 
     /**
@@ -59,7 +82,8 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-        //
+        return view('admin.dishes.edit', compact('dish'));
+
     }
 
     /**
@@ -71,7 +95,26 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|min:1|max:30|string',
+            'ingredients' => 'required',
+            'price' => 'required',
+            'dish_image' => 'nullable|url',
+
+        ],
+        [
+            'required' => 'Questo campo non può rimanere vuoto',
+            'string' => 'Il formato non è valido',
+            'name.min' => "$request->name è troppo corto",
+            'name.max' => "$request->name è troppo lungo",
+            'dish_image.url' => 'Il formato non è valido',
+        ]);
+
+
+        $data = $request->all();
+        $dish->update($data);
+        return redirect()->route('admin.dishes.show', $dish)->with('message', 'Il post è stato modificato correttamente')->with('type', 'success');
+
     }
 
     /**
