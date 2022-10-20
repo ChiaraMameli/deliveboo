@@ -48,7 +48,7 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
-        //
+        return view('admin.dishes.show', compact('dish'));
     }
 
     /**
@@ -82,6 +82,7 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
-        //
+        $dish = Dish::destroy($dish->id);
+        return redirect()->route('admin.dishes.index');
     }
 }

@@ -21,7 +21,16 @@
                     <td>{{$dish->setDescriptionExtract()}}</td>
                     <td>{{$dish->setIngredientsExtract()}}</td>
                     <td>{{$dish->price}}</td>
-                    <td>bottoni</td>
+                    <td>
+                        <div class="d-flex">
+                            <a class="btn btn-primary" href="{{route('admin.dishes.show', $dish)}}">Show</a>
+                            <form action="{{route('admin.dishes.destroy', $dish->id)}}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Elimina</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
