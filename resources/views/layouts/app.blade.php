@@ -38,7 +38,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.restaurants.index') }}">Il mio
+                            <a class="nav-link" href="{{ route('admin.restaurants.show', $restaurant_details) }}">Il mio
                                 ristorante</a>
                         </li>
                     </ul>

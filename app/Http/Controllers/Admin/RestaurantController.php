@@ -18,15 +18,17 @@ class RestaurantController extends Controller
      */
     public function index(Restaurant $restaurant){
         
-        if(empty($restaurant)){
+        
             $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
-            $restaurant_id= $my_restaurant[0]['id'];
-            $restaurant_name= $my_restaurant[0]['restaurant_name'];
-            
-            return view('admin.restaurants.index', compact('my_restaurant','restaurant_id', 'restaurant_name'));
-        }else{
-            return view('admin.restaurants.index', compact('restaurant'));
-        }
+
+            // $restaurant_id= $my_restaurant[0]['id'];
+            // $restaurant_name= $my_restaurant[0]['restaurant_name'];
+            $restaurant_details = $my_restaurant[0];
+            //dd($my_restaurant[0], $restaurant);
+
+            return view('admin.restaurants.index', compact('restaurant_details'));
+     
+       
     }
 
     /**
@@ -78,13 +80,15 @@ class RestaurantController extends Controller
         //    $restaurant = $restaurant->id;
         //    dd($restaurant);
         // }
-
-
+        // $restaurant_id= $my_restaurant[0]['id'];
+        // $restaurant_name= $my_restaurant[0]['restaurant_name'];
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+              $restaurant_details = $my_restaurant[0];
 
         // $restaurant = json_decode(Restaurant::all()->where('user_id', auth()->user()->id));
         // $restaurant = Restaurant::where('user_id', Auth::id())->get();
         // dd($restaurant);
-        return view('admin.restaurants.show', compact('restaurant'));
+        return view('admin.restaurants.show', compact('restaurant_details'));
     }
 
     /**
