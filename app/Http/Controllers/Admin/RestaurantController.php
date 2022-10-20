@@ -52,7 +52,24 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //raccolgo tutti i dati dal form
+        $data = $request->all();
+        //! TODO VALIDATION 
+        $request->validate([],[]);
+
+        $restaurant = new Restaurant();
+
+        $restaurant->fill($data);
+        //slug   
+        $restaurant->slug = Str::slug($restaurant->title , '-');
+
+        $restaurant->user_id = Auth::id(); 
+            
+        $restaurant->save();
+        
+        return redirect()->route('admin.restaurants.show', $restaurant->id)
+        ->with('message', 'Il ristaorante è stato creato con correttamente!')
+        ->with('type', 'success');
     }
 
     /**
