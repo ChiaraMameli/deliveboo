@@ -4,35 +4,40 @@
 <div class="container">
 
     <header>
-        <h1>{{ $restaurant_details->restaurant_name }}</h1>
+        <h1>Nome ristorante: {{ $restaurant_details->restaurant_name }}</h1>
     </header>
-    <div class="clearfix">
+    <div class="d-flex flex-column">
+        <div class="my-3">
+            <p>
+            <h3> Partita iva: </h3> {{ $restaurant_details->p_iva }} </p>
+        </div>
+        <div class="my-3">
+            <h3> Indirizzo: </h3>
+            {{$restaurant_details->address}}
+        </div>
         @if($restaurant_details->restaurant_image)
-        <figure class="float-left mr-3">
+        <figure>
+            <p>
+            <h3> Immagine ristorante: </h3>
+            </p>
             <img src=" {{ $restaurant_details->restaurant_image }}" alt="{{ $restaurant_details->restaurant_name }}">
         </figure>
         @endif
         <div class="my-3">
-            <strong> Categoria ristorante: </strong>
+            <h3> Categoria ristorante: </h3>
             {{--    @foreach
-        {{ $restaurant_details->category->label }}
+                <!-- problema: come stampo le categorie in  pagina ? -->
+                {{ $restaurant_details->category->label }}
             @endforeach --}}
 
         </div>
         <div class="my-3">
-            <p class="mb-5"> Partita iva: {{ $restaurant_details->p_iva }} </p>
-        </div>
-        <div class="my-3">
-            <strong> Indirizzo: </strong>
-            {{$restaurant_details->address}}
-        </div>
-        <div class="my-3">
-            <strong> Creato il: </strong> <time> {{ $restaurant_details->created_at }}</time>
+            <h3> Creato il: </h3> <time> {{ $restaurant_details->created_at }}</time>
         </div>
     </div>
     <footer class="d-flex align-items-center justify-content-between mt-5">
 
-        <a href="{{ route('admin.restaurants.index') }}" class="btn btn-outline-primary">
+        <a href="{{ route('admin.restaurants.index' , $restaurant_details) }}" class="btn btn-outline-primary">
             <i class="fa-solid fa-circle-left"> </i> Indietro ...
         </a>
         <div class="d-flex">
