@@ -9,12 +9,21 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
+                    <div class="d-flex justify-content-between align-items-center">
 
-                    {{ __('You are logged in!') }}
+                        <div>
+                            {{ __('You are logged in!') }}
+                        </div>
+                        <div>
+                            <a class="btn btn-outline-success p-2"
+                                href="{{ route('admin.restaurants.show', $restaurant_details) }}"> Il mio ristorante
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
