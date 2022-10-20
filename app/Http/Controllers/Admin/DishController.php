@@ -83,6 +83,6 @@ class DishController extends Controller
     public function destroy(Dish $dish)
     {
         $dish = Dish::destroy($dish->id);
-        return redirect()->route('admin.dishes.index');
+        return redirect()->route('admin.dishes.index')->with('message', 'Il post è stato eliminato con successo!')->with('type', 'success');
     }
 }
