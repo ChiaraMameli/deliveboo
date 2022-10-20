@@ -3,7 +3,7 @@
 <div class="container">
     @if($restaurant_details->id)
     <a class="btn btn-success" href="{{route('admin.restaurants.show', $restaurant_details)}}">
-        Vai a .. </a>
+        Vai a {{ $restaurant->restaurant_name}} </a>
     @else
     <p>Non hai ancora il tuo ristorante? </p>
     <a class="btn btn-outline-success p-2" href="{{ route('admin.restaurants.create') }}"> <i

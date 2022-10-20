@@ -18,7 +18,8 @@ class RestaurantController extends Controller
      */
     public function index(Restaurant $restaurant){
         
-        
+            $restaurant = new Restaurant;
+           
             $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
 
             // $restaurant_id= $my_restaurant[0]['id'];
@@ -100,7 +101,7 @@ class RestaurantController extends Controller
         // $restaurant_id= $my_restaurant[0]['id'];
         // $restaurant_name= $my_restaurant[0]['restaurant_name'];
         $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
-              $restaurant_details = $my_restaurant[0];
+        $restaurant_details = $my_restaurant[0];
 
         // $restaurant = json_decode(Restaurant::all()->where('user_id', auth()->user()->id));
         // $restaurant = Restaurant::where('user_id', Auth::id())->get();
@@ -139,6 +140,10 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        //
+        $restaurant->delete();
+
+        return redirect()->route('admin.restaurants.index')
+        ->with('message', 'Il restaurant è stato eliminato correttamente')
+        ->with('type', 'success');
     }
 }
