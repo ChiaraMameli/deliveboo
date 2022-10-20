@@ -19,11 +19,15 @@ class Dish extends Model
     }
 
     public function setDescriptionExtract(){
-        return substr($this->description, 0, 30) . '...';
+        if(strlen($this->description) > 30){
+            return substr($this->description, 0, 30) . '...';
+        }else return $this->description;
     }
 
     public function setIngredientsExtract(){
-        return substr($this->ingredients, 0, 30) . '...';
+        if(strlen($this->ingredients) > 30){
+            return substr($this->ingredients, 0, 30) . '...';
+        }else return $this->ingredients;
     }
 
 

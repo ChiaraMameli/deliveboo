@@ -12,10 +12,11 @@ class DishSeeder extends Seeder
      * @return void
      */
     public function run(Faker $faker)
-    {
+    {        
         for($i = 0; $i < 20; $i++){
             $new_dish = new Dish();
             $new_dish->name = $faker->word(30);
+            $new_dish->restaurant_id = rand(1, 4);
             $new_dish->description = $faker->paragraph();
             $new_dish->ingredients = $faker->paragraph();
             $new_dish->size = $faker->word();

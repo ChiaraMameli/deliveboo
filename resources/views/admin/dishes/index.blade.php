@@ -3,7 +3,12 @@
 @section('content')
     <div class="container">
 
-        <a class="btn btn-success" href="{{ route('admin.dishes.create') }}">Crea un nuovo piatto</a>
+        <div class="d-flex justify-content-between mb-3">
+            <h1>I miei {{count($dishes)}} piatti</h1>
+            <div>
+                <a class="btn btn-success" href="{{ route('admin.dishes.create') }}">Crea un nuovo piatto</a>
+            </div>
+        </div>
 
         <table class="table table-hover">
         <thead>
