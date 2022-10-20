@@ -59,10 +59,10 @@
             @enderror
 
         </div>
-
-        <a href="{{route('admin.dishes.index', $dish)}}" class="btn btn-secondary ml-3"><i class="fa-solid fa-rotate-left"></i> Go Back</a>
-        <div class="col-10"></div>
-        <button type="submit" class="btn btn-primary align-self-end">{{$dish->exists ? 'Modifica' : 'Salva'}}</button>
+        <div class="col-12 d-flex justify-content-between">
+            <a href="{{route('admin.dishes.index', $dish)}}" class="btn btn-dark"><i class="fa-solid fa-rotate-left"></i> Torna indietro</a>
+            <button type="submit" class="btn btn-primary align-self-end"><i class="fa-solid fa-{{$dish->exists ? 'pencil' : 'floppy-disk'}}"></i> {{$dish->exists ? 'Modifica' : 'Salva'}}</button>
+        </div>
     </div>
     </form>
 </div>

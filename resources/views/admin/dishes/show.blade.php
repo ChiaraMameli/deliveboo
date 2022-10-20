@@ -16,7 +16,7 @@
                     <div class="card-footer d-flex justify-content-between">
                         <a href="{{route('admin.dishes.index')}}" class="btn btn-dark">Torna indietro</a>
                         <div class="d-flex">
-                            <a class="btn btn-warning ml-1" href="{{route('admin.dishes.edit', $dish)}}">Modifica</a>
+                            <a class="btn btn-warning" href="{{route('admin.dishes.edit', $dish)}}">Modifica</a>
                             <form action="{{route('admin.dishes.destroy', $dish->id)}}" method="POST">
                                 @method('DELETE')
                                 @csrf
