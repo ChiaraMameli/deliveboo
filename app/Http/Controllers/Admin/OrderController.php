@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Models\Restaurant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -15,7 +17,15 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = null;
+
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        $all_orders = Order::all();
+        //aggiungere altra condizione nell'if, per casistica nuovo risto
+        foreach($all_orders as $order){
+            if($my_restaurant[0]['id'] === $order['restaurant_id']) $orders[] = $order;
+        }
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
