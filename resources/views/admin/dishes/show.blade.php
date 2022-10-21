@@ -17,7 +17,7 @@
                         <a href="{{route('admin.dishes.index')}}" class="btn btn-dark">Torna indietro</a>
                         <div class="d-flex">
                             <a class="btn btn-warning" href="{{route('admin.dishes.edit', $dish)}}">Modifica</a>
-                            <form action="{{route('admin.dishes.destroy', $dish->id)}}" method="POST">
+                            <form action="{{route('admin.dishes.destroy', $dish->id)}}" method="POST" class="delete-form">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger ml-1">Elimina</button>

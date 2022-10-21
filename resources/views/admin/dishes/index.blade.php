@@ -33,7 +33,7 @@
                         <div class="d-flex">
                             <a class="btn btn-primary btn-sm ml-1" href="{{route('admin.dishes.show', $dish)}}"><i class="fa-solid fa-eye"></i></a>
                             <a class="btn btn-warning btn-sm ml-1" href="{{route('admin.dishes.edit', $dish)}}"><i class="fa-solid fa-pencil"></i></a>
-                            <form action="{{route('admin.dishes.destroy', $dish->id)}}" method="POST">
+                            <form action="{{route('admin.dishes.destroy', $dish->id)}}" method="POST" class="delete-form">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm ml-1"><i class="fa-solid fa-trash"></i></button>
