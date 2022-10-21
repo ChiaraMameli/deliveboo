@@ -6,7 +6,7 @@
     <header>
         <h2> Crea il tuo ristorante </h2>
     </header>
-    <div class="alert alert-danger"> <i class="fa-regular fa-triangle-exclamation"></i> N.B.: Una volta compilati i
+    <div class="alert alert-warning"> <i class="fa-regular fa-triangle-exclamation"></i> N.B.: Una volta compilati i
         campi, non potrai più modificarli in seguito. Scegli con cura tutti i dati che immetterai!
         <i class="fa-regular fa-triangle-exclamation"></i>
     </div>
