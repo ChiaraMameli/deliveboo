@@ -92,6 +92,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order = Order::destroy($order->id);
+        return redirect()->route('admin.orders.index')->with('message', 'L\'ordine è stato eliminato con successo!')->with('type', 'success');
     }
 }
