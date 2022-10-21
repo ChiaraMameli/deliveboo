@@ -21,4 +21,6 @@ class Restaurant extends Model
     public function orders(){
         return $this->hasMany('App\Models\Order');
     }
+
+    protected $fillable = [ 'restaurant_name' , 'p_iva' , 'address' , 'restaurant_image'];
 }

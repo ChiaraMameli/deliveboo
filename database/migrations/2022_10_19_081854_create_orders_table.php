@@ -15,7 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('restaurant_id')->onDelete('set null')->constrained();
+            $table->unsignedBigInteger('restaurant_id')->nullable(); 
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('set null');
             $table->string('status');
             $table->smallInteger('amount');
             $table->string('customer_name');
