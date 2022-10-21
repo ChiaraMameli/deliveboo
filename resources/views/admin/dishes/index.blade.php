@@ -28,7 +28,7 @@
                     <th scope="row">{{$dish->name}}</th>
                     <td>{{$dish->setDescriptionExtract()}}</td>
                     <td>{{$dish->setIngredientsExtract()}}</td>
-                    <td>{{$dish->price}}</td>
+                    <td>{{$dish->setCommaOnPrice()}}</td>
                     <td>
                         <div class="d-flex">
                             <a class="btn btn-primary btn-sm ml-1" href="{{route('admin.dishes.show', $dish)}}"><i class="fa-solid fa-eye"></i></a>

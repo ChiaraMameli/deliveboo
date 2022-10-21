@@ -30,5 +30,9 @@ class Dish extends Model
         }else return $this->ingredients;
     }
 
+    public function setCommaOnPrice(){
+        if(floatval($this->price)) return str_replace('.', ',', $this->price);
+        return $this->price;
+    }
 
 }
