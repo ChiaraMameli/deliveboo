@@ -16,15 +16,17 @@ class RestaurantSeeder extends Seeder
     public function run(Faker $faker)
     {
         $user_ids = User::pluck('id')->toArray();
+        $restaurants = config('restaurants_name');
 
-        foreach($user_ids as $user_id){
+        foreach ($user_ids as $index => $user_id) {
+            $restaurant = $restaurants[$index];
             $new_restaurant = new Restaurant();
             $new_restaurant->user_id = $user_id;
-            $new_restaurant->name = $faker->word(50);
-            $new_restaurant->p_iva = $faker->word(13);
-            $new_restaurant->address = $faker->address();
-            $new_restaurant->image = $faker->imageUrl(300, 300, 'foods');
-            $new_restaurant->save();    
+            $new_restaurant->name = $restaurant['name'];
+            $new_restaurant->p_iva = $restaurant['p_iva'];
+            $new_restaurant->address = $restaurant['address'];
+            $new_restaurant->image = $restaurant['image'];
+            $new_restaurant->save();
         }
     }
 }
