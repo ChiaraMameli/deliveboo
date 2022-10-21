@@ -16,10 +16,10 @@
                     <div class="d-flex justify-content-between align-items-center">
 
                         <div>
-                            {{ __('You are logged in!') }}
+                            {{ __('Welcome back!') }}
                         </div>
                         <div>
-                            <a class="btn btn-outline-success p-2"
+                            <a class="btn btn-outline-info p-2"
                                 href="{{ route('admin.restaurants.show', $restaurant_details) }}"> Il mio ristorante
                             </a>
                         </div>

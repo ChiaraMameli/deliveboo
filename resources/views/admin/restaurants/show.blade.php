@@ -37,8 +37,8 @@
     </div>
     <footer class="d-flex align-items-center justify-content-between mt-5">
 
-        <a href="{{ route('admin.restaurants.index' , $restaurant_details) }}" class="btn btn-outline-primary">
-            <i class="fa-solid fa-circle-left"> </i> Indietro ...
+        <a href="{{ route('admin.home' , $restaurant_details) }}" class="btn btn-outline-primary">
+            <i class="fa-solid fa-circle-left"> </i> Torna alla home
         </a>
         <div class="d-flex">
 

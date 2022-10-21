@@ -17,17 +17,17 @@ class RestaurantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index(Restaurant $restaurant){
         
             
            
             $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
-             //dd($my_restaurant);
+                //  dd(compact($restaurant));
             if(isset($my_restaurant[0])){
                 $restaurant_details = $my_restaurant[0];
-                return view('admin.restaurants.index', compact('restaurant_details'));   
+                return view('admin.restaurants.index', compact('restaurant','restaurant_details'));   
             }else{
-                return view('admin.restaurants.index', compact('my_restaurant'));   
+                return view('admin.restaurants.index', compact('restaurant'));   
             }
      
        
@@ -40,7 +40,7 @@ class RestaurantController extends Controller
      */
     public function create(Restaurant $restaurant)
     {
-        $restaurant = new Restaurant();
+       
         $categories = Category::all();
 
         return view('admin.restaurants.create' , compact('restaurant', 'categories'));
@@ -54,7 +54,6 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        //raccolgo tutti i dati dal form
         $data = $request->all();
 
         
