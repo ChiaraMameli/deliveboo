@@ -4,8 +4,8 @@
     <div class="container">
         <div class="d-flex justify-content-center">
             <div class="card" style="width: 25rem;">
-            @if($dish->dish_image)
-                <img src="{{$dish->dish_image}}" class="card-img-top img-fluid" alt="{{$dish->name}}">
+            @if($dish->image)
+                <img src="{{$dish->image}}" class="card-img-top img-fluid" alt="{{$dish->name}}">
             @endif
                 <div class="card-body">
                     <h5 class="card-title text-center">{{$dish->name}}</h5>

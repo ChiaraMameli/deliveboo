@@ -52,9 +52,9 @@
         </div>
 
         <div class="col-12 form-group">
-            <label for="dish_image">Immagine</label>
-            <input type="text" class="form-control @error('dish_image') is-invalid @enderror" id="dish_image" name="dish_image" value="{{old('dish_image', $dish->dish_image)}}">
-            @error('dish_image')
+            <label for="image">Immagine</label>
+            <input type="text" class="form-control @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image', $dish->image)}}">
+            @error('image')
                 <div class="invalid-feedback">{{$message}}</div>
             @enderror
 

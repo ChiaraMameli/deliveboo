@@ -22,7 +22,7 @@ class DishSeeder extends Seeder
             $new_dish->size = $faker->word();
             $new_dish->price = $faker->numberBetween(0, 127);
             $new_dish->is_visible = $faker->boolean();
-            $new_dish->dish_image = $faker->imageUrl(300, 300, 'foods');
+            $new_dish->image = $faker->imageUrl(300, 300, 'foods');
             $new_dish->save();
         }
 

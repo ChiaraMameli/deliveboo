@@ -20,7 +20,7 @@ class CreateDishesTable extends Migration
             $table->string('ingredients');
             $table->string('size')->nullable();
             $table->tinyInteger('price');
-            $table->string('dish_image')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('is_visible')->default(1);
 
             $table->timestamps();
