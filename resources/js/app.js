@@ -4,8 +4,6 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 require('./bootstrap');
-require('./utilities/delete_confirmation');
-
 window.Vue = require('vue');
 
 /**
@@ -30,4 +28,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+require('./utilities/delete_confirmation');
 

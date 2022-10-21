@@ -4,7 +4,12 @@
     <div class="container">
 
         <div class="d-flex justify-content-between mb-3">
+            @if($dishes)
             <h1>I miei {{count($dishes)}} piatti</h1>
+            @else
+            <h1>I miei piatti</h1>
+            @endif
+
             <div>
                 <a class="btn btn-success" href="{{ route('admin.dishes.create') }}"><i class="fa-solid fa-plus"></i> Crea un nuovo piatto</a>
             </div>
@@ -22,7 +27,8 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($dishes as $dish)
+            @if($dishes)
+            @foreach($dishes as $dish)
                 <tr>
                     <td>{{$dish->id}}</td>
                     <th scope="row">{{$dish->name}}</th>
@@ -41,11 +47,12 @@
                         </div>
                     </td>
                 </tr>
-            @empty
+            @endforeach
+            @else
                 <tr>
                     <td colspan="6">Nessun piatto trovato</td>
                 </tr>
-            @endforelse
+            @endif
         </tbody>
         </table>
     </div>
