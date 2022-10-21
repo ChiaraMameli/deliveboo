@@ -25,10 +25,12 @@
         @endif
         <div class="my-3">
             <h3> Categoria ristorante: </h3>
-            {{--    @foreach
-                <!-- problema: come stampo le categorie in  pagina ? -->
-                {{ $restaurant_details->category->label }}
-            @endforeach --}}
+
+            @forelse($restaurant_details->categories as $category)
+            {{ $category->label }} @if ($loop->last) . @else , @endif
+            @empty
+            Nessun tag selezionato per questo post
+            @endforelse
 
         </div>
         <div class="my-3">
