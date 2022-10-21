@@ -65,7 +65,9 @@ class DishController extends Controller
 
 
         $data = $request->all();
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
         $dish = new Dish();
+        $dish->restaurant_id = $my_restaurant[0]['id'];
         $dish->fill($data);
         $dish->save();
 
