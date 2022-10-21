@@ -52,7 +52,7 @@ class DishController extends Controller
             'name' => 'required|string|min:1|max:30|string',
             'ingredients' => 'required',
             'price' => 'required',
-            'dish_image' => 'nullable|url',
+            'image' => 'nullable|url',
 
         ],
         [
@@ -60,7 +60,7 @@ class DishController extends Controller
             'string' => 'Il formato non è valido',
             'name.min' => "$request->name è troppo corto",
             'name.max' => "$request->name è troppo lungo",
-            'dish_image.url' => 'Il formato non è valido',
+            'image.url' => 'Il formato non è valido',
         ]);
 
 
@@ -111,7 +111,7 @@ class DishController extends Controller
             'name' => 'required|string|min:1|max:30|string',
             'ingredients' => 'required',
             'price' => 'required',
-            'dish_image' => 'nullable|url',
+            'image' => 'nullable|url',
 
         ],
         [
@@ -119,7 +119,7 @@ class DishController extends Controller
             'string' => 'Il formato non è valido',
             'name.min' => "$request->name è troppo corto",
             'name.max' => "$request->name è troppo lungo",
-            'dish_image.url' => 'Il formato non è valido',
+            'image.url' => 'Il formato non è valido',
         ]);
 
 
