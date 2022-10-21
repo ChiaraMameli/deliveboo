@@ -20,10 +20,10 @@ class RestaurantSeeder extends Seeder
         foreach($user_ids as $user_id){
             $new_restaurant = new Restaurant();
             $new_restaurant->user_id = $user_id;
-            $new_restaurant->restaurant_name = $faker->word(50);
+            $new_restaurant->name = $faker->word(50);
             $new_restaurant->p_iva = $faker->word(13);
             $new_restaurant->address = $faker->address();
-            $new_restaurant->restaurant_image = $faker->imageUrl(300, 300, 'foods');
+            $new_restaurant->image = $faker->imageUrl(300, 300, 'foods');
             $new_restaurant->save();    
         }
     }

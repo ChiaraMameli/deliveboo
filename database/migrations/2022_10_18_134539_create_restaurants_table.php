@@ -17,10 +17,10 @@ class CreateRestaurantsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->unique()->references('id')->on('users')->onDelete('cascade');
-            $table->string('restaurant_name', 50)->unique();
+            $table->string('name', 50)->unique();
             $table->char('p_iva', 13)->unique();
             $table->string('address')->unique();
-            $table->string('restaurant_image')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

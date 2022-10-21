@@ -4,7 +4,7 @@
 <div class="container">
 
     <header>
-        <h1>Nome ristorante: {{ $restaurant_details->restaurant_name }}</h1>
+        <h1>Nome ristorante: {{ $restaurant_details->name }}</h1>
     </header>
     <div class="d-flex flex-column">
         <div class="my-3">
@@ -15,12 +15,12 @@
             <h3> Indirizzo: </h3>
             {{$restaurant_details->address}}
         </div>
-        @if($restaurant_details->restaurant_image)
+        @if($restaurant_details->image)
         <figure>
             <p>
             <h3> Immagine ristorante: </h3>
             </p>
-            <img src=" {{ $restaurant_details->restaurant_image }}" alt="{{ $restaurant_details->restaurant_name }}">
+            <img src=" {{ $restaurant_details->image }}" alt="{{ $restaurant_details->name }}">
         </figure>
         @endif
         <div class="my-3">

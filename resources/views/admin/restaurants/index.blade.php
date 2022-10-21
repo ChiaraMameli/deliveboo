@@ -3,7 +3,7 @@
 <div class="container">
     @if($restaurant['id'])
     <a class="btn btn-success" href="{{route('admin.restaurants.show', $restaurant_details)}}">
-        Vai a {{ $restaurant_details->restaurant_name}} </a>
+        Vai a {{ $restaurant_details->name}} </a>
     @else
     <div class="d-flex justify-content-between">
 

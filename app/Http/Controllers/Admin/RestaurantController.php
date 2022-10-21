@@ -58,17 +58,17 @@ class RestaurantController extends Controller
 
         
         $request->validate([
-            'restaurant_name' => 'required|string|min:1|max:50|unique:restaurants',
+            'name' => 'required|string|min:1|max:50|unique:restaurants',
             'p_iva' => 'required|string|min:1|max:13|unique:restaurants',
             'address' => 'required|string|unique:restaurants',
-            'restaurant_image' => 'nullable|string',
+            'image' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
         ],[
             'required' => 'Attenzione, il campo :attribute è obbbligatorio',
-            'restaurant_name.required' => 'Attenzione, devi dare un nome al tuo ristorante per poter procedere',
-            'restaurant_name.max' => 'Attenzione,il nome del ristorante non può avere più di 50 caratteri.',
-            'restaurant_name.min' => 'Attenzione, ci dev\'essere un nome ristorante per procedere' ,
-            'restaurant_name.unique' => 'Attenzione, il nome scelto per il ristorante è già stato adootato da un altro ristoratore',
+            'name.required' => 'Attenzione, devi dare un nome al tuo ristorante per poter procedere',
+            'name.max' => 'Attenzione,il nome del ristorante non può avere più di 50 caratteri.',
+            'name.min' => 'Attenzione, ci dev\'essere un nome ristorante per procedere' ,
+            'name.unique' => 'Attenzione, il nome scelto per il ristorante è già stato adootato da un altro ristoratore',
             'p_iva.min' => 'Attenzione, inserisci la partita IVA per procedere' ,
             'p_iva.max' => 'Attenzione, la partita IVA dev\'essere di massimo 13 caratteri' ,
             'p_iva.unique' => 'Attenzione, la partita IVA inserita risulta associata ad un altro ristoratore',

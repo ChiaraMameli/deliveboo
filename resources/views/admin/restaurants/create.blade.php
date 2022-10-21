@@ -17,9 +17,9 @@
 
             <!-- Nome ristorante -->
             <div class="mb-3 col-12">
-                <label for="restaurant_name" class="form-label"> Nome ristorante </label>
-                <input class="form-control  @error('restaurant_name') is-invalid @enderror" type="text"
-                    id="restaurant_name" name="restaurant_name" value=" {{ old('restaurant_name')  }} " maxlenght="50">
+                <label for="name" class="form-label"> Nome ristorante </label>
+                <input class="form-control  @error('name') is-invalid @enderror" type="text" id="name" name="name"
+                    value=" {{ old('name')  }} " maxlenght="50">
             </div>
             <!-- partita iva -->
             <div class="mb-3 col-12">
@@ -35,9 +35,8 @@
             </div>
             <!-- immagine -->
             <div class="mb-3 col-10">
-                <label for="restaurant_image" class="form-label">Immagine </label> <br>
-                <input class="@error('restaurant_image') is-invalid @enderror w-100" type="text" id="restaurant_image"
-                    name="restaurant_image">
+                <label for="image" class="form-label">Immagine </label> <br>
+                <input class="@error('image') is-invalid @enderror w-100" type="text" id="image" name="image">
             </div>
             <div class="mb-3 col-2">
                 <img class="img-fluid"
