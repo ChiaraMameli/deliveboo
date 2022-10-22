@@ -117,7 +117,7 @@ class RestaurantController extends Controller
     {
 
         $categories = Category::all();
-         $categories_ids = $restaurant->categories->pluck('id')->toArray();
+        $categories_ids = $restaurant->categories->pluck('id')->toArray();
         return view('admin.restaurants.edit', compact('restaurant', 'categories' ,  'categories_ids'));
 
     }
