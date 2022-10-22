@@ -65,7 +65,7 @@
 
                         @foreach($categories as $category)
                         <div class="form-group form-check m-2">
-                            <!-- # getire l'old in caso di errori (?) -->
+                            <!-- # gestire caso categoria vuota (?) -->
                             <input type="checkbox" id="{{$category->label}}" name="category_id[]"
                                 value="{{ $category->id }}" class="form-check-input" @if(in_array($category->id,
                             old('categories', $categories_ids ?? []))) checked
@@ -84,7 +84,8 @@
             </div>
 
             <footer class="d-flex justify-content-between align items-center">
-                <a href="{{ route('admin.restaurants.show' , $restaurant) }}" class="btn btn-outline-secondary">
+                <a href="{{ $restaurant->exists ? route('admin.restaurants.show' , $restaurant) : route('admin.home') }}"
+                    class="btn btn-outline-info">
                     <i class="fa-solid fa-circle-left"> </i> Indietro ...
                 </a>
 
