@@ -143,12 +143,9 @@ class RestaurantController extends Controller
             'name.required' => 'Attenzione, devi dare un nome al tuo ristorante per poter procedere',
             'name.max' => 'Attenzione,il nome del ristorante non può avere più di 50 caratteri.',
             'name.min' => 'Attenzione, ci dev\'essere un nome ristorante per procedere' ,
-            'name.unique' => 'Attenzione, il nome scelto per il ristorante è già stato adootato da un altro ristoratore',
             'p_iva.min' => 'Attenzione, inserisci la partita IVA per procedere' ,
             'p_iva.max' => 'Attenzione, la partita IVA dev\'essere di massimo 13 caratteri' ,
-            'p_iva.unique' => 'Attenzione, la partita IVA inserita risulta associata ad un altro ristoratore',
             'address.required' => 'Attenzione, è necessario l\'indirizzo del tuo ristorante per procedere',
-            'address.unique' => 'Attenzione, l\'indirizzo inserito è già associato ad un altro ristoratore',
             'image.image' => 'Il file scelto non è di tipo immagine',
             'category_id.exists' => 'Seleziona almeno una categoria per procedere'
         ]);
