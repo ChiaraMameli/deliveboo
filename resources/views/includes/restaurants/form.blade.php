@@ -61,22 +61,23 @@
 
                 <div class="mb-3 col-12">
                     <h5> Categorie risotrante*</h5>
+                    @error('category_id')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
                     <div class="d-flex">
 
                         @foreach($categories as $category)
                         <div class="form-group form-check m-2">
                             <!-- # gestire caso categoria vuota (?) -->
                             <input type="checkbox" id="{{$category->label}}" name="category_id[]"
-                                value="{{ $category->id }}" class="form-check-input" @if(in_array($category->id,
+                                value="{{ $category->id }}" class="form-check-input " @if(in_array($category->id,
                             old('categories', $categories_ids ?? []))) checked
                             @endif>
                             <label class="form-check-label" for="{{$category->label}}"> {{$category->label}} </label>
                         </div>
                         @endforeach
-                        @error('category_id')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
                     </div>
+
                 </div>
 
 
