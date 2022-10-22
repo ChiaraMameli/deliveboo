@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class RestaurantController extends Controller
 {
@@ -132,13 +133,13 @@ class RestaurantController extends Controller
     {
         
         $validated = $request->validate([
-          'name' => 'required|string|min:1|max:50|unique:restaurants',
-            'p_iva' => 'required|string|min:1|max:13|unique:restaurants',
-            'address' => 'required|string|unique:restaurants',
+          'name' => ['required','string','min:1','max:50',   Rule::unique('restaurants')->ignore($restaurant->id)],
+            'p_iva' => ['required','string','min:1','max:13', Rule::unique('restaurants')->ignore($restaurant->id)],
+            'address' => ['required','string', Rule::unique('restaurants')->ignore($restaurant->id)],
             'image' => 'nullable|image',
             'category_id' => 'required|exists:categories,id',
         ],[
-            'required' => 'Attenzione, il campo :attribute è obbbligatorio',
+            'required' => 'Attenzione, il campo è obbbligatorio',
             'name.required' => 'Attenzione, devi dare un nome al tuo ristorante per poter procedere',
             'name.max' => 'Attenzione,il nome del ristorante non può avere più di 50 caratteri.',
             'name.min' => 'Attenzione, ci dev\'essere un nome ristorante per procedere' ,
@@ -155,7 +156,8 @@ class RestaurantController extends Controller
 
         $data = $request->all();
         $restaurant->update($data);
-        $restaurant->categories()->sync($data['categories']);
+        
+        $restaurant->categories()->sync($data['category_id']);
         return redirect()->route('admin.restaurants.show', $restaurant)->with('message', 'La modifica è avvenuta con successo')->with('type', 'success');
 
     }
