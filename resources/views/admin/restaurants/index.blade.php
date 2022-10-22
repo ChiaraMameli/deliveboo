@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    @if($restaurant['id'])
+    @if($restaurant_details)
     <a class="btn btn-success" href="{{route('admin.restaurants.show', $restaurant_details)}}">
-        Vai a {{ $restaurant_details->name}} </a>
+        Vai al ristorante {{ $restaurant_details->restaurant_name}} </a>
     @else
     <div class="d-flex justify-content-between">
 
