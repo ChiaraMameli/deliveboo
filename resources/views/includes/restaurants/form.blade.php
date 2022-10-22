@@ -13,12 +13,14 @@
             @endif
             @csrf
             <div class="row">
-
+                <div class="col-12">
+                    <p> N.B.: I campi contrassegnati dall'asterisco (*) sono obbligatori</p>
+                </div>
                 <!-- Nome ristorante -->
                 <div class="mb-3 col-12">
                     <label for="name" class="form-label"> Nome ristorante* </label>
                     <input class="form-control  @error('name') is-invalid @enderror" type="text" id="name" name="name"
-                        value=" {{ old('name'), $restaurant->name }} " maxlenght="50">
+                        value=" {{ old('name', $restaurant->name) }} " maxlenght="50">
                     @error('name')
                     <div class="invalid-feedback">{{$message}}</div>
                     @enderror
@@ -27,7 +29,7 @@
                 <div class="mb-3 col-12">
                     <label for="p_iva" class="form-label">Numero partita IVA *</label>
                     <input class="form-control  @error('p_iva') is-invalid @enderror" type="text" id="p_iva"
-                        name="p_iva" value=" {{ old('p_iva'), $restaurant->p_iva }} " maxlenght="13">
+                        name="p_iva" value=" {{ old('p_iva', $restaurant->p_iva) }} " maxlenght="13">
                     @error('p_iva')
                     <div class="invalid-feedback">{{$message}}</div>
                     @enderror
@@ -36,7 +38,7 @@
                 <div class="mb-3 col-12">
                     <label for="address" class="form-label">Indirizzo completo* </label>
                     <input class="form-control  @error('address') is-invalid @enderror" type="text" id="address"
-                        name="address" value=" {{ old('address'), $restaurant->address }} ">
+                        name="address" value=" {{ old('address', $restaurant->address) }} ">
                     @error('address')
                     <div class="invalid-feedback">{{$message}}</div>
                     @enderror
@@ -66,7 +68,7 @@
                             <!-- # getire l'old in caso di errori (?) -->
                             <input type="checkbox" id="{{$category->label}}" name="category_id[]"
                                 value="{{ $category->id }}" class="form-check-input" @if(in_array($category->id,
-                            old('categories', $category_ids ?? []))) checked
+                            old('categories', $categories_ids ?? []))) checked
                             @endif>
                             <label class="form-check-label" for="{{$category->label}}"> {{$category->label}} </label>
                         </div>
@@ -90,5 +92,6 @@
                     <i class="fa-solid fa-floppy-disk"></i> Salva!
                 </button>
             </footer>
+
         </form>
 </div>
