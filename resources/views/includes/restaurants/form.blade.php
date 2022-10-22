@@ -84,7 +84,7 @@
             </div>
 
             <footer class="d-flex justify-content-between align items-center">
-                <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
+                <a href="{{ route('admin.restaurants.show' , $restaurant) }}" class="btn btn-outline-secondary">
                     <i class="fa-solid fa-circle-left"> </i> Indietro ...
                 </a>
 
