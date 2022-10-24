@@ -72,16 +72,18 @@ class DishController extends Controller
 
 
         $data = $request->all();
+        dd($data);
         $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
         $dish = new Dish();
         $dish->restaurant_id = $my_restaurant[0]['id'];
-        $dish->fill($data);
+        $dish->price = str_replace(',', '.', $dish->price);
 
         if(array_key_exists('image', $data)){
             $link = Storage::put('dishes', $data['image']);
             $dish->image = $link;
         }
 
+        $dish->fill($data);
         $dish->save();
 
         return redirect()->route('admin.dishes.index')->with('message', 'Il piatto è stato creato con successo')->with('type', 'success');
@@ -152,6 +154,7 @@ class DishController extends Controller
             $link = Storage::put('dishes', $data['image']);
             $dish->image = $link;
         }
+        $dish->price = str_replace(',', '.', $dish->price);
 
         $dish->update($data);
         return redirect()->route('admin.dishes.show', $dish)->with('message', 'Il post è stato modificato correttamente')->with('type', 'success');
