@@ -15,9 +15,9 @@
             @endif
             @csrf
             <div class="row">
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <p> N.B.: I campi contrassegnati dall'asterisco (*) sono obbligatori</p>
-                </div>
+                </div> -->
                 <!-- Nome ristorante -->
                 <div class="mb-3 col-12">
                     <label for="name" class="form-label"> Nome ristorante* </label>
@@ -98,4 +98,7 @@
             </footer>
 
         </form>
+        <div class="col-12 alert alert-info mt-5" role="alert">
+            I campi contrassegnati con * sono obbligatori!
+        </div>
 </div>
