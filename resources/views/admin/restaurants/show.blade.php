@@ -25,10 +25,10 @@
         @endif
         <div class="my-3">
             <h3> Categoria ristorante: </h3>
-            {{--    @foreach
-                <!-- problema: come stampo le categorie in  pagina ? -->
-                {{ $restaurant_details->category->label }}
-            @endforeach --}}
+
+            @foreach($restaurant_details->categories as $category)
+            {{ $category->label }} @if ($loop->last) . @else , @endif
+            @endforeach
 
         </div>
         <div class="my-3">
@@ -42,12 +42,17 @@
         </a>
         <div class="d-flex">
 
+            <a href="{{ route('admin.restaurants.edit', $restaurant_details) }}"
+                class="btn btn-sm btn-outline-secondary p-2">
+                <i class="fa-solid fa-file-pen"></i> Modifica
+            </a>
             <form action="{{ route('admin.restaurants.destroy', $restaurant_details->id )}}" method="POST" class="mx-2">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-outline-danger">
                     <i class="fa-solid fa-trash-can"></i> Elimina!
                 </button>
+
             </form>
         </div>
     </footer>

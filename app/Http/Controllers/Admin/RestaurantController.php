@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class RestaurantController extends Controller
 {
@@ -61,20 +62,16 @@ class RestaurantController extends Controller
             'name' => 'required|string|min:1|max:50|unique:restaurants',
             'p_iva' => 'required|string|min:1|max:13|unique:restaurants',
             'address' => 'required|string|unique:restaurants',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image',
             'category_id' => 'required|exists:categories,id',
         ],[
-            'required' => 'Attenzione, il campo :attribute è obbbligatorio',
-            'name.required' => 'Attenzione, devi dare un nome al tuo ristorante per poter procedere',
+            'name.required' => 'Attenzione, inserisci il nome del tuo ristorante per poter procedere',
             'name.max' => 'Attenzione,il nome del ristorante non può avere più di 50 caratteri.',
-            'name.min' => 'Attenzione, ci dev\'essere un nome ristorante per procedere' ,
-            'name.unique' => 'Attenzione, il nome scelto per il ristorante è già stato adootato da un altro ristoratore',
-            'p_iva.min' => 'Attenzione, inserisci la partita IVA per procedere' ,
+            'p_iva.required' => 'Attenzione, inserisci la partita IVA per procedere' ,
             'p_iva.max' => 'Attenzione, la partita IVA dev\'essere di massimo 13 caratteri' ,
-            'p_iva.unique' => 'Attenzione, la partita IVA inserita risulta associata ad un altro ristoratore',
             'address.required' => 'Attenzione, è necessario l\'indirizzo del tuo ristorante per procedere',
-            'address.unique' => 'Attenzione, l\'indirizzo inserito è già associato ad un altro ristoratore',
-            'category_id.exists' => 'Seleziona almeno una categoria per procedere'
+            'image.image' => 'Il file scelto non è di tipo immagine',
+            'category_id.exists','category_id.required' => 'Seleziona almeno una categoria per procedere'
         ]);
 
         $restaurant = new Restaurant();
@@ -104,6 +101,57 @@ class RestaurantController extends Controller
         $restaurant_details = $my_restaurant[0];   
         return view('admin.restaurants.show', compact('restaurant_details'));
     }
+    
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Restaurant  $restaurant
+     * @return \Illuminate\Http\Response
+     */
+     public function edit(Restaurant  $restaurant)
+    {
+
+        $categories = Category::all();
+        $categories_ids = $restaurant->categories->pluck('id')->toArray();
+        return view('admin.restaurants.edit', compact('restaurant', 'categories' ,  'categories_ids'));
+
+    }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Dish  $dish
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Restaurant $restaurant)
+    {
+        
+        $validated = $request->validate([
+          'name' => ['required','string','max:50',   Rule::unique('restaurants')->ignore($restaurant->id)],
+            'p_iva' => ['required','string','max:13', Rule::unique('restaurants')->ignore($restaurant->id)],
+            'address' => ['required','string', Rule::unique('restaurants')->ignore($restaurant->id)],
+            'image' => 'nullable|image',
+            'category_id' => 'required|exists:categories,id',
+        ],[
+            'name.required' => 'Attenzione, inserisci il nome del tuo ristorante per poter procedere',
+            'name.max' => 'Attenzione,il nome del ristorante non può avere più di 50 caratteri.',
+            'p_iva.required' => 'Attenzione, inserisci la partita IVA per procedere' ,
+            'p_iva.max' => 'Attenzione, la partita IVA dev\'essere di massimo 13 caratteri' ,
+            'address.required' => 'Attenzione, è necessario l\'indirizzo del tuo ristorante per procedere',
+            'image.image' => 'Il file scelto non è di tipo immagine',
+            'category_id.exists','category_id.required' => 'Seleziona almeno una categoria per procedere'
+        ]);
+
+
+        $data = $request->all();
+        $restaurant->update($data);
+        
+        $restaurant->categories()->sync($data['category_id']);
+        return redirect()->route('admin.restaurants.show', $restaurant)->with('message', 'La modifica è avvenuta con successo')->with('type', 'success');
+
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -116,7 +164,7 @@ class RestaurantController extends Controller
         $restaurant->delete();
 
         return redirect()->route('admin.restaurants.index', 'restaurant')
-        ->with('message', 'Il restaurant è stato eliminato correttamente')
+        ->with('message', 'Il ristorante è stato eliminato correttamente')
         ->with('type', 'success');
     }
 }
