@@ -56,7 +56,7 @@
                 <span class="input-group-text" id="inputGroupFileAddon01">Carica</span>
             </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" aria-describedby="inputGroupFileAddon01">
+                <input id="dish-image-field" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" aria-describedby="inputGroupFileAddon01">
                 <label class="custom-file-label" for="image">Scegli la tua immagine</label>
 
                 @error('image')
@@ -66,7 +66,7 @@
         </div>
 
         <div class="col-1">
-            <img src="{{$dish->image ? asset('storage/' . $dish->image) : 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg'}}" alt="{{$dish->name}}" class="img-fluid rounded">
+            <img id="dish-image-preview" src="{{$dish->image ? asset('storage/' . $dish->image) : 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg'}}" alt="{{$dish->name}}" class="img-fluid rounded">
         </div>
 
         <div class="col-12 d-flex justify-content-between">

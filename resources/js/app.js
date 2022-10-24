@@ -30,4 +30,4 @@ const app = new Vue({
 });
 
 require('./utilities/delete_confirmation');
-
+require('./utilities/image_preview');

@@ -49576,6 +49576,7 @@ var app = new Vue({
   el: '#app'
 });
 __webpack_require__(/*! ./utilities/delete_confirmation */ "./resources/js/utilities/delete_confirmation.js");
+__webpack_require__(/*! ./utilities/image_preview */ "./resources/js/utilities/image_preview.js");
 
 /***/ }),
 
@@ -49711,6 +49712,28 @@ deleteForm.forEach(function (form) {
     var hasConfirmed = confirm("Vuoi davvero eliminare questo elemento?");
     if (hasConfirmed) form.submit();
   });
+});
+
+/***/ }),
+
+/***/ "./resources/js/utilities/image_preview.js":
+/*!*************************************************!*\
+  !*** ./resources/js/utilities/image_preview.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var imageField = document.getElementById('dish-image-field');
+var imagePreview = document.getElementById('dish-image-preview');
+var placeholder = 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg';
+imageField.addEventListener('input', function () {
+  if (imageField.files && imageField.files[0]) {
+    var reader = new FileReader();
+    reader.readAsDataURL(imageField.files[0]);
+    reader.onload = function (e) {
+      imagePreview.src = e.target.result;
+    };
+  } else imagePreview.src = placeholder;
 });
 
 /***/ }),
