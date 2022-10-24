@@ -166,8 +166,9 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
+        if($dish->image) Storage::delete($dish->image);
         $dish = Dish::destroy($dish->id);
-        Storage::delete($dish->image);
+        
         return redirect()->route('admin.dishes.index')->with('message', 'Il post è stato eliminato con successo!')->with('type', 'success');
     }
 }
