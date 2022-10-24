@@ -46,7 +46,8 @@
                 class="btn btn-sm btn-outline-secondary p-2">
                 <i class="fa-solid fa-file-pen"></i> Modifica
             </a>
-            <form action="{{ route('admin.restaurants.destroy', $restaurant_details->id )}}" method="POST" class="mx-2">
+            <form action="{{ route('admin.restaurants.destroy', $restaurant_details->id )}}" method="POST"
+                class="delete-form mx-2">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-outline-danger">
