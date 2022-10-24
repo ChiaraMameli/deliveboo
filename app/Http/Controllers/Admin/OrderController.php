@@ -21,12 +21,13 @@ class OrderController extends Controller
         $orders = null;
 
         $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        $restaurant_details = $my_restaurant[0];
         $all_orders = Order::all();
         //aggiungere altra condizione nell'if, per casistica nuovo risto
         foreach($all_orders as $order){
             if($my_restaurant[0]['id'] === $order['restaurant_id']) $orders[] = $order;
         }
-        return view('admin.orders.index', compact('orders'));
+        return view('admin.orders.index', compact('orders', 'restaurant_details'));
     }
 
     /**

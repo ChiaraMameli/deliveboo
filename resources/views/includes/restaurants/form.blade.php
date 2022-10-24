@@ -1,15 +1,17 @@
 <div class="container">
+    <div id="error-restaurant" class="col-12 alert" role="alert">
+    </div>
     @if($restaurant->exists)
     <header>
         <h2> Modifica il tuo ristorante </h2>
     </header>
-    <form action="{{route('admin.restaurants.update', $restaurant)}}" method="POST" novalidate>
+    <form id="form-restaurant" action="{{route('admin.restaurants.update', $restaurant)}}" method="POST" novalidate>
         @method('PUT')
         @else
         <header>
             <h2> Crea il tuo ristorante </h2>
         </header>
-        <form action="{{route('admin.restaurants.store')}}" method="POST" novalidate>
+        <form id="form-restaurant" action="{{route('admin.restaurants.store')}}" method="POST" novalidate>
             @endif
             @csrf
             <div class="row">

@@ -25,13 +25,14 @@ class DishController extends Controller
         $dishes = null;
 
         $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        $restaurant_details = $my_restaurant[0];
         $all_dishes = Dish::all();
         //aggiungere altra condizione nell'if, per casistica nuovo risto
         foreach($all_dishes as $dish){
             if($my_restaurant[0]['id'] === $dish['restaurant_id']) $dishes[] = $dish;
         };
 
-        return view('admin.dishes.index', compact('dishes'));
+        return view('admin.dishes.index', compact('dishes', 'restaurant_details'));
     }
 
     /**
