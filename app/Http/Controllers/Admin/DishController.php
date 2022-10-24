@@ -94,8 +94,12 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-        return view('admin.dishes.edit', compact('dish'));
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        if($dish->restaurant_id !== $my_restaurant[0]['id']){
+            return redirect()->route('admin.dishes.index')->with('message', 'Non sei autorizzato alla modifica')->with('type', 'warning');
+        }
 
+        return view('admin.dishes.edit', compact('dish'));
     }
 
     /**
