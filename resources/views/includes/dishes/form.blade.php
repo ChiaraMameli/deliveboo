@@ -20,7 +20,7 @@
 
         <div class="col-4 form-group">
             <label for="price">Prezzo*</label>
-            <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{old('price', $dish->price)}}">
+            <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" step="0.01" value="{{old('price', $dish->price)}}" novalidate>
             @error('price')
                 <div class="invalid-feedback">{{$message}}</div>
             @enderror
