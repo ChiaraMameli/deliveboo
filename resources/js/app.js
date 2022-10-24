@@ -28,11 +28,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
-
 require('./utilities/delete_confirmation');
-
+require('./utilities/image_preview');
 require('./utilities/validation_form');
 
 require('./utilities/validation_form_restaurant');
-
-require('./utilities/image_preview');
