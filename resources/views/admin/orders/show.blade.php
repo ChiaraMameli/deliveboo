@@ -42,9 +42,9 @@
             
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <a href="{{route('admin.dishes.index')}}" class="btn btn-dark">Torna indietro</a>
+            <a href="{{route('admin.orders.index')}}" class="btn btn-dark">Torna indietro</a>
             <div class="d-flex">
-                <form action="{{route('admin.dishes.destroy', $order->id)}}" method="POST">
+                <form class="delete-form" action="{{route('admin.dishes.destroy', $order->id)}}" method="POST">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-danger ml-1">Elimina</button>
