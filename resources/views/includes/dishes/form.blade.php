@@ -2,10 +2,10 @@
     <div id="error" class="col-12 alert" role="alert">
     </div>
 @if($dish->exists)
-    <form id="form" action="{{route('admin.dishes.update', $dish)}}" method="POST">
+    <form action="{{route('admin.dishes.update', $dish)}}" enctype="multipart/form-data" method="POST" novalidate>
     @method('PUT')
 @else
-    <form id="form" action="{{route('admin.dishes.store')}}" method="POST">
+    <form action="{{route('admin.dishes.store')}}" enctype="multipart/form-data" method="POST" novalidate>
 @endif
 
     @csrf
@@ -53,14 +53,20 @@
 
         </div>
 
-        <div class="col-12 form-group">
-            <label for="image">Immagine</label>
-            <input type="text" class="form-control @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image', $dish->image)}}">
-            @error('image')
-                <div class="invalid-feedback">{{$message}}</div>
-            @enderror
+        <div class="col-12 input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Carica</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="image">Scegli la tua immagine</label>
 
+                @error('image')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
+            </div>
         </div>
+
         <div class="col-12 d-flex justify-content-between">
             <a href="{{route('admin.dishes.index', $dish)}}" class="btn btn-dark"><i class="fa-solid fa-rotate-left"></i> Torna indietro</a>
             <button type="submit" class="btn btn-primary align-self-end"><i class="fa-solid fa-{{$dish->exists ? 'pencil' : 'floppy-disk'}}"></i> {{$dish->exists ? 'Modifica' : 'Salva'}}</button>
