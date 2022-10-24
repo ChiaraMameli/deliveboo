@@ -30,6 +30,9 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
     //Dish routes
     Route::resource('dishes', 'DishController');
 
+    //Dish routes
+    Route::resource('orders', 'OrderController');
+
     Route::get('/{any}', function(){
         abort('404');
     })->where('any', '.*' );    

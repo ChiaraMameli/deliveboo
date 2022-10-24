@@ -42,9 +42,9 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.dishes.index') }}">I miei piatti</a>
-                            {{-- <a class="nav-link" href="{{ route('admin.restaurants.show', $restaurant_details) }}">Il
-                            mio
-                            ristorante</a> --}}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.orders.index') }}">I miei ordini</a>
                         </li>
                     </ul>
 
@@ -72,6 +72,7 @@
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
+                                <a class="dropdown-item" href="{{ route('admin.restaurants.show', $restaurant_details ?? '') }}">Il mio ristorante</a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
