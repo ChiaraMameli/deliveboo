@@ -2,10 +2,10 @@
     <div id="error" class="col-12 alert" role="alert">
     </div>
 @if($dish->exists)
-    <form id="form" action="{{route('admin.dishes.update', $dish)}}" method="POST">
+    <form id="form" action="{{route('admin.dishes.update', $dish)}}" enctype="multipart/form-data" method="POST">
     @method('PUT')
 @else
-    <form id="form" action="{{route('admin.dishes.store')}}" method="POST">
+    <form id="form" action="{{route('admin.dishes.store')}}" enctype="multipart/form-data" method="POST">
 @endif
 
     @csrf
@@ -59,7 +59,7 @@
             </div>
             <div class="custom-file">
                 <input id="dish-image-field" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="image">Scegli la tua immagine</label>
+                <label class="custom-file-label" for="image"></label>
 
                 @error('image')
                     <div class="invalid-feedback">{{$message}}</div>
