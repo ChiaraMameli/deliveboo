@@ -1,15 +1,17 @@
 <div class="container">
+    <div id="error" class="col-12 alert" role="alert">
+    </div>
 @if($dish->exists)
-    <form action="{{route('admin.dishes.update', $dish)}}" method="POST" novalidate>
+    <form id="form" action="{{route('admin.dishes.update', $dish)}}" method="POST">
     @method('PUT')
 @else
-    <form action="{{route('admin.dishes.store')}}" method="POST" novalidate>
+    <form id="form" action="{{route('admin.dishes.store')}}" method="POST">
 @endif
 
     @csrf
     <div class="row">
         <div class="col-4 form-group">
-            <label for="name">Nome</label>
+            <label for="name">Nome*</label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{old('name', $dish->name)}}">
             @error('name')
                 <div class="invalid-feedback">{{$message}}</div>
@@ -17,7 +19,7 @@
         </div>
 
         <div class="col-4 form-group">
-            <label for="price">Prezzo</label>
+            <label for="price">Prezzo*</label>
             <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{old('price', $dish->price)}}">
             @error('price')
                 <div class="invalid-feedback">{{$message}}</div>
@@ -43,7 +45,7 @@
         </div>
 
         <div class="col-12 form-group">
-            <label for="ingredients">Ingredienti</label>
+            <label for="ingredients">Ingredienti*</label>
             <textarea class="form-control @error('ingredients') is-invalid @enderror" id="ingredients" name="ingredients" rows="5">{{old('ingredients', $dish->ingredients)}}</textarea>
             @error('ingredients')
                 <div class="invalid-feedback">{{$message}}</div>
@@ -65,4 +67,7 @@
         </div>
     </div>
     </form>
+    <div class="col-12 alert alert-info mt-5" role="alert">
+        I campi contrassegnati con * sono obbligatori!
+      </div>
 </div>

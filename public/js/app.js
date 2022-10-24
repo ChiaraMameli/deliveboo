@@ -49576,6 +49576,8 @@ var app = new Vue({
   el: '#app'
 });
 __webpack_require__(/*! ./utilities/delete_confirmation */ "./resources/js/utilities/delete_confirmation.js");
+__webpack_require__(/*! ./utilities/validation_form */ "./resources/js/utilities/validation_form.js");
+__webpack_require__(/*! ./utilities/validation_form_restaurant */ "./resources/js/utilities/validation_form_restaurant.js");
 
 /***/ }),
 
@@ -49715,6 +49717,70 @@ deleteForm.forEach(function (form) {
 
 /***/ }),
 
+/***/ "./resources/js/utilities/validation_form.js":
+/*!***************************************************!*\
+  !*** ./resources/js/utilities/validation_form.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var dishName = document.getElementById('name');
+var price = document.getElementById('price');
+var ingredients = document.getElementById('ingredients');
+var form = document.getElementById('form');
+var error = document.getElementById('error');
+console.log('ciao');
+form.addEventListener('submit', function (e) {
+  var message = [];
+  if (dishName.value === '' || dishName.value == null) {
+    message.push('Il nome del piatto è obbligatorio');
+  }
+  if (dishName.value.length > 30) {
+    message.push('Il nome del piatto è troppo lungo');
+  }
+  if (price.value === '' || price.value == null) {
+    message.push('Il prezzo del piatto è obbligatorio');
+  }
+  if (price.value > 1000) {
+    message.push('Il prezzo del piatto non può essere superiore a 1000');
+  }
+  if (ingredients.value === '' || ingredients.value == null) {
+    message.push('Gli ingredienti sono obbligatori');
+  }
+  if (message.length > 0) {
+    e.preventDefault();
+    error.innerText = message.join(' - ');
+    error.classList.add("alert-danger");
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/utilities/validation_form_restaurant.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/utilities/validation_form_restaurant.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var formRestaurant = document.getElementById('form-restaurant');
+var errorRestaurant = document.getElementById('error-restaurant');
+var address = document.getElementById('address');
+console.log('ciao');
+formRestaurant.addEventListener('submit', function (e) {
+  var message = [];
+  if (address.value === '' || address.value == null) {
+    message.push('Gli ingredienti sono obbligatori');
+  }
+  if (message.length > 0) {
+    e.preventDefault();
+    errorRestaurant.innerText = message.join(' - ');
+    errorRestaurant.classList.add("alert-danger");
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49733,8 +49799,8 @@ deleteForm.forEach(function (form) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/prova/deliveboo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
