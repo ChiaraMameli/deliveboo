@@ -69,7 +69,7 @@
                         @foreach($categories as $category)
                         <div class="form-group form-check m-2">
                             <!-- # gestire checked al create -->
-                            <input type="checkbox" id="{{$category->label}}" name="category_id"
+                            <input type="checkbox" id="{{$category->label}}" name="category_id[]"
                                 value="{{ $category->id }}" class="form-check-input " @if(in_array($category->id,
                             old('categories', $categories_ids ?? []))) checked
                             @endif>
