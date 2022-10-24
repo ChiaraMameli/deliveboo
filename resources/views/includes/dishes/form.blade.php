@@ -51,7 +51,7 @@
 
         </div>
 
-        <div class="col-12 input-group mb-3">
+        <div class="col-10 input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupFileAddon01">Carica</span>
             </div>
@@ -63,6 +63,10 @@
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
             </div>
+        </div>
+
+        <div class="col-2">
+            <img src="{{$dish->image ? asset('storage/' . $dish->image) : 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg'}}" alt="{{$dish->name}}" class="img-fluid rounded">
         </div>
 
         <div class="col-12 d-flex justify-content-between">
