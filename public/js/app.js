@@ -49730,6 +49730,7 @@ var imagePreview = document.getElementById('dish-image-preview');
 var placeholder = 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg';
 imageField.addEventListener('input', function () {
   if (imageField.files && imageField.files[0]) {
+    alert('pippo');
     var reader = new FileReader();
     reader.readAsDataURL(imageField.files[0]);
     reader.onload = function (e) {

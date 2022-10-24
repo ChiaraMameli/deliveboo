@@ -4,10 +4,11 @@ const placeholder = 'https://image.shutterstock.com/image-vector/ui-image-placeh
 
 imageField.addEventListener('input', () => {
     if(imageField.files && imageField.files[0]){
+        alert('pippo');
         let reader = new FileReader();
         reader.readAsDataURL(imageField.files[0])
         reader.onload = e => {
-            imagePreview.src = e.target.result;
+            imagePreview.src = e.target.result
         }
     } else imagePreview.src = placeholder;
 })
