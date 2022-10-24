@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-center">
             <div class="card" style="width: 25rem;">
             @if($dish->image)
-                <img src="{{$dish->image}}" class="card-img-top img-fluid" alt="{{$dish->name}}">
+                <img src="{{asset('storage/' . $dish->image)}}" class="card-img-top img-fluid" alt="{{$dish->name}}">
             @endif
                 <div class="card-body">
                     <h5 class="card-title text-center">{{$dish->name}}</h5>
