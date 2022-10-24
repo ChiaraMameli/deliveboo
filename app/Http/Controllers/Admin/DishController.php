@@ -145,6 +145,13 @@ class DishController extends Controller
 
 
         $data = $request->all();
+
+        if(array_key_exists('image', $data)){
+            if($dish->image) Storage::delete($dish->image);
+            $link = Storage::put('dishes', $data['image']);
+            $dish->image = $link;
+        }
+
         $dish->update($data);
         return redirect()->route('admin.dishes.show', $dish)->with('message', 'Il post è stato modificato correttamente')->with('type', 'success');
 
@@ -159,6 +166,7 @@ class DishController extends Controller
     public function destroy(Dish $dish)
     {
         $dish = Dish::destroy($dish->id);
+        Storage::delete($dish->image);
         return redirect()->route('admin.dishes.index')->with('message', 'Il post è stato eliminato con successo!')->with('type', 'success');
     }
 }
