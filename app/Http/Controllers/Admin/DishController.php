@@ -7,6 +7,7 @@ use App\Models\Restaurant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DishController extends Controller
 {
@@ -58,7 +59,7 @@ class DishController extends Controller
             'name' => 'required|string|min:1|max:30|string',
             'ingredients' => 'required',
             'price' => 'required',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image',
 
         ],
         [
@@ -66,7 +67,7 @@ class DishController extends Controller
             'string' => 'Il formato non è valido',
             'name.min' => "$request->name è troppo corto",
             'name.max' => "$request->name è troppo lungo",
-            'image.url' => 'Il formato non è valido',
+            'image.image' => 'Il formato non è valido',
         ]);
 
 
@@ -75,6 +76,12 @@ class DishController extends Controller
         $dish = new Dish();
         $dish->restaurant_id = $my_restaurant[0]['id'];
         $dish->fill($data);
+
+        if(array_key_exists('image', $data)){
+            $link = Storage::put('dishes', $data['image']);
+            $dish->image = $link;
+        }
+
         $dish->save();
 
         return redirect()->route('admin.dishes.index')->with('message', 'Il piatto è stato creato con successo')->with('type', 'success');
@@ -126,7 +133,7 @@ class DishController extends Controller
             'name' => 'required|string|min:1|max:30|string',
             'ingredients' => 'required',
             'price' => 'required',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image',
 
         ],
         [
@@ -134,11 +141,18 @@ class DishController extends Controller
             'string' => 'Il formato non è valido',
             'name.min' => "$request->name è troppo corto",
             'name.max' => "$request->name è troppo lungo",
-            'image.url' => 'Il formato non è valido',
+            'image.image' => 'Il formato non è valido',
         ]);
 
 
         $data = $request->all();
+
+        if(array_key_exists('image', $data)){
+            if($dish->image) Storage::delete($dish->image);
+            $link = Storage::put('dishes', $data['image']);
+            $dish->image = $link;
+        }
+
         $dish->update($data);
         return redirect()->route('admin.dishes.show', $dish)->with('message', 'Il post è stato modificato correttamente')->with('type', 'success');
 
@@ -152,7 +166,9 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
+        if($dish->image) Storage::delete($dish->image);
         $dish = Dish::destroy($dish->id);
+        
         return redirect()->route('admin.dishes.index')->with('message', 'Il post è stato eliminato con successo!')->with('type', 'success');
     }
 }

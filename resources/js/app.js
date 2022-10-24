@@ -30,8 +30,6 @@ const app = new Vue({
 });
 
 require('./utilities/delete_confirmation');
-
 require('./utilities/validation_form');
-
 require('./utilities/validation_form_restaurant');
-
+require('./utilities/image_preview');

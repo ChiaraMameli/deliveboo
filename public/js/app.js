@@ -49578,6 +49578,7 @@ var app = new Vue({
 __webpack_require__(/*! ./utilities/delete_confirmation */ "./resources/js/utilities/delete_confirmation.js");
 __webpack_require__(/*! ./utilities/validation_form */ "./resources/js/utilities/validation_form.js");
 __webpack_require__(/*! ./utilities/validation_form_restaurant */ "./resources/js/utilities/validation_form_restaurant.js");
+__webpack_require__(/*! ./utilities/image_preview */ "./resources/js/utilities/image_preview.js");
 
 /***/ }),
 
@@ -49717,6 +49718,28 @@ deleteForm.forEach(function (form) {
 
 /***/ }),
 
+/***/ "./resources/js/utilities/image_preview.js":
+/*!*************************************************!*\
+  !*** ./resources/js/utilities/image_preview.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var imageField = document.getElementById('dish-image-field');
+var imagePreview = document.getElementById('dish-image-preview');
+var placeholder = 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg';
+imageField.addEventListener('input', function () {
+  if (imageField.files && imageField.files[0]) {
+    var reader = new FileReader();
+    reader.readAsDataURL(imageField.files[0]);
+    reader.onload = function (e) {
+      imagePreview.src = e.target.result;
+    };
+  } else imagePreview.src = placeholder;
+});
+
+/***/ }),
+
 /***/ "./resources/js/utilities/validation_form.js":
 /*!***************************************************!*\
   !*** ./resources/js/utilities/validation_form.js ***!
@@ -49799,8 +49822,8 @@ formRestaurant.addEventListener('submit', function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/prova/deliveboo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
