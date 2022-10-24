@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class DishController extends Controller
 {
+
+    // private function getMyRestaurant(){
+    //     return Restaurant::where('user_id', Auth::id())->get();
+    // }
+
     /**
      * Display a listing of the resource.
      * 
