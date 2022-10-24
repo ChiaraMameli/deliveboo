@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    @if($restaurant_details)
+    @if(isset($restaurant_details))
     <a class="btn btn-success" href="{{route('admin.restaurants.show', $restaurant_details)}}">
         Vai al ristorante {{ $restaurant_details->restaurant_name}} </a>
     @else
