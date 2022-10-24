@@ -4,9 +4,14 @@
     <div class="container">
 
         <div class="d-flex justify-content-between mb-3">
-            <h1>I miei {{count($orders)}} ordini</h1>
+            @if($orders)
+            <h2>I miei {{count($orders)}} ordini</h2>
+            @else
+            <h2>Non hai ancora ordini</h2>
+            @endif
         </div>
 
+        @if ($orders)
         <table class="table table-hover">
         <thead>
             <tr>
@@ -46,5 +51,6 @@
             @endforelse
         </tbody>
         </table>
+        @endif
     </div>
 @endsection

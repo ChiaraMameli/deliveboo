@@ -26,7 +26,7 @@ class RestaurantController extends Controller
                 //  dd(compact($restaurant));
             if(isset($my_restaurant[0])){
                 $restaurant_details = $my_restaurant[0];
-                return view('admin.restaurants.index', compact('restaurant','restaurant_details'));   
+                return view('admin.home', compact('restaurant','restaurant_details'));   
             }else{
                 return view('admin.restaurants.index', compact('restaurant'));   
             }
