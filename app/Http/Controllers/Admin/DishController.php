@@ -83,6 +83,11 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        if($dish->restaurant_id !== $my_restaurant[0]['id']){
+            return redirect()->route('admin.dishes.index')->with('message', 'Non puoi visualizzare questo piatto')->with('type', 'warning');
+        }
+
         return view('admin.dishes.show', compact('dish'));
     }
 
