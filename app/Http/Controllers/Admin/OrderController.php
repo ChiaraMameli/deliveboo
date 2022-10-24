@@ -58,6 +58,11 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        if($order->restaurant_id !== $my_restaurant[0]['id']){
+            return redirect()->route('admin.orders.index')->with('message', 'Non puoi visualizzare questo ordine')->with('type', 'warning');
+        }
+
         return view('admin.orders.show', compact('order'));
     }
 
