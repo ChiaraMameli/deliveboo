@@ -49576,9 +49576,9 @@ var app = new Vue({
   el: '#app'
 });
 __webpack_require__(/*! ./utilities/delete_confirmation */ "./resources/js/utilities/delete_confirmation.js");
+__webpack_require__(/*! ./utilities/image_preview */ "./resources/js/utilities/image_preview.js");
 __webpack_require__(/*! ./utilities/validation_form */ "./resources/js/utilities/validation_form.js");
 __webpack_require__(/*! ./utilities/validation_form_restaurant */ "./resources/js/utilities/validation_form_restaurant.js");
-__webpack_require__(/*! ./utilities/image_preview */ "./resources/js/utilities/image_preview.js");
 
 /***/ }),
 
@@ -49728,9 +49728,9 @@ deleteForm.forEach(function (form) {
 var imageField = document.getElementById('dish-image-field');
 var imagePreview = document.getElementById('dish-image-preview');
 var placeholder = 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg';
+console.log('pippo');
 imageField.addEventListener('input', function () {
   if (imageField.files && imageField.files[0]) {
-    alert('pippo');
     var reader = new FileReader();
     reader.readAsDataURL(imageField.files[0]);
     reader.onload = function (e) {
