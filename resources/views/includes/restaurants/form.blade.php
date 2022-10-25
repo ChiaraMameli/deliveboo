@@ -5,13 +5,13 @@
     <header>
         <h2> Modifica il tuo ristorante </h2>
     </header>
-    <form id="form-restaurant" action="{{route('admin.restaurants.update', $restaurant)}}" method="POST" novalidate>
+    <form id="form-restaurant" action="{{route('admin.restaurants.update', $restaurant)}}" method="POST" enctype="multipart/form-data" novalidate>
         @method('PUT')
         @else
         <header>
             <h2> Crea il tuo ristorante </h2>
         </header>
-        <form id="form-restaurant" action="{{route('admin.restaurants.store')}}" method="POST" novalidate>
+        <form id="form-restaurant" action="{{route('admin.restaurants.store')}}" method="POST" enctype="multipart/form-data" novalidate>
             @endif
             @csrf
             <div class="row">
@@ -46,17 +46,22 @@
                     @enderror
                 </div>
                 <!-- immagine -->
-                <div class="mb-3 col-10">
-                    <label for="image" class="form-label">Immagine </label> <br>
-                    <input class="@error('image') is-invalid @enderror" type="file" id="image" name="image">
+                <div class="col-10 input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Carica</span>
+                    </div>
+                    <div class="custom-file">
+                        <input id="image-field" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="image"></label>
+
+                        @error('image')
+                            <div class="invalid-feedback">{{$message}}</div>
+                        @enderror
+                    </div>
                 </div>
-                <div class="mb-3 col-2">
-                    <img class="img-fluid"
-                        src="https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg"
-                        alt="placeholder" id="preview">
-                    @error('image')
-                    <div class="invalid-feedback">{{$message}}</div>
-                    @enderror
+
+                <div class="col-2">
+                    <img id="image-preview" src="{{$restaurant->image ? asset('storage/' . $restaurant->image) : 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg'}}" alt="{{$restaurant->name}}" class="img-fluid rounded">
                 </div>
 
                 <!-- multi-checkboxs tipologie ristoranti-->

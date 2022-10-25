@@ -20,7 +20,7 @@
             <p>
             <h3> Immagine ristorante: </h3>
             </p>
-            <img src=" {{ $restaurant_details->image }}" alt="{{ $restaurant_details->name }}">
+            <img src=" {{ asset('storage/' . $restaurant_details->image) }}" alt="{{ $restaurant_details->name }}">
         </figure>
         @endif
         <div class="my-3">

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
@@ -78,10 +79,14 @@ class RestaurantController extends Controller
 
         $restaurant->fill($data);
 
+        if(array_key_exists('image', $data)){
+            $link = Storage::put('restaurants', $data['image']);
+            $restaurant->image = $link;
+        }
+
         $restaurant->user_id = Auth::id(); 
 
         $restaurant->save();
-        
         $restaurant->categories()->attach($data['category_id']);
         
         return redirect()->route('admin.restaurants.show', $restaurant->id)
@@ -145,8 +150,14 @@ class RestaurantController extends Controller
 
 
         $data = $request->all();
+
+        if(array_key_exists('image', $data)){
+            if($restaurant->image) Storage::delete($restaurant->image);
+            $link = Storage::put('restaurants', $data['image']);
+            $restaurant->image = $link;
+        }
+
         $restaurant->update($data);
-        
         $restaurant->categories()->sync($data['category_id']);
         return redirect()->route('admin.restaurants.show', $restaurant)->with('message', 'La modifica è avvenuta con successo')->with('type', 'success');
 
@@ -161,6 +172,7 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
+        if($restaurant->image) Storage::delete($restaurant->image);
         $restaurant->delete();
 
         return redirect()->route('admin.restaurants.index', 'restaurant')
