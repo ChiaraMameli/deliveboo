@@ -49725,8 +49725,8 @@ deleteForm.forEach(function (form) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var imageField = document.getElementById('dish-image-field');
-var imagePreview = document.getElementById('dish-image-preview');
+var imageField = document.getElementById('image-field');
+var imagePreview = document.getElementById('image-preview');
 var placeholder = 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg';
 console.log('pippo');
 imageField.addEventListener('input', function () {
