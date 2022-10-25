@@ -10,7 +10,7 @@
 
     @csrf
     <div class="row">
-        <div class="col-4 form-group">
+        <div class="col-8 form-group">
             <label for="name">Nome*</label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{old('name', $dish->name)}}">
             @error('name')
@@ -25,16 +25,6 @@
                 <div class="invalid-feedback">{{$message}}</div>
             @enderror
         </div>
-
-        <div class="col-4 form-group">
-            <label for="size">Taglia</label>
-            <input type="text" class="form-control @error('size') is-invalid @enderror" id="size" size="size" value="{{old('size', $dish->size)}}">
-            @error('size')
-                <div class="invalid-feedback">{{$message}}</div>
-            @enderror
-        </div>
-
-
 
         <div class="col-12 form-group">
             <label for="description">Descrizione</label>
