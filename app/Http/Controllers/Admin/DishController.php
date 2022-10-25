@@ -156,7 +156,7 @@ class DishController extends Controller
         $dish->price = str_replace(',', '.', $dish->price);
 
         $dish->update($data);
-        return redirect()->route('admin.dishes.show', $dish)->with('message', 'Il post è stato modificato correttamente')->with('type', 'success');
+        return redirect()->route('admin.dishes.show', $dish)->with('message', 'Il piatto è stato modificato correttamente')->with('type', 'success');
 
     }
 
@@ -171,6 +171,6 @@ class DishController extends Controller
         if($dish->image) Storage::delete($dish->image);
         $dish = Dish::destroy($dish->id);
         
-        return redirect()->route('admin.dishes.index')->with('message', 'Il post è stato eliminato con successo!')->with('type', 'success');
+        return redirect()->route('admin.dishes.index')->with('message', 'Il piatto è stato eliminato con successo!')->with('type', 'success');
     }
 }
