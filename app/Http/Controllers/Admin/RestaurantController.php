@@ -18,20 +18,19 @@ class RestaurantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Restaurant $restaurant){
-        
-            
-           
-            $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
-                //  dd(compact($restaurant));
-            if(isset($my_restaurant[0])){
-                $restaurant_details = $my_restaurant[0];
-                return view('admin.home', compact('restaurant','restaurant_details'));   
-            }else{
-                return view('admin.restaurants.index', compact('restaurant'));   
-            }
-     
-       
+    public function index(Restaurant $restaurant)
+    {
+
+
+
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        //  dd(compact($restaurant));
+        if (isset($my_restaurant[0])) {
+            $restaurant_details = $my_restaurant[0];
+            return view('admin.home', compact('restaurant', 'restaurant_details'));
+        } else {
+            return view('admin.restaurants.index', compact('restaurant'));
+        }
     }
 
     /**
@@ -41,10 +40,17 @@ class RestaurantController extends Controller
      */
     public function create(Restaurant $restaurant)
     {
-       
-        $categories = Category::all();
 
-        return view('admin.restaurants.create' , compact('restaurant', 'categories'));
+        $categories = Category::all();
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        if (isset($my_restaurant[0])) {
+            if ($restaurant->id !== $my_restaurant[0]['id']) {
+                return redirect()->route('admin.home')->with('message', 'Non sei autorizzato ad aggiungere un ristorante se ne hai già uno')->with('type', 'warning');
+            }
+        }
+
+
+        return view('admin.restaurants.create', compact('restaurant', 'categories'));
     }
 
     /**
@@ -57,36 +63,37 @@ class RestaurantController extends Controller
     {
         $data = $request->all();
 
-        
+
         $request->validate([
             'name' => 'required|string|min:1|max:50|unique:restaurants',
             'p_iva' => 'required|string|min:1|max:13|unique:restaurants',
             'address' => 'required|string|unique:restaurants',
             'image' => 'nullable|image',
             'category_id' => 'required|exists:categories,id',
-        ],[
+        ], [
             'name.required' => 'Attenzione, inserisci il nome del tuo ristorante per poter procedere',
             'name.max' => 'Attenzione,il nome del ristorante non può avere più di 50 caratteri.',
-            'p_iva.required' => 'Attenzione, inserisci la partita IVA per procedere' ,
-            'p_iva.max' => 'Attenzione, la partita IVA dev\'essere di massimo 13 caratteri' ,
+            'p_iva.required' => 'Attenzione, inserisci la partita IVA per procedere',
+            'p_iva.max' => 'Attenzione, la partita IVA dev\'essere di massimo 13 caratteri',
             'address.required' => 'Attenzione, è necessario l\'indirizzo del tuo ristorante per procedere',
             'image.image' => 'Il file scelto non è di tipo immagine',
-            'category_id.exists','category_id.required' => 'Seleziona almeno una categoria per procedere'
+            'category_id.required' => 'Seleziona almeno una categoria per procedere',
+            'category_id.exists' => 'Seleziona almeno una categoria per procedere',
         ]);
 
         $restaurant = new Restaurant();
 
         $restaurant->fill($data);
 
-        $restaurant->user_id = Auth::id(); 
+        $restaurant->user_id = Auth::id();
 
         $restaurant->save();
-        
+
         $restaurant->categories()->attach($data['category_id']);
-        
+
         return redirect()->route('admin.restaurants.show', $restaurant->id)
-        ->with('message', 'Il ristorante è stato creato correttamente!')
-        ->with('type', 'success');
+            ->with('message', 'Il ristorante è stato creato correttamente!')
+            ->with('type', 'success');
     }
 
     /**
@@ -98,26 +105,29 @@ class RestaurantController extends Controller
     public function show(Restaurant $restaurant)
     {
         $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
-        $restaurant_details = $my_restaurant[0];   
+        $restaurant_details = $my_restaurant[0];
         return view('admin.restaurants.show', compact('restaurant_details'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Restaurant  $restaurant
      * @return \Illuminate\Http\Response
      */
-     public function edit(Restaurant  $restaurant)
+    public function edit(Restaurant  $restaurant)
     {
+        $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
+        if ($restaurant->id !== $my_restaurant[0]['id']) {
+            return redirect()->route('admin.home')->with('message', 'Non sei autorizzato alla modifica')->with('type', 'warning');
+        }
 
         $categories = Category::all();
         $categories_ids = $restaurant->categories->pluck('id')->toArray();
-        return view('admin.restaurants.edit', compact('restaurant', 'categories' ,  'categories_ids'));
-
+        return view('admin.restaurants.edit', compact('restaurant', 'categories',  'categories_ids'));
     }
 
-     /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -126,30 +136,30 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, Restaurant $restaurant)
     {
-        
+
         $validated = $request->validate([
-          'name' => ['required','string','max:50',   Rule::unique('restaurants')->ignore($restaurant->id)],
-            'p_iva' => ['required','string','max:13', Rule::unique('restaurants')->ignore($restaurant->id)],
-            'address' => ['required','string', Rule::unique('restaurants')->ignore($restaurant->id)],
+            'name' => ['required', 'string', 'max:50',   Rule::unique('restaurants')->ignore($restaurant->id)],
+            'p_iva' => ['required', 'string', 'max:13', Rule::unique('restaurants')->ignore($restaurant->id)],
+            'address' => ['required', 'string', Rule::unique('restaurants')->ignore($restaurant->id)],
             'image' => 'nullable|image',
             'category_id' => 'required|exists:categories,id',
-        ],[
+        ], [
             'name.required' => 'Attenzione, inserisci il nome del tuo ristorante per poter procedere',
             'name.max' => 'Attenzione,il nome del ristorante non può avere più di 50 caratteri.',
-            'p_iva.required' => 'Attenzione, inserisci la partita IVA per procedere' ,
-            'p_iva.max' => 'Attenzione, la partita IVA dev\'essere di massimo 13 caratteri' ,
+            'p_iva.required' => 'Attenzione, inserisci la partita IVA per procedere',
+            'p_iva.max' => 'Attenzione, la partita IVA dev\'essere di massimo 13 caratteri',
             'address.required' => 'Attenzione, è necessario l\'indirizzo del tuo ristorante per procedere',
             'image.image' => 'Il file scelto non è di tipo immagine',
-            'category_id.exists','category_id.required' => 'Seleziona almeno una categoria per procedere'
+            'category_id.required' => 'Seleziona almeno una categoria per procedere',
+            'category_id.exists' => 'Seleziona almeno una categoria per procedere',
         ]);
 
 
         $data = $request->all();
         $restaurant->update($data);
-        
+
         $restaurant->categories()->sync($data['category_id']);
         return redirect()->route('admin.restaurants.show', $restaurant)->with('message', 'La modifica è avvenuta con successo')->with('type', 'success');
-
     }
 
 
@@ -164,7 +174,7 @@ class RestaurantController extends Controller
         $restaurant->delete();
 
         return redirect()->route('admin.restaurants.index', 'restaurant')
-        ->with('message', 'Il ristorante è stato eliminato correttamente')
-        ->with('type', 'success');
+            ->with('message', 'Il ristorante è stato eliminato correttamente')
+            ->with('type', 'success');
     }
 }
