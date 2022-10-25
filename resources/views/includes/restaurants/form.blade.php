@@ -11,7 +11,7 @@
         <header>
             <h2> Crea il tuo ristorante </h2>
         </header>
-        <form id="form-restaurant" action="{{route('admin.restaurants.store')}}" method="POST" novalidate>
+        <form id="form-restaurant" action="{{route('admin.restaurants.store')}}" method="POST" enctype="multipart/form-data" novalidate>
             @endif
             @csrf
             <div class="row">
