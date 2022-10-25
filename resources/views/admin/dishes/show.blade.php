@@ -11,7 +11,7 @@
                     <h5 class="card-title text-center">{{$dish->name}}</h5>
                     <p class="card-text"><strong>Descrizione:</strong> {{$dish->description}}</p>
                     <p class="card-text"><strong>Ingredienti:</strong> {{$dish->ingredients}}</p>
-                    <p class="card-text"><strong>Prezzo:</strong> {{$dish->setCommaOnPrice()}}</p>
+                    <p class="card-text"><strong>Prezzo:</strong>€ {{$dish->setCommaOnPrice()}}</p>
 
                     <div class="card-footer d-flex justify-content-between">
                         <a href="{{route('admin.dishes.index')}}" class="btn btn-dark">Torna indietro</a>

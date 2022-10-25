@@ -20,7 +20,6 @@ class DishSeeder extends Seeder
             $new_dish->restaurant_id = rand(1, 4);
             $new_dish->description = $dish['description'];
             $new_dish->ingredients = $dish['ingredients'];
-            $new_dish->size = $faker->word();
             $new_dish->price = $dish['price'];
             $new_dish->is_visible = true;
             $new_dish->image = $dish['image'];
