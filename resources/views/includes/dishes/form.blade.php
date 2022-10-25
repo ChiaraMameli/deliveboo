@@ -43,12 +43,12 @@
 
         </div>
 
-        <div class="col-11 input-group mb-3">
+        <div class="col-10 input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupFileAddon01">Carica</span>
             </div>
             <div class="custom-file">
-                <input id="dish-image-field" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" aria-describedby="inputGroupFileAddon01">
+                <input id="image-field" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" aria-describedby="inputGroupFileAddon01">
                 <label class="custom-file-label" for="image"></label>
 
                 @error('image')
@@ -57,8 +57,8 @@
             </div>
         </div>
 
-        <div class="col-1">
-            <img id="dish-image-preview" src="{{$dish->image ? asset('storage/' . $dish->image) : 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg'}}" alt="{{$dish->name}}" class="img-fluid rounded">
+        <div class="col-2">
+            <img id="image-preview" src="{{$dish->image ? asset('storage/' . $dish->image) : 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg'}}" alt="{{$dish->name}}" class="img-fluid rounded">
         </div>
 
         <div class="col-12 d-flex justify-content-between">

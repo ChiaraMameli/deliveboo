@@ -1,5 +1,5 @@
-const imageField = document.getElementById('dish-image-field');
-const imagePreview = document.getElementById('dish-image-preview');
+const imageField = document.getElementById('image-field');
+const imagePreview = document.getElementById('image-preview');
 const placeholder = 'https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg';
 console.log('pippo');
 imageField.addEventListener('input', () => {
