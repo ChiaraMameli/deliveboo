@@ -49787,18 +49787,18 @@ form.addEventListener('submit', function (e) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var formRestaurant = document.getElementById('form-restaurant');
-var errorRestaurant = document.getElementById('error-restaurant');
-var address = document.getElementById('address');
-console.log('ciao');
-formRestaurant.addEventListener('submit', function (e) {
+var formRestaurant = document.getElementById("form-restaurant");
+var errorRestaurant = document.getElementById("error-restaurant");
+var address = document.getElementById("address");
+console.log("ciao");
+formRestaurant.addEventListener("submit", function (e) {
   var message = [];
-  if (address.value === '' || address.value == null) {
-    message.push('Gli ingredienti sono obbligatori');
+  if (address.value === "" || address.value == null) {
+    message.push("L'indirizzo è obbligatorio");
   }
   if (message.length > 0) {
     e.preventDefault();
-    errorRestaurant.innerText = message.join(' - ');
+    errorRestaurant.innerText = message.join(" - ");
     errorRestaurant.classList.add("alert-danger");
   }
 });
