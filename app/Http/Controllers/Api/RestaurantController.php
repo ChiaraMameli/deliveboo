@@ -18,10 +18,10 @@ class RestaurantController extends Controller
     public function index()
     {
         $restaurants = Restaurant::with('categories')->get();
-       // $dishes = Dish::all();
+        // $dishes = Dish::all();
         return response()->json($restaurants);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -42,10 +42,11 @@ class RestaurantController extends Controller
     public function show($id)
     {
         //il ristorante 'cliccato'
-        $restaurant = Restaurant::with('dishes')->findOrFail($id);
         //i piatti del ristorante selezionato
-        
-        return response()->json(compact('restaurant'));
+        $restaurant = Restaurant::with('dishes')->find($id);
+        if (!$restaurant) return response('Not found', 404);
+
+        else return response()->json(compact('restaurant'));
     }
 
     /**
