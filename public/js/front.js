@@ -2097,29 +2097,33 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
   return _c("main", [_c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v(" Benvenuto in TheLiveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n                Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti \n                "), _c("div", {
-    staticClass: "form-check form-switch"
-  }, [_c("input", {
-    staticClass: "form-check-input",
+  }, [_c("h2", [_vm._v(" Benvenuto in TheLiveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n                Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti \n                "), _vm._l(_vm.categories, function (category, i) {
+    return _c("div", {
+      key: i,
+      staticClass: "form-check form-switch"
+    }, [_c("input", {
+      staticClass: "form-check-input",
+      attrs: {
+        type: "checkbox",
+        role: "switch",
+        id: "flexSwitchCheckChecked"
+      }
+    }), _vm._v(" "), _c("label", {
+      staticClass: "form-check-label",
+      attrs: {
+        "for": "flexSwitchCheckChecked"
+      }
+    }, [_vm._v(_vm._s(category.label))])]);
+  }), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-sm btn-info",
     attrs: {
-      type: "checkbox",
-      role: "switch",
-      id: "flexSwitchCheckDefault"
+      type: "button"
     }
-  }), _vm._v(" "), _c("label", {
-    staticClass: "form-check-label",
-    attrs: {
-      "for": "flexSwitchCheckDefault"
-    }
-  }, [_vm._v("Default switch checkbox input")])])])])]);
-}];
+  }, [_vm._v(" Vai a Ristoranti")])], 2)])]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 
