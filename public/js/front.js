@@ -1950,7 +1950,28 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'HomePage'
+  name: 'HomePage',
+  data: function data() {
+    return {
+      restaurants: [],
+      categories: []
+    };
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+      axios.get('http://127.0.0.1:8000/api/restaurants').then(function (res) {
+        console.log(res);
+        _this.restaurants = res.data.restaurants;
+        _this.categories = res.data.categories;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.fetchData();
+  }
 });
 
 /***/ }),
@@ -2083,7 +2104,21 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("main", [_c("div", {
     staticClass: "container"
-  }, [_c("div", [_c("h2", [_vm._v(" Welcome on the Home page")])])])]);
+  }, [_c("h2", [_vm._v(" Benvenuto in TheLiveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n                Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti \n                "), _c("div", {
+    staticClass: "form-check form-switch"
+  }, [_c("input", {
+    staticClass: "form-check-input",
+    attrs: {
+      type: "checkbox",
+      role: "switch",
+      id: "flexSwitchCheckDefault"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-check-label",
+    attrs: {
+      "for": "flexSwitchCheckDefault"
+    }
+  }, [_vm._v("Default switch checkbox input")])])])])]);
 }];
 render._withStripped = true;
 
@@ -53294,7 +53329,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\laravel\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
