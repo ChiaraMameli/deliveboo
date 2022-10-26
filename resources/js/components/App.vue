@@ -1,9 +1,7 @@
 <template>
-    <div class="container">
+    <div>
         <AppHeader/>
-        <div class="row justify-content-center">
-           <router-view></router-view>
-        </div>
+        <router-view></router-view>
     </div>
 </template>
 

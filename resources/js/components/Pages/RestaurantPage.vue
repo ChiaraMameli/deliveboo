@@ -1,7 +1,9 @@
 <template>
-  <div class="container">
-    <h2>Restaurant Page</h2>
-  </div>
+  <main>
+    <div class="container">
+      <h2>Restaurant Page</h2>
+    </div>
+  </main>
 </template>
 
 <script>

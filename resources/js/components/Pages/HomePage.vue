@@ -1,8 +1,12 @@
 <template>
+    <main>
+        <div class="container">
+            <div>
+                <h2> Welcome on the Home page</h2>
+            </div>
+        </div>
+    </main>
     
-    <div>
-        <h2> Welcome on the Home page</h2>
-    </div>
 </template>
 
 <script>

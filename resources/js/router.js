@@ -8,9 +8,9 @@ Vue.use(VueRouter);
 const routes = new VueRouter({
     mode: 'history',
     routes: [
-                                         //name verrà usato se la pagina cresce    
+        //name verrà usato se la pagina cresce    
         {path: '/' , component: HomePage, name:'home'},
-        {path: '/restaurant' , component: RestaurantPage, name:'restaurants'},
+        {path: '/restaurant' , component: RestaurantPage, name:'restaurant'},
         
     ],
 })
