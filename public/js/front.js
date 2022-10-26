@@ -1954,19 +1954,35 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       restaurants: [],
-      categories: []
+      categories: [],
+      selected: false
     };
+  },
+  computed: {
+    // generare il nuovo array con tutti i ristoranti che hanno le categorie selezionate
+    filteredRestaurants: function filteredRestaurants() {
+      var _this = this;
+      return this.restaurants.map(function (restaurant) {
+        if (restaurant.categories === _this.categories) return true;else return false;
+      });
+    }
   },
   methods: {
     fetchData: function fetchData() {
-      var _this = this;
+      var _this2 = this;
       axios.get('http://127.0.0.1:8000/api/restaurants').then(function (res) {
-        _this.restaurants = res.data.restaurants;
-        _this.categories = res.data.categories;
+        _this2.restaurants = res.data.restaurants;
+        _this2.categories = res.data.categories;
+        //  console.log(res.data)
       })["catch"](function (err) {
         console.log(err);
       });
-    }
+    } // filteredRestaurants() {
+    //     return this.restaurants.map((restaurant) => {
+    //         if (restaurant.categories === this.selectedCategory) return true;
+    //         else return false;
+    //     })
+    // },
   },
   mounted: function mounted() {
     this.fetchData();
@@ -2103,26 +2119,54 @@ var render = function render() {
       key: i,
       staticClass: "form-check form-switch"
     }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.selected,
+        expression: "selected"
+      }],
       staticClass: "form-check-input",
       attrs: {
         type: "checkbox",
-        role: "switch",
-        id: "flexSwitchCheckChecked"
+        role: "switch"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.selected) ? _vm._i(_vm.selected, null) > -1 : _vm.selected
+      },
+      on: {
+        change: function change($event) {
+          var $$a = _vm.selected,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = null,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.selected = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.selected = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.selected = $$c;
+          }
+        }
       }
     }), _vm._v(" "), _c("label", {
-      staticClass: "form-check-label",
-      attrs: {
-        "for": "flexSwitchCheckChecked"
-      }
+      staticClass: "form-check-label"
     }, [_vm._v(_vm._s(category.label))])]);
   }), _vm._v(" "), _c("button", {
     staticClass: "btn btn-sm btn-info",
     attrs: {
       type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.filteredRestaurants();
+      }
     }
   }, [_vm._v(" Mostra ristoranti")])], 2), _vm._v(" "), _c("div", {
     staticClass: "d-flex my-5"
-  }, _vm._l(_vm.restaurants, function (restaurant) {
+  }, [_vm.selectedCategory ? _c("div", _vm._l(_vm.restaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card"
@@ -2146,8 +2190,33 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v("Vedi\n                ")])], 1);
-  }), 0)])]);
+    }, [_vm._v("Vedi\n                    ")])], 1);
+  }), 0) : _c("div", _vm._l(_vm.filteredRestaurants, function (restaurant) {
+    return _c("div", {
+      key: restaurant.id,
+      staticClass: "card"
+    }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
+      staticClass: "h100",
+      attrs: {
+        src: restaurant.image,
+        alt: ""
+      }
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+      return _c("span", {
+        key: i
+      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
+    })], 2), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success m-auto",
+      attrs: {
+        to: {
+          name: "restaurant",
+          params: {
+            id: restaurant.id
+          }
+        }
+      }
+    }, [_vm._v("Vedi\n                    ")])], 1);
+  }), 0)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
