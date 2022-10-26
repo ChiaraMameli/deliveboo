@@ -12,7 +12,7 @@
                         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                         <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
                     </div> -->
-                    <button type="button" class="btn btn-sm btn-info"> Vai a Ristoranti</button>
+                    <button type="button" class="btn btn-sm btn-info"> Mostra ristoranti</button>
             </div> 
         </div>
     </main>

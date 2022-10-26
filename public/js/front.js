@@ -2121,7 +2121,7 @@ var render = function render() {
     attrs: {
       type: "button"
     }
-  }, [_vm._v(" Vai a Ristoranti")])], 2)])]);
+  }, [_vm._v(" Mostra ristoranti")])], 2)])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
