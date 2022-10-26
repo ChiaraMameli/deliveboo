@@ -20,7 +20,8 @@
                     <h2>{{ restaurant.name }}</h2>
                     <img class="h100" :src="restaurant.image" alt="">
                     <h5><strong>Indirizzo: </strong>{{ restaurant.address }}</h5>
-                    <h5><strong>Categorie: </strong>lista</h5>
+                    
+                    <h5><strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span></h5>
                     <router-link :to="{ name: 'restaurant', params: { id: restaurant.id } }"
                         class="btn btn-success m-auto ">Vedi
                     </router-link>
@@ -46,8 +47,8 @@ export default {
             axios
                 .get('http://127.0.0.1:8000/api/restaurants')
                 .then((res) => {
-                    console.log(res)
                     this.restaurants = res.data.restaurants;
+                  
                     this.categories = res.data.categories;
                 })
                 .catch((err) => {

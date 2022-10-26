@@ -1961,7 +1961,6 @@ __webpack_require__.r(__webpack_exports__);
     fetchData: function fetchData() {
       var _this = this;
       axios.get('http://127.0.0.1:8000/api/restaurants').then(function (res) {
-        console.log(res);
         _this.restaurants = res.data.restaurants;
         _this.categories = res.data.categories;
       })["catch"](function (err) {
@@ -2133,7 +2132,11 @@ var render = function render() {
         src: restaurant.image,
         alt: ""
       }
-    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _c("router-link", {
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+      return _c("span", {
+        key: i
+      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
+    })], 2), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-success m-auto",
       attrs: {
         to: {
@@ -2146,11 +2149,7 @@ var render = function render() {
     }, [_vm._v("Vedi\n                ")])], 1);
   }), 0)])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v("lista")]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -54023,7 +54022,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\Laravel\progetto finale\deliveboo\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\laravel\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
