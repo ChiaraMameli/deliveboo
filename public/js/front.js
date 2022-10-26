@@ -54007,7 +54007,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     component: _components_Pages_HomePage__WEBPACK_IMPORTED_MODULE_2__["default"],
     name: 'home'
   }, {
-    path: '/restaurant',
+    path: '/restaurant/:id',
     component: _components_Pages_RestaurantPage__WEBPACK_IMPORTED_MODULE_3__["default"],
     name: 'restaurant'
   }]
