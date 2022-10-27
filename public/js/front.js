@@ -1981,6 +1981,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
+    selectedToggle: function selectedToggle() {
+      this.isSelected = !this.isSelected;
+    },
     filteredRestaurants: function filteredRestaurants() {
       var _this2 = this;
       // filtro dalle categorie quelle selezionate
@@ -2003,14 +2006,16 @@ __webpack_require__.r(__webpack_exports__);
       // provo con map/filter******************
 
       //id della categoria filtrata
-      console.log(categorySelected[0]['id']);
+      console.log(categorySelected[0]);
       // l'id della categoria del singolo ristorante nel ciclo 
       // console.log(restaurant.categories[0]['id'])
       //provo col foreach
-      this.restaurants.forEach(function (restaurant) {
-        // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-        restaurant.categories[0]['id'] == categorySelected[0]['id'] ? _this2.restaurantWithSelected.push(restaurant) : _this2.restaurantWithSelected = [];
-      });
+      if (categorySelected[0]) {
+        this.restaurants.forEach(function (restaurant) {
+          // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
+          restaurant.categories[0]['id'] == categorySelected[0]['id'] ? _this2.restaurantWithSelected.push(restaurant) : _this2.restaurantWithSelected = [];
+        });
+      } else this.isSelected = true;
       console.log(this.restaurantWithSelected);
       //     return this.selectedRestaurants.push(restaurantWithSelected)
     }
@@ -2198,7 +2203,7 @@ var render = function render() {
     }
   }, [_vm._v(" Mostra ristoranti")])], 2), _vm._v(" "), _c("div", {
     staticClass: "d-flex my-5"
-  }, [_vm.catchedRestaurant ? _c("div", _vm._l(_vm.filteredRestaurants, function (restaurant) {
+  }, [_vm.isSelected ? _c("div", _vm._l(_vm.restaurantWithSelected, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card"
@@ -2223,7 +2228,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("Vedi\n                    ")])], 1);
-  }), 0) : _c("div", _vm._l(_vm.filteredRestaurants, function (restaurant) {
+  }), 0) : _c("div", _vm._l(_vm.restaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card"

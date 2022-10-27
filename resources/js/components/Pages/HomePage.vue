@@ -16,8 +16,8 @@
             </div>
             <!-- prova lista ristoranti-->
             <div class="d-flex my-5">
-                <div v-if="catchedRestaurant">
-                    <div class="card" v-for="restaurant in filteredRestaurants" :key="restaurant.id">
+                <div v-if="isSelected">
+                    <div class="card" v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
                         
                         <h2>{{ restaurant.name }}</h2>
                         <img class="h100" :src="restaurant.image" alt="">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div v-else>   
-                    <div class="card" v-for="restaurant in filteredRestaurants" :key="restaurant.id">
+                    <div class="card" v-for="restaurant in restaurants" :key="restaurant.id">
                         
                         <h2>{{ restaurant.name }}</h2>
                         <img class="h100" :src="restaurant.image" alt="">
@@ -88,6 +88,9 @@ export default {
                     console.log(err);
                 });
             },
+            selectedToggle(){
+                this.isSelected = !this.isSelected
+            },
             filteredRestaurants() {
                 // filtro dalle categorie quelle selezionate
                 let categorySelected = this.categories.filter((category)=>{
@@ -112,19 +115,24 @@ export default {
                 // provo con map/filter******************
 
             //id della categoria filtrata
-            console.log(categorySelected[0]['id']);
+            console.log(categorySelected[0]);
                 // l'id della categoria del singolo ristorante nel ciclo 
            // console.log(restaurant.categories[0]['id'])
                 //provo col foreach
+                if(categorySelected[0]) {
                 this.restaurants.forEach(restaurant => {
-                // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-                restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = [] 
-                });
+                        // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
+                        restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
+                        
+                        
+                    });
+                } else this.isSelected = true
             console.log(this.restaurantWithSelected)
             //     return this.selectedRestaurants.push(restaurantWithSelected)
             
         },
         },
+        
     mounted() {
         this.fetchData()
     },
