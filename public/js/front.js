@@ -2448,7 +2448,7 @@ var render = function render() {
     })])])]);
   }), 0)]), _vm._v(" "), _c("div", _vm._l(_vm.cart, function (item) {
     return _c("p", {
-      key: item,
+      key: item.id,
       staticClass: "text-white"
     }, [_vm._v(_vm._s(item))]);
   }), 0)]);
