@@ -58,11 +58,9 @@ export default {
         return {
             restaurants: [],
             categories: [],
-            selectedRestaurants: [],
             restaurantWithSelected: [],
             isSelected: true,
             categorySelected: [],
-            catchedRestaurant: null,
         };
     },
     computed: {
@@ -92,26 +90,32 @@ export default {
                 this.isSelected = !this.isSelected
             },
             filteredRestaurants() {
+                this.categorySelected = [];
+                this.restaurantWithSelected = [];
                 // filtro dalle categorie quelle selezionate
                 let categorySelected = this.categories.filter((category)=>{
-                   if( category.isSelected && category.isSelected == true)
-                   return true
+                   if( category.isSelected && category.isSelected == true){
+
+                       this.categorySelected.push(category);
+                         return true
+                    
                   
-                   else []
+                }else{ []}
                 })
                 //categoria filtrata
                 console.log(categorySelected);
                 
                 // provo con map/filter******************
                 
-                // let restaurantWithSelected = this.restaurants.filter((restaurant) => {
-                    //     if (restaurant.categories.id === categorySelected[0]['id'])
-                    //         console.log(restaurant.categories.id)
-                    //         return this.selectedRestaurants.push(restaurantWithSelected)
+                //  let restaurantWithSelected = this.restaurants.filter((restaurant) => {
+                //      if (restaurant.categories[0]['id'] === categorySelected[0]['id'])
+                //              console.log(restaurant.categories.id)
+                //      this.restaurantWithSelected.push(restaurant)
+                //      return true
                     
-                    //     });
-                    //    // console.log(categorySelected['id']);
-                    // },
+                //          });
+                //          console.log(categorySelected['id']);
+
                 // provo con map/filter******************
 
             //id della categoria filtrata
@@ -119,21 +123,19 @@ export default {
                 // l'id della categoria del singolo ristorante nel ciclo 
            // console.log(restaurant.categories[0]['id'])
                 //provo col foreach
-                if(categorySelected[0]) {
-                this.restaurants.forEach(restaurant => {
-                        // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-                        //restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
-                     if (restaurant.categories[0]['id'] == categorySelected[0]['id']){
-                         this.isSelected = true
-                         return this.restaurantWithSelected.push(restaurant)
-                     } else{
-                         return this.restaurantWithSelected = []
-                     }
+                 if(categorySelected[0]) {
+                 this.restaurants.forEach(restaurant => {
+                      //    controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
+                     //    restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
+                      if (restaurant.categories[0]['id'] == categorySelected[0]['id']){
+                          this.isSelected = true
+                         
+                          return this.restaurantWithSelected.push(restaurant)
+                      } 
                         
-                    });
-                } else this.isSelected = false
-           // console.log(this.restaurantWithSelected)
-            //     return this.selectedRestaurants.push(restaurantWithSelected)
+                     });
+                 } else this.isSelected = false
+            console.log(this.restaurantWithSelected)
             
         },
         },

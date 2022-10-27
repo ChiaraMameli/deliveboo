@@ -1955,11 +1955,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       restaurants: [],
       categories: [],
-      selectedRestaurants: [],
       restaurantWithSelected: [],
       isSelected: true,
-      categorySelected: [],
-      catchedRestaurant: null
+      categorySelected: []
     };
   },
   computed: {
@@ -1986,23 +1984,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     filteredRestaurants: function filteredRestaurants() {
       var _this2 = this;
+      this.categorySelected = [];
+      this.restaurantWithSelected = [];
       // filtro dalle categorie quelle selezionate
       var categorySelected = this.categories.filter(function (category) {
-        if (category.isSelected && category.isSelected == true) return true;else [];
+        if (category.isSelected && category.isSelected == true) {
+          _this2.categorySelected.push(category);
+          return true;
+        } else {
+          [];
+        }
       });
       //categoria filtrata
       console.log(categorySelected);
 
       // provo con map/filter******************
 
-      // let restaurantWithSelected = this.restaurants.filter((restaurant) => {
-      //     if (restaurant.categories.id === categorySelected[0]['id'])
-      //         console.log(restaurant.categories.id)
-      //         return this.selectedRestaurants.push(restaurantWithSelected)
+      //  let restaurantWithSelected = this.restaurants.filter((restaurant) => {
+      //      if (restaurant.categories[0]['id'] === categorySelected[0]['id'])
+      //              console.log(restaurant.categories.id)
+      //      this.restaurantWithSelected.push(restaurant)
+      //      return true
 
-      //     });
-      //    // console.log(categorySelected['id']);
-      // },
+      //          });
+      //          console.log(categorySelected['id']);
+
       // provo con map/filter******************
 
       //id della categoria filtrata
@@ -2012,18 +2018,15 @@ __webpack_require__.r(__webpack_exports__);
       //provo col foreach
       if (categorySelected[0]) {
         this.restaurants.forEach(function (restaurant) {
-          // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-          //restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
+          //    controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
+          //    restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
           if (restaurant.categories[0]['id'] == categorySelected[0]['id']) {
             _this2.isSelected = true;
             return _this2.restaurantWithSelected.push(restaurant);
-          } else {
-            return _this2.restaurantWithSelected = [];
           }
         });
       } else this.isSelected = false;
-      // console.log(this.restaurantWithSelected)
-      //     return this.selectedRestaurants.push(restaurantWithSelected)
+      console.log(this.restaurantWithSelected);
     }
   },
   mounted: function mounted() {
