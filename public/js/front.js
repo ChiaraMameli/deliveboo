@@ -1955,34 +1955,64 @@ __webpack_require__.r(__webpack_exports__);
     return {
       restaurants: [],
       categories: [],
-      selected: false
+      selectedRestaurants: [],
+      restaurantWithSelected: [],
+      isSelected: false,
+      categorySelected: []
     };
   },
   computed: {
     // generare il nuovo array con tutti i ristoranti che hanno le categorie selezionate
-    filteredRestaurants: function filteredRestaurants() {
-      var _this = this;
-      return this.restaurants.map(function (restaurant) {
-        if (restaurant.categories === _this.categories) return true;else return false;
-      });
-    }
+    // filteredRestaurants() {
+    //     return this.restaurants.map((restaurant) => {
+    //         if (restaurant.categories === this.selectedCategories) return true;
+    //       //  else return false;
+    //      })
   },
   methods: {
     fetchData: function fetchData() {
-      var _this2 = this;
+      var _this = this;
       axios.get('http://127.0.0.1:8000/api/restaurants').then(function (res) {
-        _this2.restaurants = res.data.restaurants;
-        _this2.categories = res.data.categories;
-        //  console.log(res.data)
+        _this.restaurants = res.data.restaurants;
+        _this.categories = res.data.categories;
+        console.log(_this.restaurants);
       })["catch"](function (err) {
         console.log(err);
       });
-    } // filteredRestaurants() {
-    //     return this.restaurants.map((restaurant) => {
-    //         if (restaurant.categories === this.selectedCategory) return true;
-    //         else return false;
-    //     })
-    // },
+    },
+    filteredRestaurants: function filteredRestaurants() {
+      var _this2 = this;
+      // filtro dalle categorie quelle selezionate
+      var categorySelected = this.categories.filter(function (category) {
+        if (category.isSelected && category.isSelected == true) return true;else [];
+      });
+      //categoria filtrata
+      console.log(categorySelected);
+
+      // provo con map/filter******************
+
+      // let restaurantWithSelected = this.restaurants.filter((restaurant) => {
+      //     if (restaurant.categories.id === categorySelected[0]['id'])
+      //         console.log(restaurant.categories.id)
+      //         return this.selectedRestaurants.push(restaurantWithSelected)
+
+      //     });
+      //    // console.log(categorySelected['id']);
+      // },
+      // provo con map/filter******************
+
+      //id della categoria filtrata
+      console.log(categorySelected[0]['id']);
+      // l'id della categoria del singolo ristorante nel ciclo 
+      // console.log(restaurant.categories[0]['id'])
+      //provo col foreach
+      this.restaurants.forEach(function (restaurant) {
+        // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
+        if (restaurant.categories[0]['id'] == categorySelected[0]['id']) return _this2.restaurantWithSelected.push(restaurant);
+      });
+      console.log(this.restaurantWithSelected);
+      return this.selectedRestaurants.push(restaurantWithSelected);
+    }
   },
   mounted: function mounted() {
     this.fetchData();
@@ -2114,7 +2144,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("main", [_c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v(" Benvenuto in TheLiveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n            Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti\n            "), _vm._l(_vm.categories, function (category, i) {
+  }, [_c("h2", [_vm._v(" Benvenuto in TheLiveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n            Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti\n           \n            "), _vm._l(_vm.categories, function (category, i) {
     return _c("div", {
       key: i,
       staticClass: "form-check form-switch"
@@ -2122,8 +2152,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.selected,
-        expression: "selected"
+        value: category.isSelected,
+        expression: "category.isSelected"
       }],
       staticClass: "form-check-input",
       attrs: {
@@ -2131,23 +2161,24 @@ var render = function render() {
         role: "switch"
       },
       domProps: {
-        checked: Array.isArray(_vm.selected) ? _vm._i(_vm.selected, null) > -1 : _vm.selected
+        value: category.id,
+        checked: Array.isArray(category.isSelected) ? _vm._i(category.isSelected, category.id) > -1 : category.isSelected
       },
       on: {
         change: function change($event) {
-          var $$a = _vm.selected,
+          var $$a = category.isSelected,
             $$el = $event.target,
             $$c = $$el.checked ? true : false;
           if (Array.isArray($$a)) {
-            var $$v = null,
+            var $$v = category.id,
               $$i = _vm._i($$a, $$v);
             if ($$el.checked) {
-              $$i < 0 && (_vm.selected = $$a.concat([$$v]));
+              $$i < 0 && _vm.$set(category, "isSelected", $$a.concat([$$v]));
             } else {
-              $$i > -1 && (_vm.selected = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+              $$i > -1 && _vm.$set(category, "isSelected", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
             }
           } else {
-            _vm.selected = $$c;
+            _vm.$set(category, "isSelected", $$c);
           }
         }
       }
@@ -2166,7 +2197,7 @@ var render = function render() {
     }
   }, [_vm._v(" Mostra ristoranti")])], 2), _vm._v(" "), _c("div", {
     staticClass: "d-flex my-5"
-  }, [_vm.selectedCategory ? _c("div", _vm._l(_vm.restaurants, function (restaurant) {
+  }, [!_vm.isSelected ? _c("div", _vm._l(_vm.filteredRestaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card"
