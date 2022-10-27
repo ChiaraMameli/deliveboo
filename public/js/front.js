@@ -2034,15 +2034,23 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addToCart: function addToCart(dish) {
-      console.log(dish);
-      console.log(this.cart);
-      if (this.cart.includes(dish)) {
+      var element = this.cart.find(function (element) {
+        return element.dish === dish.id;
+      });
+      if (typeof element == "undefined") {
         this.cart.push({
           'dish': dish.id,
           'quantity': 1
         });
       } else {
-        dish['quantity'] = dish['quantity'] + 1;
+        var quantity = element.quantity += 1;
+        this.cart.splice(this.cart.findIndex(function (e) {
+          return e.dish === dish.id;
+        }), 1);
+        this.cart.push({
+          'dish': dish.id,
+          'quantity': quantity
+        });
       }
     }
   },
@@ -2259,7 +2267,9 @@ var render = function render() {
       }
     }, [_vm._v(_vm._s(dish.name))]);
   }), 0)]), _vm._v(" "), _c("div", _vm._l(_vm.cart, function (item) {
-    return _c("p", [_vm._v(_vm._s(item))]);
+    return _c("p", {
+      key: item
+    }, [_vm._v(_vm._s(item))]);
   }), 0)]);
 };
 var staticRenderFns = [];
@@ -53519,7 +53529,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })

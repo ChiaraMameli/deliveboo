@@ -7,7 +7,7 @@
       </ul>
     </div>
     <div>
-      <p v-for="item in cart">{{item}}</p>
+      <p v-for="item in cart" :key="item">{{item}}</p>
     </div>
   </main>
 </template>
@@ -31,14 +31,15 @@ methods: {
             });
         },
         addToCart(dish){
-          console.log(dish);
-          console.log(this.cart);
-          if(this.cart.includes(dish)){
-            this.cart.push({'dish': dish.id, 'quantity': 1});
-          } else{
-            dish['quantity'] = dish['quantity'] + 1;
+
+          let element = this.cart.find(element => element.dish === dish.id);
+          if(typeof element == "undefined"){
+            this.cart.push({'dish': dish.id, 'quantity': 1})
+          } else {
+            const quantity = element.quantity += 1;
+            this.cart.splice(this.cart.findIndex(e => e.dish === dish.id), 1);
+            this.cart.push({'dish': dish.id, 'quantity': quantity})
           }
-          
         }
     },
     mounted() {
