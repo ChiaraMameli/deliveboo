@@ -40,14 +40,48 @@ methods: {
             });
         },
         addToCart(dish){
+          const currentDish = {
+            'dish': dish.id, 
+            'restaurant': dish.restaurant_id,             
+            'name': dish.name, 
+            'image': dish.image,
+            'description': dish.description,
+            'ingredients': dish.ingredients,
+            'price': dish.price,
+            'quantity': 1
+          };
 
-          let element = this.cart.find(element => element.dish === dish.id);
-          if(typeof element == "undefined"){
-            this.cart.push({'dish': dish.id, 'quantity': 1})
-          } else {
-            const quantity = element.quantity += 1;
-            this.cart.splice(this.cart.findIndex(e => e.dish === dish.id), 1);
-            this.cart.push({'dish': dish.id, 'quantity': quantity})
+          const element = this.cart.find(element => element.dish === dish.id);
+          
+          console.log(element);
+          // Se è il primo
+          if(this.cart.length === 0){
+            this.cart.push(currentDish)
+
+          }
+          // Se è già presente nell'array e se il piatto appartiene al ristorante del primo elemento  
+          else if(typeof element !== "undefined" && (this.cart[0].restaurant === dish.restaurant_id)){
+
+              currentDish.quantity = element.quantity += 1;
+              this.cart.splice(this.cart.findIndex(e => e.dish === dish.id), 1);
+              this.cart.push(currentDish);
+
+          } 
+          // Se non è presente nell'array e il piatto appartiene al ristorante del primo elemento
+          else if(typeof element == "undefined" && (this.cart[0].restaurant === dish.restaurant_id)){
+              this.cart.push(currentDish);
+
+          } 
+          // Se non è il primo elemento e il piatto appartiene a un ristorante diverso rispetto al primo piatto del carrello
+          else if((this.cart.length > 0) && (this.cart[0].restaurant != dish.restaurant_id)) {
+            console.log('non puoi');
+            const hasConfirmed = confirm("Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?");
+              if(hasConfirmed) {
+                this.cart = [];
+                this.cart.push(currentDish)
+              } else {
+                die();
+              }
           }
         }
     },

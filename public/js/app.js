@@ -37481,12 +37481,17 @@ formRestaurant.addEventListener("submit", function (e) {
 /***/ (function(module, exports, __webpack_require__) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
 =======
 __webpack_require__(/*! /Users/prova/deliveboo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
 >>>>>>> 9e3ec30 (restaurant-page card)
+=======
+__webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
+>>>>>>> 0bf48ec (added controll on restaurant id)
 
 
 /***/ })

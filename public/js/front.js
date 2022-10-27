@@ -2092,23 +2092,46 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addToCart: function addToCart(dish) {
+      var currentDish = {
+        'dish': dish.id,
+        'restaurant': dish.restaurant_id,
+        'name': dish.name,
+        'image': dish.image,
+        'description': dish.description,
+        'ingredients': dish.ingredients,
+        'price': dish.price,
+        'quantity': 1
+      };
       var element = this.cart.find(function (element) {
         return element.dish === dish.id;
       });
-      if (typeof element == "undefined") {
-        this.cart.push({
-          'dish': dish.id,
-          'quantity': 1
-        });
-      } else {
-        var quantity = element.quantity += 1;
+      console.log(element);
+      // Se è il primo
+      if (this.cart.length === 0) {
+        this.cart.push(currentDish);
+      }
+      // Se è già presente nell'array e se il piatto appartiene al ristorante del primo elemento  
+      else if (typeof element !== "undefined" && this.cart[0].restaurant === dish.restaurant_id) {
+        currentDish.quantity = element.quantity += 1;
         this.cart.splice(this.cart.findIndex(function (e) {
           return e.dish === dish.id;
         }), 1);
-        this.cart.push({
-          'dish': dish.id,
-          'quantity': quantity
-        });
+        this.cart.push(currentDish);
+      }
+      // Se non è presente nell'array e il piatto appartiene al ristorante del primo elemento
+      else if (typeof element == "undefined" && this.cart[0].restaurant === dish.restaurant_id) {
+        this.cart.push(currentDish);
+      }
+      // Se non è il primo elemento e il piatto appartiene a un ristorante diverso rispetto al primo piatto del carrello
+      else if (this.cart.length > 0 && this.cart[0].restaurant != dish.restaurant_id) {
+        console.log('non puoi');
+        var hasConfirmed = confirm("Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?");
+        if (hasConfirmed) {
+          this.cart = [];
+          this.cart.push(currentDish);
+        } else {
+          die();
+        }
       }
     }
   },
