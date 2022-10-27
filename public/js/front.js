@@ -1957,7 +1957,7 @@ __webpack_require__.r(__webpack_exports__);
       categories: [],
       selectedRestaurants: [],
       restaurantWithSelected: [],
-      isSelected: false,
+      isSelected: true,
       categorySelected: [],
       catchedRestaurant: null
     };
@@ -2013,10 +2013,16 @@ __webpack_require__.r(__webpack_exports__);
       if (categorySelected[0]) {
         this.restaurants.forEach(function (restaurant) {
           // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-          restaurant.categories[0]['id'] == categorySelected[0]['id'] ? _this2.restaurantWithSelected.push(restaurant) : _this2.restaurantWithSelected = [];
+          //restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
+          if (restaurant.categories[0]['id'] == categorySelected[0]['id']) {
+            _this2.isSelected = true;
+            return _this2.restaurantWithSelected.push(restaurant);
+          } else {
+            return _this2.restaurantWithSelected = [];
+          }
         });
-      } else this.isSelected = true;
-      console.log(this.restaurantWithSelected);
+      } else this.isSelected = false;
+      // console.log(this.restaurantWithSelected)
       //     return this.selectedRestaurants.push(restaurantWithSelected)
     }
   },

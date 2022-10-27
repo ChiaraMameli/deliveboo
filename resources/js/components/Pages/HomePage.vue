@@ -60,7 +60,7 @@ export default {
             categories: [],
             selectedRestaurants: [],
             restaurantWithSelected: [],
-            isSelected: false,
+            isSelected: true,
             categorySelected: [],
             catchedRestaurant: null,
         };
@@ -122,12 +122,17 @@ export default {
                 if(categorySelected[0]) {
                 this.restaurants.forEach(restaurant => {
                         // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-                        restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
-                        
+                        //restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
+                     if (restaurant.categories[0]['id'] == categorySelected[0]['id']){
+                         this.isSelected = true
+                         return this.restaurantWithSelected.push(restaurant)
+                     } else{
+                         return this.restaurantWithSelected = []
+                     }
                         
                     });
-                } else this.isSelected = true
-            console.log(this.restaurantWithSelected)
+                } else this.isSelected = false
+           // console.log(this.restaurantWithSelected)
             //     return this.selectedRestaurants.push(restaurantWithSelected)
             
         },
