@@ -16,7 +16,7 @@
             </div>
             <!-- prova lista ristoranti-->
             <div class="d-flex my-5">
-                <div v-if="!isSelected">
+                <div v-if="catchedRestaurant">
                     <div class="card" v-for="restaurant in filteredRestaurants" :key="restaurant.id">
                         
                         <h2>{{ restaurant.name }}</h2>
@@ -62,6 +62,7 @@ export default {
             restaurantWithSelected: [],
             isSelected: false,
             categorySelected: [],
+            catchedRestaurant: null,
         };
     },
     computed: {
@@ -115,14 +116,12 @@ export default {
                 // l'id della categoria del singolo ristorante nel ciclo 
            // console.log(restaurant.categories[0]['id'])
                 //provo col foreach
-                    this.restaurants.forEach(restaurant => {
-                        // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-                    if (restaurant.categories[0]['id'] == categorySelected[0]['id']) return this.restaurantWithSelected.push(restaurant)
-                  
-                
-            });
+                this.restaurants.forEach(restaurant => {
+                // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
+                restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = [] 
+                });
             console.log(this.restaurantWithSelected)
-                return this.selectedRestaurants.push(restaurantWithSelected)
+            //     return this.selectedRestaurants.push(restaurantWithSelected)
             
         },
         },

@@ -1958,7 +1958,8 @@ __webpack_require__.r(__webpack_exports__);
       selectedRestaurants: [],
       restaurantWithSelected: [],
       isSelected: false,
-      categorySelected: []
+      categorySelected: [],
+      catchedRestaurant: null
     };
   },
   computed: {
@@ -2008,10 +2009,10 @@ __webpack_require__.r(__webpack_exports__);
       //provo col foreach
       this.restaurants.forEach(function (restaurant) {
         // controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-        if (restaurant.categories[0]['id'] == categorySelected[0]['id']) return _this2.restaurantWithSelected.push(restaurant);
+        restaurant.categories[0]['id'] == categorySelected[0]['id'] ? _this2.restaurantWithSelected.push(restaurant) : _this2.restaurantWithSelected = [];
       });
       console.log(this.restaurantWithSelected);
-      return this.selectedRestaurants.push(restaurantWithSelected);
+      //     return this.selectedRestaurants.push(restaurantWithSelected)
     }
   },
   mounted: function mounted() {
@@ -2197,7 +2198,7 @@ var render = function render() {
     }
   }, [_vm._v(" Mostra ristoranti")])], 2), _vm._v(" "), _c("div", {
     staticClass: "d-flex my-5"
-  }, [!_vm.isSelected ? _c("div", _vm._l(_vm.filteredRestaurants, function (restaurant) {
+  }, [_vm.catchedRestaurant ? _c("div", _vm._l(_vm.filteredRestaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card"
