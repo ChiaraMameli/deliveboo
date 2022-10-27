@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main id="cart">
         <div class="container">
             <input type="text" v-model="dish">
 
@@ -29,4 +29,9 @@ export default{
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+    #cart{
+        min-height: calc(100vh - 50px);
+        background-color: rgb(188, 33, 33);
+    }
+</style>
