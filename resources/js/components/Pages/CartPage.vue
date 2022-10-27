@@ -1,9 +1,7 @@
 <template>
     <main id="cart">
         <div class="container">
-            <input type="text" v-model="dish">
-
-            <p>{{dish}}</p>
+            
         </div>
     </main>
 </template>
@@ -13,19 +11,14 @@ export default{
     name: 'CartPage',
     data(){
         return{
-            dish: '',
+            cart: [],
         }
     },
     mounted(){
-        if(localStorage.dish){
-            this.dish = localStorage.dish;
+        if(localStorage.cart){
+            this.cart = JSON.parse(localStorage.cart);
         }
     },
-    watch:{
-        dish(newDish){
-            localStorage.dish = newDish;
-        }
-    }
 }
 </script>
 

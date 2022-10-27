@@ -1956,17 +1956,12 @@ __webpack_require__.r(__webpack_exports__);
   name: 'CartPage',
   data: function data() {
     return {
-      dish: ''
+      cart: []
     };
   },
   mounted: function mounted() {
-    if (localStorage.dish) {
-      this.dish = localStorage.dish;
-    }
-  },
-  watch: {
-    dish: function dish(newDish) {
-      localStorage.dish = newDish;
+    if (localStorage.cart) {
+      this.cart = JSON.parse(localStorage.cart);
     }
   }
 });
@@ -2256,34 +2251,19 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
+  return _vm._m(0);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
   return _c("main", {
     attrs: {
       id: "cart"
     }
   }, [_c("div", {
     staticClass: "container"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.dish,
-      expression: "dish"
-    }],
-    attrs: {
-      type: "text"
-    },
-    domProps: {
-      value: _vm.dish
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.dish = $event.target.value;
-      }
-    }
-  }), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.dish))])])]);
-};
-var staticRenderFns = [];
+  })]);
+}];
 render._withStripped = true;
 
 
