@@ -2278,20 +2278,110 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("main", [_c("div", {
     staticClass: "container"
-  }, [_c("div", [_c("h2", [_vm._v(" Welcome on the Home page")]), _vm._v(" "), _vm._l(_vm.restaurants, function (restaurant) {
+  }, [_c("h2", [_vm._v(" Benvenuto in DeliveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n            Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti\n           \n            "), _vm._l(_vm.categories, function (category, i) {
     return _c("div", {
-      key: restaurant.id
-    }, [_c("router-link", {
+      key: i,
+      staticClass: "form-check form-switch"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: category.isSelected,
+        expression: "category.isSelected"
+      }],
+      staticClass: "form-check-input",
+      attrs: {
+        type: "checkbox",
+        role: "switch"
+      },
+      domProps: {
+        value: category.id,
+        checked: Array.isArray(category.isSelected) ? _vm._i(category.isSelected, category.id) > -1 : category.isSelected
+      },
+      on: {
+        change: function change($event) {
+          var $$a = category.isSelected,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = category.id,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(category, "isSelected", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(category, "isSelected", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(category, "isSelected", $$c);
+          }
+        }
+      }
+    }), _vm._v(" "), _c("label", {
+      staticClass: "form-check-label"
+    }, [_vm._v(_vm._s(category.label))])]);
+  }), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-sm btn-info",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.filteredRestaurants();
+      }
+    }
+  }, [_vm._v(" Mostra ristoranti")])], 2), _vm._v(" "), _c("div", {
+    staticClass: "d-flex my-5"
+  }, [_vm.isSelected ? _c("div", _vm._l(_vm.restaurantWithSelected, function (restaurant) {
+    return _c("div", {
+      key: restaurant.id,
+      staticClass: "card"
+    }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
+      staticClass: "h100",
+      attrs: {
+        src: restaurant.image,
+        alt: ""
+      }
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+      return _c("span", {
+        key: i
+      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
+    })], 2), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success m-auto",
       attrs: {
         to: {
-          name: "restaurant-details",
+          name: "restaurant",
           params: {
             id: restaurant.id
           }
         }
       }
-    }, [_vm._v(_vm._s(restaurant.name))])], 1);
-  })], 2)])]);
+    }, [_vm._v("Vedi\n                    ")])], 1);
+  }), 0) : _c("div", _vm._l(_vm.restaurants, function (restaurant) {
+    return _c("div", {
+      key: restaurant.id,
+      staticClass: "card"
+    }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
+      staticClass: "h100",
+      attrs: {
+        src: restaurant.image,
+        alt: ""
+      }
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+      return _c("span", {
+        key: i
+      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
+    })], 2), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success m-auto",
+      attrs: {
+        to: {
+          name: "restaurant",
+          params: {
+            id: restaurant.id
+          }
+        }
+      }
+    }, [_vm._v("Vedi\n                    ")])], 1);
+  }), 0)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -54213,7 +54303,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_Pages_HomePage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Pages/HomePage */ "./resources/js/components/Pages/HomePage.vue");
-/* harmony import */ var _components_Pages_RestaurantDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Pages/RestaurantDetails */ "./resources/js/components/Pages/RestaurantDetails.vue");
+/* harmony import */ var _components_Pages_RestaurantDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Pages/RestaurantDetails */ "./resources/js/components/Pages/RestaurantDetails.vue");
 /* harmony import */ var _components_Pages_CartPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Pages/CartPage */ "./resources/js/components/Pages/CartPage.vue");
 
 
@@ -54231,7 +54321,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'home'
   }, {
     path: '/restaurants/:id',
-    component: _components_Pages_RestaurantDetails__WEBPACK_IMPORTED_MODULE_5__["default"],
+    component: _components_Pages_RestaurantDetails__WEBPACK_IMPORTED_MODULE_3__["default"],
     name: 'restaurant-details'
   }, {
     path: '/cart',
@@ -54250,7 +54340,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\laravel\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

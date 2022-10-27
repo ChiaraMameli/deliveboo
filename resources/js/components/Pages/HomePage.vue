@@ -24,7 +24,7 @@
                         <h5><strong>Indirizzo: </strong>{{ restaurant.address }}</h5>
                         
                         <h5><strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span></h5>
-                        <router-link :to="{ name: 'restaurant', params: { id: restaurant.id } }"
+                        <router-link :to="{ name: 'restaurant-details', params: { id: restaurant.id } }"
                         class="btn btn-success m-auto ">Vedi
                         </router-link>
                     
@@ -38,7 +38,7 @@
                         <h5><strong>Indirizzo: </strong>{{ restaurant.address }}</h5>
                         
                         <h5><strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span></h5>
-                        <router-link :to="{ name: 'restaurant', params: { id: restaurant.id } }"
+                        <router-link :to="{ name: 'restaurant-details', params: { id: restaurant.id } }"
                         class="btn btn-success m-auto ">Vedi
                         </router-link>
                     
