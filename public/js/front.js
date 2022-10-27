@@ -1984,6 +1984,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     filteredRestaurants: function filteredRestaurants() {
       var _this2 = this;
+      //svuoto gli array al click del bottone
       this.categorySelected = [];
       this.restaurantWithSelected = [];
       // filtro dalle categorie quelle selezionate
@@ -2005,10 +2006,6 @@ __webpack_require__.r(__webpack_exports__);
             return _this2.restaurantWithSelected.push(restaurant);
           }
         });
-        // this.restaurants[0]['categories'].forEach(restCaty => {
-        //     if (restCaty['id'] == this.categorySelected[0]['id'] )
-        //      return this.restaurantWithSelected.push(this.restaurants[0])
-        // })
       } else this.isSelected = false;
 
       //id della categoria filtrata
