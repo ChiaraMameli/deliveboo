@@ -16,7 +16,7 @@
       </ul>
     </div>
     <div>
-      <p class="text-white" v-for="item in cart" :key="item">{{item}}</p>
+      <p class="text-white" v-for="item in cart" :key="item.id">{{item}}</p>
     </div>
   </main>
 </template>
