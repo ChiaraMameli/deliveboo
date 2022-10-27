@@ -1997,21 +1997,6 @@ __webpack_require__.r(__webpack_exports__);
       });
       //categoria filtrata
       console.log(categorySelected);
-
-      // provo con map/filter******************
-
-      //  let restaurantWithSelected = this.restaurants.filter((restaurant) => {
-      //      if (restaurant.categories[0]['id'] === categorySelected[0]['id'])
-      //              console.log(restaurant.categories.id)
-      //      this.restaurantWithSelected.push(restaurant)
-      //      return true
-
-      //          });
-      //          console.log(categorySelected['id']);
-
-      // provo con map/filter******************
-
-      //provo col foreach
       if (categorySelected[0]) {
         this.restaurants.forEach(function (restaurant) {
           //    controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
@@ -2020,20 +2005,26 @@ __webpack_require__.r(__webpack_exports__);
             return _this2.restaurantWithSelected.push(restaurant);
           }
         });
-        this.restaurants[0]['categories'].forEach(function (restCaty) {
-          if (restCaty['id'] == _this2.categorySelected[0]['id']) return _this2.restaurantWithSelected.push(_this2.restaurants[0]);
-        });
+        // this.restaurants[0]['categories'].forEach(restCaty => {
+        //     if (restCaty['id'] == this.categorySelected[0]['id'] )
+        //      return this.restaurantWithSelected.push(this.restaurants[0])
+        // })
       } else this.isSelected = false;
 
       //id della categoria filtrata
       //console.log(categorySelected[0]);
+
       // l'id della categoria del singolo ristorante nel ciclo 
-      // console.log(this.restaurants.categories[0]['id'])
+      // console.log(restaurant.categories[0]['id'])
+
+      // tutti i ristoranti caricati nell'array
       //  console.log(this.restaurantWithSelected)
-      // console.log(categorySelected[0]['id'])
+
+      // ternario equivalente all'if riga 125
       //    restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
 
-      // console.log(restaurant.categories[0]['id'])
+      // l'id del primo dei ristoranti caricati dal db
+      // console.log(this.restaurants.categories[0]['id'])
     }
   },
   mounted: function mounted() {
