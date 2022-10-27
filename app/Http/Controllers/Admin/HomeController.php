@@ -16,7 +16,7 @@ class HomeController extends Controller
             $restaurant_details = $my_restaurant[0];
             return view('admin.home', compact('restaurant_details'));
         }else{
-            return redirect()->route('admin.restaurants.index');
+            return redirect()->route('admin.restaurants.create');
         }
     }
 }
