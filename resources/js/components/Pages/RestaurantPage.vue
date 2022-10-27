@@ -39,45 +39,7 @@ methods: {
             const quantity = element.quantity += 1;
             this.cart.splice(this.cart.findIndex(e => e.dish === dish.id), 1);
             this.cart.push({'dish': dish.id, 'quantity': quantity})
-
           }
-          // if (index !== -1) {
-          //   arr[index].name = 'John';
-          // }
-
-          // this.cart.push({'dish': dish.id, 'quantity': 1})
-          // if(this.cart['dish'].includes(dish.id)){
-          //   console.log('c\'è');
-          // }
-
-          // this.cart.forEach((element, index) => {
-          //   if(element.dish != dish.id){
-          //     this.cart.push({'dish': dish.id, 'quantity': 1})
-          //   } else {
-          //     this.cart.splice(index, 1);
-          //   }
-          // })
-          // if(!dishes.includes(dish)){
-          //   this.cart.push({'dish': dish.id, 'quantity': 1});
-          //   console.log(dishes);
-          // }
-
-          // temporaryCart.forEach(element => {
-          //   if(!element.dish === dish.id){
-          //     console.log(element.dish, dish.id);
-
-          //     temporaryCart.push(parseInt(element.quantity) + 1)
-          //     console.log(temporaryCart);
-          //   }
-          // })
-          // console.log(dish);
-          // console.log(this.cart);
-          // if(this.cart.includes(dish)){
-          //   this.cart.push({'dish': dish.id, 'quantity': 1});
-          // } else{
-          //   dish['quantity'] = dish['quantity'] + 1;
-          // }
-          
         }
     },
     mounted() {
