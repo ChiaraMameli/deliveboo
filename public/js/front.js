@@ -2074,7 +2074,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'RestaurantPage',
+  name: 'RestaurantDetails',
   data: function data() {
     return {
       restaurant: null,
@@ -2349,7 +2349,7 @@ var render = function render() {
       staticClass: "btn btn-success m-auto",
       attrs: {
         to: {
-          name: "restaurant",
+          name: "restaurant-details",
           params: {
             id: restaurant.id
           }
@@ -2374,7 +2374,7 @@ var render = function render() {
       staticClass: "btn btn-success m-auto",
       attrs: {
         to: {
-          name: "restaurant",
+          name: "restaurant-details",
           params: {
             id: restaurant.id
           }
