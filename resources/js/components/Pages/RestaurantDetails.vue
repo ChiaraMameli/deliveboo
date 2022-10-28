@@ -1,6 +1,7 @@
 <template>
   <main id="restaurant-details">
     <div class="container">
+      <h2>Tutti i piatti:</h2>
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
       <ul class="d-flex flex-wrap justify-content-center list-unstyled">
         <li class="p-3" v-for="dish in restaurant.dishes" :key="dish.id">
