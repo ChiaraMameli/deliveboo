@@ -1997,8 +1997,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     getCurrentQuantity: function getCurrentQuantity(dish) {
       var inputValue = document.getElementById('quantity');
-      console.log(inputValue.value);
       dish.quantity = inputValue.value;
+      this.cart.splice(this.cart.findIndex(function (e) {
+        return e.dish === dish.id;
+      }), 1);
+      this.cart.push(dish);
     }
   },
   mounted: function mounted() {
@@ -2357,6 +2360,9 @@ var render = function render() {
     })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dish.dish))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.price) + "€")]), _vm._v(" "), _c("td", [_c("input", {
       attrs: {
         type: "number",
+        step: "1",
+        min: "1",
+        max: "50",
         id: "quantity"
       },
       domProps: {
@@ -2629,7 +2635,7 @@ var render = function render() {
     staticClass: "container"
   }, [_c("h2", {
     staticClass: "text-white text-center p-5"
-  }, [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("ul", {
+  }, [_vm._v(_vm._s(_vm.restaurant.name) + "ciao")]), _vm._v(" "), _c("ul", {
     staticClass: "d-flex flex-wrap list-unstyled"
   }, _vm._l(_vm.restaurant.dishes, function (dish) {
     return _c("li", {

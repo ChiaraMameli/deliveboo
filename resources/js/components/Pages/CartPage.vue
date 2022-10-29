@@ -83,19 +83,6 @@ export default{
             dish.quantity = inputValue.value;
             this.cart.splice(this.cart.findIndex(e => e.dish === dish.id), 1);
             this.cart.push(dish);
-
-            const local = JSON.parse(localStorage.cart);
-            localStorage.clear();
-            
-            local.forEach(item => {
-                if(dish.dish === item.dish){
-                    item.quantity = inputValue.value;
-                    console.log(item);
-                }
-            })
-
-            window.localStorage = JSON.stringify(local);
-
         }
     },
     mounted(){
