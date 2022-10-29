@@ -1,26 +1,34 @@
 <template>
     <main>
         <div class="container">
-            <h2> Benvenuto in DeliveBoo!</h2>
-            <!-- filtro -->
-            <div>
-                Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti
-               
-                <div v-for="(category, i) in categories" :key="i" class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" v-model="category.isSelected" :value="category.id" >
-                    <label class="form-check-label"  >{{ category.label }}</label>
+            <h1> Benvenuto in DeliveBoo!</h1>
+            <div class="row">
+                <div id="jumbotron">//to choose a jumbo</div>
+                    <!-- filtro -->
+                <div class="col-12 my-3">
+                    Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti:
                 </div>
-                    <!-- filtro con map i ristoranti per categoria al click -->
-                <button @click="filteredRestaurants()" type="button" class="btn btn-sm btn-info"> Mostra ristoranti</button>
+                <div class="col-12 my-3">
+                    Oppure inserisci tu la tipologia di ristorante che stai cercando: <input v-model="searchByCategory" type="textarea"/>
+                </div>
+                <div class="col-12 d-flex my-3 justify-content-between">
+                        
                 
-            </div>
+                    <div v-for="(category, i) in categories" :key="i" class="form-check form-switch ">
+                        <input class="form-check-input pointer" type="checkbox" role="switch" v-model="category.isSelected" :value="category.id" >
+                        <label class="form-check-label"  >{{ category.label }}</label>
+                    </div>
+                        <!-- filtro con map i ristoranti per categoria al click -->
+                    <button @click="filteredRestaurants()" type="button" class="btn btn-sm btn-info"> Mostra ristoranti</button>
+                    
+                </div>
             <!-- prova lista ristoranti-->
-            <div class="d-flex my-5">
-                <div v-if="isSelected">
-                    <div class="card" v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
+            <div class="my-3">
+                <div class="row" v-if="isSelected">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 card justify-content-between py-2" v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
                         
                         <h2>{{ restaurant.name }}</h2>
-                        <img class="h100" :src="restaurant.image" alt="">
+                        <img class=" img-fluid" :src="restaurant.image" alt="">
                         <h5><strong>Indirizzo: </strong>{{ restaurant.address }}</h5>
                         
                         <h5><strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span></h5>
@@ -30,24 +38,25 @@
                     
                     </div>
                 </div>
-                <div v-else>   
-                    <div class="card" v-for="restaurant in restaurants" :key="restaurant.id">
+                <div class="row" v-else>   
+                    <div class="col-xl-3 col-lg-4 my-3 col-md-6 col-sm-12 card justify-content-between py-2" v-for="restaurant in restaurants" :key="restaurant.id">
                         
                         <h2>{{ restaurant.name }}</h2>
-                        <img class="h100" :src="restaurant.image" alt="">
+                        <img class="img-fluid" :src="restaurant.image" alt="">
                         <h5><strong>Indirizzo: </strong>{{ restaurant.address }}</h5>
                         
                         <h5><strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span></h5>
                         <router-link :to="{ name: 'restaurant-details', params: { id: restaurant.id } }"
                         class="btn btn-success m-auto ">Vedi
-                        </router-link>
+                    </router-link>
                     
-                    </div>
+                </div>
                 
-                </div>
             </div>
         </div>
-    </main>
+    </div>
+</div>
+</main>
 
 </template>
 
@@ -59,8 +68,9 @@ export default {
             restaurants: [],
             categories: [],
             restaurantWithSelected: [],
-            isSelected: true,
+            isSelected: false,
             categorySelected: [],
+            searchByCategory: '',
         };
     },
     computed: {
@@ -118,7 +128,7 @@ export default {
                      
                     });
                    
-                } else this.isSelected = false
+                } else this.isSelected = true
 
                 
                 
@@ -146,7 +156,11 @@ export default {
 </script>
 
 <style>
-.h100 {
-    height: 100px;
+.h-250 {
+    height: 260.5px;
+}
+
+.pointer{
+    cursor: pointer;
 }
 </style>

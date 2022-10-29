@@ -1989,8 +1989,9 @@ __webpack_require__.r(__webpack_exports__);
       restaurants: [],
       categories: [],
       restaurantWithSelected: [],
-      isSelected: true,
-      categorySelected: []
+      isSelected: false,
+      categorySelected: [],
+      searchByCategory: ''
     };
   },
   computed: {
@@ -2039,7 +2040,7 @@ __webpack_require__.r(__webpack_exports__);
             return _this2.restaurantWithSelected.push(restaurant);
           }
         });
-      } else this.isSelected = false;
+      } else this.isSelected = true;
 
       //id della categoria filtrata
       //console.log(categorySelected[0]);
@@ -2278,7 +2279,38 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("main", [_c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v(" Benvenuto in DeliveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n            Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti\n           \n            "), _vm._l(_vm.categories, function (category, i) {
+  }, [_c("h1", [_vm._v(" Benvenuto in DeliveBoo!")]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    attrs: {
+      id: "jumbotron"
+    }
+  }, [_vm._v("//to choose a jumbo")]), _vm._v(" "), _c("div", {
+    staticClass: "col-12 my-3"
+  }, [_vm._v("\n                    Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti:\n                ")]), _vm._v(" "), _c("div", {
+    staticClass: "col-12 my-3"
+  }, [_vm._v("\n                    Oppure inserisci tu la tipologia di ristorante che stai cercando: "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.searchByCategory,
+      expression: "searchByCategory"
+    }],
+    attrs: {
+      type: "textarea"
+    },
+    domProps: {
+      value: _vm.searchByCategory
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.searchByCategory = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-12 d-flex my-3 justify-content-between"
+  }, [_vm._l(_vm.categories, function (category, i) {
     return _c("div", {
       key: i,
       staticClass: "form-check form-switch"
@@ -2289,7 +2321,7 @@ var render = function render() {
         value: category.isSelected,
         expression: "category.isSelected"
       }],
-      staticClass: "form-check-input",
+      staticClass: "form-check-input pointer",
       attrs: {
         type: "checkbox",
         role: "switch"
@@ -2330,13 +2362,42 @@ var render = function render() {
       }
     }
   }, [_vm._v(" Mostra ristoranti")])], 2), _vm._v(" "), _c("div", {
-    staticClass: "d-flex my-5"
-  }, [_vm.isSelected ? _c("div", _vm._l(_vm.restaurantWithSelected, function (restaurant) {
+    staticClass: "my-3"
+  }, [_vm.isSelected ? _c("div", {
+    staticClass: "row"
+  }, _vm._l(_vm.restaurantWithSelected, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
-      staticClass: "card"
+      staticClass: "col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 card justify-content-between py-2"
     }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
-      staticClass: "h100",
+      staticClass: "img-fluid",
+      attrs: {
+        src: restaurant.image,
+        alt: ""
+      }
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+      return _c("span", {
+        key: i
+      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
+    })], 2), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success m-auto",
+      attrs: {
+        to: {
+          name: "restaurant-details",
+          params: {
+            id: restaurant.id
+          }
+        }
+      }
+    }, [_vm._v("Vedi\n                        ")])], 1);
+  }), 0) : _c("div", {
+    staticClass: "row"
+  }, _vm._l(_vm.restaurants, function (restaurant) {
+    return _c("div", {
+      key: restaurant.id,
+      staticClass: "col-xl-3 col-lg-4 my-3 col-md-6 col-sm-12 card justify-content-between py-2"
+    }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
+      staticClass: "img-fluid",
       attrs: {
         src: restaurant.image,
         alt: ""
@@ -2356,32 +2417,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("Vedi\n                    ")])], 1);
-  }), 0) : _c("div", _vm._l(_vm.restaurants, function (restaurant) {
-    return _c("div", {
-      key: restaurant.id,
-      staticClass: "card"
-    }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
-      staticClass: "h100",
-      attrs: {
-        src: restaurant.image,
-        alt: ""
-      }
-    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
-      return _c("span", {
-        key: i
-      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success m-auto",
-      attrs: {
-        to: {
-          name: "restaurant-details",
-          params: {
-            id: restaurant.id
-          }
-        }
-      }
-    }, [_vm._v("Vedi\n                    ")])], 1);
-  }), 0)])])]);
+  }), 0)])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -6804,7 +6840,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.h100 {\r\n    height: 100px;\n}\r\n", ""]);
+exports.push([module.i, "\n.h-250 {\r\n    height: 260.5px;\n}\n.pointer{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
