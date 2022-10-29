@@ -29,25 +29,28 @@
                         
                         <h2>{{ restaurant.name }}</h2>
                         <img class=" img-fluid" :src="restaurant.image" alt="">
-                        <h5><strong>Indirizzo: </strong>{{ restaurant.address }}</h5>
+                        <h5>Indirizzo: </h5> 
+                        <span>{{ restaurant.address }}</span>
                         
-                        <h5><strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span></h5>
+                        <h5>Categorie: </h5> 
+                        <span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span>
                         <router-link :to="{ name: 'restaurant-details', params: { id: restaurant.id } }"
-                        class="btn btn-success m-auto ">Vedi
+                        class="btn btn-success mb-2">Vedi
                         </router-link>
                     
                     </div>
                 </div>
                 <div class="row" v-else>   
                     <div class="col-xl-3 col-lg-4 my-3 col-md-6 col-sm-12 card justify-content-between py-2" v-for="restaurant in restaurants" :key="restaurant.id">
+                    <h2>{{ restaurant.name }}</h2>
+                    <img class=" img-fluid" :src="restaurant.image" alt="">
+                    <h5>Indirizzo: </h5> 
+                    <span>{{ restaurant.address }}</span>
                         
-                        <h2>{{ restaurant.name }}</h2>
-                        <img class="img-fluid" :src="restaurant.image" alt="">
-                        <h5><strong>Indirizzo: </strong>{{ restaurant.address }}</h5>
-                        
-                        <h5><strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span></h5>
+                        <h5>Categorie:  </h5> 
+                        <span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span>
                         <router-link :to="{ name: 'restaurant-details', params: { id: restaurant.id } }"
-                        class="btn btn-success m-auto ">Vedi
+                        class="btn btn-success mb-2">Vedi
                     </router-link>
                     
                 </div>
@@ -162,5 +165,10 @@ export default {
 
 .pointer{
     cursor: pointer;
+}
+
+h5{
+    margin: 0.8rem 0;
+    font-weight: bold;
 }
 </style>

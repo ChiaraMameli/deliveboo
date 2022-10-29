@@ -2375,12 +2375,12 @@ var render = function render() {
         src: restaurant.image,
         alt: ""
       }
-    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+    }), _vm._v(" "), _c("h5", [_vm._v("Indirizzo: ")]), _vm._v(" "), _c("span", [_vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_vm._v("Categorie: ")]), _vm._v(" "), _vm._l(restaurant.categories, function (category, i) {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success m-auto",
+    }), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success mb-2",
       attrs: {
         to: {
           name: "restaurant-details",
@@ -2389,7 +2389,7 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v("Vedi\n                        ")])], 1);
+    }, [_vm._v("Vedi\n                        ")])], 2);
   }), 0) : _c("div", {
     staticClass: "row"
   }, _vm._l(_vm.restaurants, function (restaurant) {
@@ -2402,12 +2402,12 @@ var render = function render() {
         src: restaurant.image,
         alt: ""
       }
-    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+    }), _vm._v(" "), _c("h5", [_vm._v("Indirizzo: ")]), _vm._v(" "), _c("span", [_vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_vm._v("Categorie:  ")]), _vm._v(" "), _vm._l(restaurant.categories, function (category, i) {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success m-auto",
+    }), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success mb-2",
       attrs: {
         to: {
           name: "restaurant-details",
@@ -2416,7 +2416,7 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v("Vedi\n                    ")])], 1);
+    }, [_vm._v("Vedi\n                    ")])], 2);
   }), 0)])])])]);
 };
 var staticRenderFns = [];
@@ -6840,7 +6840,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.h-250 {\r\n    height: 260.5px;\n}\n.pointer{\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.h-250 {\r\n    height: 260.5px;\n}\n.pointer{\r\n    cursor: pointer;\n}\nh5{\r\n    margin: 0.8rem 0;\r\n    font-weight: bold;\n}\r\n", ""]);
 
 // exports
 
