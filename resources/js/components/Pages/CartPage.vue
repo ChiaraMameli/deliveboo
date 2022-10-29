@@ -20,7 +20,7 @@
                         <th scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></th>
                         <td>{{dish.dish}}</td>
                         <td>{{price}}€</td>
-                        <td><input @change="getCurrentQuantity(dish)" type="number" :value="dish.quantity" id="quantity"></td>
+                        <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50" :value="dish.quantity" id="quantity"></td>
                         <td>{{getSubTotal(dish)}}€</td>
                         </tr>
                     </tbody>
@@ -79,8 +79,23 @@ export default{
         },
         getCurrentQuantity(dish){
             const inputValue = document.getElementById('quantity');
-            console.log(inputValue.value);
+
             dish.quantity = inputValue.value;
+            this.cart.splice(this.cart.findIndex(e => e.dish === dish.id), 1);
+            this.cart.push(dish);
+
+            const local = JSON.parse(localStorage.cart);
+            localStorage.clear();
+            
+            local.forEach(item => {
+                if(dish.dish === item.dish){
+                    item.quantity = inputValue.value;
+                    console.log(item);
+                }
+            })
+
+            window.localStorage = JSON.stringify(local);
+
         }
     },
     mounted(){
