@@ -25,8 +25,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <div>
+                <div class="d-flex justify-content-between">
                     <i class="fa-solid fa-rotate-left btn btn-primary updated">Aggiorna carrello</i>
+                    <i @click="removeAll()"  class="fa-solid fa-trash btn btn-warning">Svuota carrello</i>
                 </div>
             </div>
 
@@ -81,6 +82,15 @@ export default{
             const inputValue = document.getElementById('quantity');
             console.log(inputValue.value);
             dish.quantity = inputValue.value;
+        },
+        removeAll(){
+            const hasConfirmed = confirm("Sei sicuro di voler svuotare il carrello?");
+              if(hasConfirmed) {
+                localStorage.cart = [];
+                this.cart = [];
+              } else {
+                die();
+              }
         }
     },
     mounted(){
