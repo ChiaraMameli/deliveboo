@@ -1999,6 +1999,15 @@ __webpack_require__.r(__webpack_exports__);
       var inputValue = document.getElementById('quantity');
       console.log(inputValue.value);
       dish.quantity = inputValue.value;
+    },
+    removeAll: function removeAll() {
+      var hasConfirmed = confirm("Sei sicuro di voler svuotare il carrello?");
+      if (hasConfirmed) {
+        localStorage.cart = [];
+        this.cart = [];
+      } else {
+        die();
+      }
     }
   },
   mounted: function mounted() {
@@ -2368,7 +2377,18 @@ var render = function render() {
         }
       }
     })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.getSubTotal(dish)) + "€")])]);
-  }), 0)]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _vm._m(3)])]);
+  }), 0)]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("i", {
+    staticClass: "fa-solid fa-rotate-left btn btn-primary updated"
+  }, [_vm._v("Aggiorna carrello")]), _vm._v(" "), _c("i", {
+    staticClass: "fa-solid fa-trash btn btn-warning",
+    on: {
+      click: function click($event) {
+        return _vm.removeAll();
+      }
+    }
+  }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _vm._m(2)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -2407,12 +2427,6 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Sub-totale")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", [_c("i", {
-    staticClass: "fa-solid fa-rotate-left btn btn-primary updated"
-  }, [_vm._v("Aggiorna carrello")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -2629,7 +2643,7 @@ var render = function render() {
     staticClass: "container"
   }, [_c("h2", {
     staticClass: "text-white text-center p-5"
-  }, [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("ul", {
+  }, [_vm._v(_vm._s(_vm.restaurant.name) + "ciao")]), _vm._v(" "), _c("ul", {
     staticClass: "d-flex flex-wrap list-unstyled"
   }, _vm._l(_vm.restaurant.dishes, function (dish) {
     return _c("li", {
