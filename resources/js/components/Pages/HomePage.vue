@@ -1,81 +1,120 @@
 <template>
-    <AppLoader v-if="isLoading"/>
+    <AppLoader v-if="isLoading" />
     <main v-else>
         <div class="container">
-            <h1> Benvenuto in DeliveBoo!</h1>
+            <h1>Benvenuto in DeliveBoo!</h1>
             <div class="row">
                 <div id="jumbotron">//to choose a jumbo</div>
-                    <!-- filtro -->
+                <!-- filtro -->
                 <div class="col-12 my-3">
-                    Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti:
+                    Cosa vuoi mangiare? Spunta le catogorie per visuallizare i
+                    ristoranti:
                 </div>
                 <!-- <div class="col-12 my-3">
                     Oppure inserisci tu la tipologia di ristorante che stai cercando: <input v-model="searchByCategory" type="textarea"/>
                 </div> -->
                 <div class="col-12 d-flex my-3 justify-content-between">
-                        
-                
-                    <div v-for="(category, i) in categories" :key="i" class="form-check form-switch ">
-                        <input class="form-check-input pointer" type="checkbox" role="switch" v-model="category.isSelected" :value="category.id" >
-                        <label class="form-check-label"  >{{ category.label }}</label>
+                    <div
+                        v-for="(category, i) in categories"
+                        :key="i"
+                        class="form-check form-switch"
+                    >
+                        <input
+                            class="form-check-input pointer"
+                            type="checkbox"
+                            role="switch"
+                            v-model="category.isSelected"
+                            :value="category.id"
+                        />
+                        <label class="form-check-label">{{
+                            category.label
+                        }}</label>
                     </div>
-                        <!-- filtro con map i ristoranti per categoria al click -->
-                    <button @click="filteredRestaurants()" type="button" class="btn btn-sm btn-info"> Mostra ristoranti</button>
-                    
+                    <!-- filtro con map i ristoranti per categoria al click -->
+                    <button
+                        @click="filteredRestaurants()"
+                        type="button"
+                        class="btn btn-sm btn-info"
+                    >
+                        Mostra ristoranti
+                    </button>
                 </div>
-            <!-- lista ristoranti-->
-            <!-- default, tutti i ristoranti isSelected = false, da gestire -->
+                <!-- lista ristoranti-->
+                <!-- default, tutti i ristoranti isSelected = false, da gestire -->
                 <div class="row" v-if="isSelected">
-                    
+                    <div
+                        class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
+                        v-for="restaurant in restaurantWithSelected"
+                        :key="restaurant.id"
+                    >
+                        <div>
+                            <h2>{{ restaurant.name }}</h2>
 
-                        <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1" v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
-                            <div>
-                                <h2>{{ restaurant.name }}</h2>
-                                
-                                <img class="rounded img-fluid" :src="restaurant.image" alt="">
-                                <h5>Indirizzo: </h5> 
-                                <span>{{ restaurant.address }}</span>
-                                
-                                <h5>Categorie: </h5> 
-                                <span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span>
-                                <router-link :to="{ name: 'restaurant-details', params: { id: restaurant.id } }"
-                                class="btn btn-success mb-2">Vedi
+                            <img
+                                class="rounded img-fluid"
+                                :src="restaurant.image"
+                                alt=""
+                            />
+                            <h5>Indirizzo:</h5>
+                            <span>{{ restaurant.address }}</span>
+
+                            <h5>Categorie:</h5>
+                            <span
+                                v-for="(category, i) in restaurant.categories"
+                                :key="i"
+                                >{{ category.label }} <br
+                            /></span>
+                            <router-link
+                                :to="{
+                                    name: 'restaurant-details',
+                                    params: { id: restaurant.id },
+                                }"
+                                class="btn btn-success mb-2"
+                                >Vedi
                             </router-link>
-                            
                         </div>
                     </div>
-              
                 </div>
-                <div class="row" v-else>  
-                   
+                <div class="row" v-else>
+                    <div
+                        class="card col-xl-3 col-lg-4 my-3 col-md-6 col-sm-12 justify-content-between py-2 b-radius-1"
+                        v-for="restaurant in restaurants"
+                        :key="restaurant.id"
+                    >
+                        <h2>{{ restaurant.name }}</h2>
+                        <img
+                            class="rounded img-fluid"
+                            :src="restaurant.image"
+                            alt=""
+                        />
+                        <h5>Indirizzo:</h5>
+                        <span>{{ restaurant.address }}</span>
 
-                        <div class=" card col-xl-3 col-lg-4 my-3 col-md-6 col-sm-12 justify-content-between py-2 b-radius-1" v-for="restaurant in restaurants" :key="restaurant.id">
-                            <h2>{{ restaurant.name }}</h2>
-                            <img class="rounded img-fluid" :src="restaurant.image" alt="">
-                            <h5>Indirizzo: </h5> 
-                            <span>{{ restaurant.address }}</span>
-                            
-                            <h5>Categorie:  </h5> 
-                            <span v-for="(category, i) in restaurant.categories" :key="i">{{ category.label}} <br/></span>
-                            <router-link :to="{ name: 'restaurant-details', params: { id: restaurant.id } }"
-                        class="btn btn-success mb-2">Vedi
-                    </router-link>
-                    
-                
+                        <h5>Categorie:</h5>
+                        <span
+                            v-for="(category, i) in restaurant.categories"
+                            :key="i"
+                            >{{ category.label }} <br
+                        /></span>
+                        <router-link
+                            :to="{
+                                name: 'restaurant-details',
+                                params: { id: restaurant.id },
+                            }"
+                            class="btn btn-success mb-2"
+                            >Vedi
+                        </router-link>
+                    </div>
                 </div>
-                
-           
+            </div>
         </div>
-    </div>
-</div>
-</main>
-
+    </main>
 </template>
 
 <script>
-import AppLoader from '../AppLoader';
+import AppLoader from "../AppLoader";
 export default {
-    name: 'HomePage',
+    name: "HomePage",
     data() {
         return {
             restaurants: [],
@@ -84,13 +123,13 @@ export default {
             restaurantWithSelected: [],
             isSelected: false,
             isLoading: false,
-            searchByCategory: '',
+            searchByCategory: "",
         };
     },
-    components:{
+    components: {
         AppLoader,
-    },   
-     computed: {
+    },
+    computed: {
         // generare il nuovo array con tutti i ristoranti che hanno le categorie selezionate
         // filteredRestaurants() {
         //     return this.restaurants.map((restaurant) => {
@@ -98,80 +137,31 @@ export default {
         //       //  else return false;
         //      })
     },
-    
+
     methods: {
         fetchData() {
-                this.isLoading = true;
-                    axios
-                    .get('http://127.0.0.1:8000/api/restaurants')
-                    .then((res) => {
-                        this.restaurants = res.data.restaurants;
-                        this.categories = res.data.categories;
-                        console.log(this.restaurants);
-                        
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-                this.isLoading = false;
-            },
-            selectedToggle(){
-                this.isSelected = !this.isSelected
-            },
-            filteredRestaurants() {
-                //svuoto gli array al click del bottone
-                this.categorySelected = [];
-                this.restaurantWithSelected = [];
-                // filtro dalle categorie quelle selezionate
-                let categorySelected = this.categories.filter((category)=>{
-                   if( category.isSelected && category.isSelected == true){
-
-                       this.categorySelected.push(category);
-                         return true
-                    
-                  
-                }else{ []}
+            this.isLoading = true;
+            axios
+                .get("http://127.0.0.1:8000/api/restaurants")
+                .then((res) => {
+                    this.restaurants = res.data.restaurants;
+                    this.categories = res.data.categories;
+                    console.log(this.restaurants);
                 })
-                //categoria filtrata
-                console.log(categorySelected);
-
-                if(categorySelected[0]) {
-                    this.restaurants.forEach(restaurant => {
-                      //    controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-                      if (restaurant.categories[0]['id'] == categorySelected[0]['id']){
-                          
-                         this.isSelected = true
-                         
-                          return this.restaurantWithSelected.push(restaurant)
-                      } 
-                     
-                    });
-                   
-                } else this.isSelected = true
-
-                
-                
-                //id della categoria filtrata
-                //console.log(categorySelected[0]);
-
-            // l'id della categoria del singolo ristorante nel ciclo 
-            // console.log(restaurant.categories[0]['id'])
-            
-            // tutti i ristoranti caricati nell'array
-            //  console.log(this.restaurantWithSelected)
-            
-            // ternario equivalente all'if riga 125
-            //    restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
-            
-            // l'id del primo dei ristoranti caricati dal db
-            // console.log(this.restaurants.categories[0]['id'])
+                .catch((err) => {
+                    console.log(err);
+                });
+            this.isLoading = false;
         },
+        selectedToggle() {
+            this.isSelected = !this.isSelected;
         },
-        
-    mounted() {
-        this.fetchData()
     },
-}
+
+    mounted() {
+        this.fetchData();
+    },
+};
 </script>
 
 <style>
@@ -179,14 +169,14 @@ export default {
     height: 260.5px;
 }
 
-.pointer{
+.pointer {
     cursor: pointer;
 }
-.b-radius-1{
+.b-radius-1 {
     border-radius: 1rem;
 }
 
-h5{
+h5 {
     margin: 0.8rem 0;
     font-weight: bold;
 }
