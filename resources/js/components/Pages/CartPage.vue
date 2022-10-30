@@ -90,6 +90,11 @@ export default{
             this.cart = JSON.parse(localStorage.cart);
         }
     },
+    watch:{
+        cart(newCart){
+            localStorage.cart = JSON.stringify(newCart);
+        }
+    }
 }
 </script>
 
