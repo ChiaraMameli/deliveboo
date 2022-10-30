@@ -1949,29 +1949,22 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'HomePage',
+  name: "HomePage",
   data: function data() {
     return {
       restaurants: [],
       categories: [],
-      restaurantWithSelected: [],
-      isSelected: true,
-      categorySelected: []
+      restaurantWithSelected: []
     };
-  },
-  computed: {
-    // generare il nuovo array con tutti i ristoranti che hanno le categorie selezionate
-    // filteredRestaurants() {
-    //     return this.restaurants.map((restaurant) => {
-    //         if (restaurant.categories === this.selectedCategories) return true;
-    //       //  else return false;
-    //      })
   },
   methods: {
     fetchData: function fetchData() {
       var _this = this;
-      axios.get('http://127.0.0.1:8000/api/restaurants').then(function (res) {
+      axios.get("http://127.0.0.1:8000/api/restaurants").then(function (res) {
         _this.restaurants = res.data.restaurants;
         _this.categories = res.data.categories;
         console.log(_this.restaurants);
@@ -1979,49 +1972,45 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
-    selectedToggle: function selectedToggle() {
-      this.isSelected = !this.isSelected;
-    },
-    filteredRestaurants: function filteredRestaurants() {
-      var _this2 = this;
-      //svuoto gli array al click del bottone
-      this.categorySelected = [];
-      this.restaurantWithSelected = [];
+    filterRestaurants: function filterRestaurants() {
       // filtro dalle categorie quelle selezionate
       var categorySelected = this.categories.filter(function (category) {
-        if (category.isSelected && category.isSelected == true) {
-          _this2.categorySelected.push(category);
-          return true;
-        } else {
-          [];
-        }
+        return category.isSelected;
       });
       //categoria filtrata
-      console.log(categorySelected);
-      if (categorySelected[0]) {
-        this.restaurants.forEach(function (restaurant) {
-          //    controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-          if (restaurant.categories[0]['id'] == categorySelected[0]['id']) {
-            _this2.isSelected = true;
-            return _this2.restaurantWithSelected.push(restaurant);
+
+      if (categorySelected.length > 0) {
+        this.restaurantWithSelected = this.restaurants.filter(function (restaurant) {
+          var _iterator = _createForOfIteratorHelper(restaurant.categories),
+            _step;
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var category1 = _step.value;
+              var _iterator2 = _createForOfIteratorHelper(categorySelected),
+                _step2;
+              try {
+                for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                  var category2 = _step2.value;
+                  if (category1.id === category2.id) {
+                    return true;
+                  }
+                }
+              } catch (err) {
+                _iterator2.e(err);
+              } finally {
+                _iterator2.f();
+              }
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
           }
+          return false;
         });
-      } else this.isSelected = false;
-
-      //id della categoria filtrata
-      //console.log(categorySelected[0]);
-
-      // l'id della categoria del singolo ristorante nel ciclo 
-      // console.log(restaurant.categories[0]['id'])
-
-      // tutti i ristoranti caricati nell'array
-      //  console.log(this.restaurantWithSelected)
-
-      // ternario equivalente all'if riga 125
-      //    restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
-
-      // l'id del primo dei ristoranti caricati dal db
-      // console.log(this.restaurants.categories[0]['id'])
+      } else {
+        this.restaurantWithSelected = this.restaurants;
+      }
     }
   },
   mounted: function mounted() {
@@ -2154,7 +2143,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("main", [_c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v(" Benvenuto in TheLiveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n            Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti\n           \n            "), _vm._l(_vm.categories, function (category, i) {
+  }, [_c("h2", [_vm._v("Benvenuto in TheLiveBoo!")]), _vm._v(" "), _c("div", [_vm._v("\n            Cosa vuoi mangiare? Spunta le catogorie per visuallizare i\n            ristoranti\n\n            "), _vm._l(_vm.categories, function (category, i) {
     return _c("div", {
       key: i,
       staticClass: "form-check form-switch"
@@ -2202,12 +2191,12 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
-        return _vm.filteredRestaurants();
+        return _vm.filterRestaurants();
       }
     }
-  }, [_vm._v(" Mostra ristoranti")])], 2), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Mostra ristoranti\n            ")])], 2), _vm._v(" "), _c("div", {
     staticClass: "d-flex my-5"
-  }, [_vm.isSelected ? _c("div", _vm._l(_vm.restaurantWithSelected, function (restaurant) {
+  }, [_c("div", _vm._l(_vm.restaurantWithSelected, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card"
@@ -2217,32 +2206,7 @@ var render = function render() {
         src: restaurant.image,
         alt: ""
       }
-    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
-      return _c("span", {
-        key: i
-      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success m-auto",
-      attrs: {
-        to: {
-          name: "restaurant",
-          params: {
-            id: restaurant.id
-          }
-        }
-      }
-    }, [_vm._v("Vedi\n                    ")])], 1);
-  }), 0) : _c("div", _vm._l(_vm.restaurants, function (restaurant) {
-    return _c("div", {
-      key: restaurant.id,
-      staticClass: "card"
-    }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
-      staticClass: "h100",
-      attrs: {
-        src: restaurant.image,
-        alt: ""
-      }
-    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address) + "\n                    ")]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
@@ -6671,7 +6635,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.h100 {\r\n    height: 100px;\n}\r\n", ""]);
+exports.push([module.i, "\n.h100 {\r\n    height: 300px;\n}\r\n", ""]);
 
 // exports
 
@@ -54132,7 +54096,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laravel\deliveboo\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\Laravel\progetto finale\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
