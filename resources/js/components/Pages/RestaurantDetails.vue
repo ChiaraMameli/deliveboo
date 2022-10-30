@@ -1,8 +1,11 @@
 <template>
   <main id="restaurant-details">
-    <div class="container">
+    <div id="jumbotron">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
-      <span>{{cart.length}}</span>
+      <p>{{restaurant.address}}</p>
+      <img :src="restaurant.image" alt="">
+    </div>
+    <div class="container">
       <ul class="d-flex flex-wrap list-unstyled">
         <li class="p-3" v-for="dish in restaurant.dishes" :key="dish.id">
           <div class="card dish">
@@ -11,7 +14,10 @@
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description}}</p>
               <strong class="">{{dish.price}}€</strong>
-              <i @click="addToCart(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
+              <i @click="addToCart(dish), getFeedback();" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
+              <div class="alert alert-primary d-none">
+              Hai aggiunto il piatto al carrello
+            </div>
             </div>
           </div>
         </li>
@@ -29,9 +35,6 @@ data(){
     cart: [],
   }
 },
-props:{
-        currentCartt: Array,
-    },
 methods: {
         fetchRestaurant() {
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
@@ -39,6 +42,17 @@ methods: {
             }).catch(err => {
                 console.log(err);
             });
+        },
+        getFeedback(){
+          const addDish = document.querySelectorAll('.fa-plus');
+          const alert = document.querySelectorAll('.alert');
+          
+          for(let i = 0; i < addDish.length; i++){
+          
+                alert[i].classList.remove('d-none');  
+            
+          }
+
         },
         addToCart(dish){
           const currentDish = {
@@ -93,6 +107,13 @@ methods: {
         if(localStorage.cart){
             this.cart = JSON.parse(localStorage.cart);
         }
+
+        // const jumbotron = document.getElementById('jumbotron');
+        // console.log(jumbotron);
+        // jumbotron.style.backgroundImage = "url(" + this.restaurant.image + ")";
+    },
+    created(){
+      console.log(this.restaurant);
     },
     watch:{
         cart(newCart){
@@ -100,9 +121,8 @@ methods: {
             localStorage.cart = JSON.stringify(newCart);
           } else{
             localStorage.cart = JSON.stringify(newCart);
-          }
-            
-        }
+          } 
+        },
     }
 }
 </script>
