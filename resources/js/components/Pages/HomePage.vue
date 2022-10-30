@@ -119,23 +119,8 @@ export default {
         return {
             restaurants: [],
             categories: [],
-            categorySelected: [],
             restaurantWithSelected: [],
-            isSelected: false,
-            isLoading: false,
-            searchByCategory: "",
         };
-    },
-    components: {
-        AppLoader,
-    },
-    computed: {
-        // generare il nuovo array con tutti i ristoranti che hanno le categorie selezionate
-        // filteredRestaurants() {
-        //     return this.restaurants.map((restaurant) => {
-        //         if (restaurant.categories === this.selectedCategories) return true;
-        //       //  else return false;
-        //      })
     },
 
     methods: {
@@ -151,10 +136,31 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
-            this.isLoading = false;
         },
-        selectedToggle() {
-            this.isSelected = !this.isSelected;
+
+        filterRestaurants() {
+            // filtro dalle categorie quelle selezionate
+            let categorySelected = this.categories.filter(
+                (category) => category.isSelected
+            );
+            //categoria filtrata
+
+            if (categorySelected.length > 0) {
+                this.restaurantWithSelected = this.restaurants.filter(
+                    (restaurant) => {
+                        for (const category1 of restaurant.categories) {
+                            for (const category2 of categorySelected) {
+                                if (category1.id === category2.id) {
+                                    return true;
+                                }
+                            }
+                        }
+                        return false;
+                    }
+                );
+            } else {
+                this.restaurantWithSelected = this.restaurants;
+            }
         },
     },
 
