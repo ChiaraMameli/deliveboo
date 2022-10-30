@@ -103,7 +103,7 @@ export default{
         cart(newCart){
             localStorage.cart = JSON.stringify(newCart);
         }
-    },
+    }
 }
 </script>
 
