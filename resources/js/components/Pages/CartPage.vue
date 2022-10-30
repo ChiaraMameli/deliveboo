@@ -18,8 +18,8 @@
                     <tbody>
                         <tr v-for="dish in cart" :key="dish.id">
                         <th scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></th>
-                        <td>{{dish.dish}}</td>
-                        <td>{{price}}€</td>
+                        <td>{{dish.name}}</td>
+                        <td>{{dish.price}}€</td>
                         <td><input @change="getCurrentQuantity(dish)" type="number" :value="dish.quantity" id="quantity"></td>
                         <td>{{getSubTotal(dish)}}€</td>
                         </tr>
@@ -64,7 +64,6 @@ export default{
     data(){
         return{
             cart: [],
-            price: 7,
         }
     },
     methods:{
@@ -72,10 +71,12 @@ export default{
             console.log(dish);
             this.cart = this.cart.filter(item => item !== dish);
             localStorage.cart = JSON.stringify(this.cart);
+
+            this.$emit('unpopulated-cart', this.cart);
         },
         getSubTotal(dish){
             let subTotal = 0;
-            subTotal = this.price * dish.quantity;
+            subTotal = dish.price * dish.quantity;
             return subTotal;
         },
         getCurrentQuantity(dish){
@@ -96,6 +97,11 @@ export default{
     mounted(){
         if(localStorage.cart){
             this.cart = JSON.parse(localStorage.cart);
+        }
+    },
+    watch:{
+        cart(newCart){
+            localStorage.cart = JSON.stringify(newCart);
         }
     },
 }

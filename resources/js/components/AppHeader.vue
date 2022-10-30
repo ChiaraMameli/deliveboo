@@ -14,12 +14,37 @@
         </li>
       </ul>
     </div>
-    <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping"><span>{{cart.length}}</span></i>
+    <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping"><span>{{currentCart.length > 0 ? currentCart.length : cart.length}}</span></i>
     <div id="tendina">
       <ul class="list-unstyled">
-        <li v-for="dish in cart">{{dish.dish}}</li>
+        <li v-if="!currentCart.length" v-for="dish in cart">
+          <div class="cart-container d-flex align-items-center justify-content-between">
+            <div class="dish-card d-flex align-items-center">
+              <img :src="dish.image" alt="">
+              <div class="description">
+                <h5 class="d-block">{{dish.name}}</h5>
+                <strong class="d-block">{{dish.price}}€</strong>
+                <span>Quantità: {{dish.quantity}}</span>
+              </div>
+            </div>
+            <!-- <i @click="removeDish(dish)" class="fa-solid fa-xmark"></i> -->
+          </div>
+        </li>
+        <li v-if="currentCart.length" v-for="dish in currentCart">
+          <div class="cart-container d-flex align-items-center justify-content-between">
+            <div class="dish-card d-flex align-items-center">
+              <img :src="dish.image" alt="">
+              <div class="description">
+                <h5 class="d-block">{{dish.name}}</h5>
+                <strong class="d-block">{{dish.price}}€</strong>
+                <span>Quantità: {{dish.quantity}}</span>
+              </div>
+            </div>
+            <!-- <i @click="removeDish(dish)" class="fa-solid fa-xmark"></i> -->
+          </div>
+        </li>
       </ul>
-      <router-link class="nav-link" :to="{name:'cart'}"><span @click="closeTendina()">Vai al carrello</span></router-link>
+      <router-link class="nav-link" :to="{name:'cart'}"><a class="btn btn-danger" @click="closeTendina()">Vai al carrello</a></router-link>
     </div>
   </nav>
   </header>
@@ -48,8 +73,19 @@ export default {
         if(tendina.classList.contains('open')){
           tendina.classList.remove('open');
         }
-      }
-    }
+      },
+      // removeDish(dish){
+      //   console.log(dish);
+      //   this.currentCart = this.currentCart.filter(item => item !== dish);
+      //   this.cart = this.cart.filter(item => item !== dish);
+      //   localStorage.cart = JSON.stringify(this.cart);
+
+      //   this.$emit('unpopulated-cart', this.currentCart);
+      // },
+    },
+    props:{
+        currentCart: Array,
+    },
 
 }
 </script>
@@ -72,7 +108,7 @@ header{
       height: 30px;
     }
 
-    i{
+    i.fa-bag-shopping{
       height: 40px;
       width: 40px;
       display: flex;
@@ -94,13 +130,30 @@ header{
       transform: translate(0, 100%);
       padding: 20px;
       background-color: white;
-      width: 200px;
-      height: 200px;
+      width: 320px;
+      min-height: 200px;
       border-radius: 20px;
       box-shadow: 0 0 5px rgb(146, 146, 146);
 
       &.open{
         display: block;
+      }
+
+      .cart-container{
+        margin-top: 5px;
+
+        h5{
+          font-size: 16px;
+        }
+
+        img{
+          width: 80px;
+          height: 80px;
+          object-fit: cover;
+          border-radius: 50%;
+          border: 2px solid rgb(188, 33, 33);
+          margin-right: 10px;
+        }
       }
     }
   }

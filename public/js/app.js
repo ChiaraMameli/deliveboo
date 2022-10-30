@@ -37482,6 +37482,7 @@ formRestaurant.addEventListener("submit", function (e) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
 =======
@@ -37492,6 +37493,10 @@ module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/sass/a
 __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
 >>>>>>> 0bf48ec (added controll on restaurant id)
+=======
+__webpack_require__(/*! /Users/prova/deliveboo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/sass/app.scss */"./resources/sass/app.scss");
+>>>>>>> 718cd85 (fixed tendina)
 
 
 /***/ })

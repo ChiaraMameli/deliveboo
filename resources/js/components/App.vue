@@ -1,7 +1,7 @@
 <template>
     <div>
-        <AppHeader/>
-        <router-view></router-view>
+        <AppHeader :currentCart="cart"/>
+        <router-view @populated-cart="populatedCart" :currentCart="cart" @unpopulated-cart="unpopulatedCart"></router-view>
     </div>
 </template>
 
@@ -12,6 +12,19 @@ import CartPage from './Pages/CartPage.vue';
 import AppHeader from './AppHeader.vue';
     export default {
         name: 'App',
-    components: { HomePage, AppHeader, RestaurantDetails, CartPage, },
+        components: { HomePage, AppHeader, RestaurantDetails, CartPage, },
+        data(){
+            return{
+                cart: [],
+            }
+        },
+        methods:{
+            populatedCart(cart){
+                this.cart = cart;
+            },
+            unpopulatedCart(cart){
+                this.cart = cart;
+            }
+        }
     }
 </script>
