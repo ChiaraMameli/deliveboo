@@ -10,9 +10,10 @@ import HomePage from './Pages/HomePage.vue';
 import RestaurantDetails from './Pages/RestaurantDetails.vue';
 import CartPage from './Pages/CartPage.vue';
 import AppHeader from './AppHeader.vue';
+import ThankYouPage from './Pages/ThankYouPage.vue';
     export default {
         name: 'App',
-        components: { HomePage, AppHeader, RestaurantDetails, CartPage, },
+        components: { HomePage, AppHeader, RestaurantDetails, CartPage, ThankYouPage },
         data(){
             return{
                 cart: [],
