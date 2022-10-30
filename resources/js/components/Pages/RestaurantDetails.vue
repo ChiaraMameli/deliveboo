@@ -1,7 +1,8 @@
 <template>
   <main id="restaurant-details">
     <div class="container">
-      <h2 class="text-white text-center p-5">{{restaurant.name}}ciao</h2>
+      <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
+      <span>{{cart.length}}</span>
       <ul class="d-flex flex-wrap list-unstyled">
         <li class="p-3" v-for="dish in restaurant.dishes" :key="dish.id">
           <div class="card dish">
@@ -10,7 +11,7 @@
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description}}</p>
               <strong class="">{{dish.price}}€</strong>
-              <i @click="addToCart(dish)" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
+              <i @click="addToCart(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
             </div>
           </div>
         </li>
@@ -25,10 +26,12 @@ name:'RestaurantDetails',
 data(){
   return{
     restaurant: null,
-    pippo: '',
     cart: [],
   }
 },
+props:{
+        currentCartt: Array,
+    },
 methods: {
         fetchRestaurant() {
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
@@ -50,8 +53,7 @@ methods: {
           };
 
           const element = this.cart.find(element => element.dish === dish.id);
-          
-          console.log(element);
+
           // Se è il primo
           if(this.cart.length === 0){
             this.cart.push(currentDish)
@@ -81,6 +83,9 @@ methods: {
                 die();
               }
           }
+
+          this.$emit('populated-cart', this.cart);
+
         }
     },
     mounted() {
@@ -91,7 +96,12 @@ methods: {
     },
     watch:{
         cart(newCart){
+          if(this.currentCartt){
             localStorage.cart = JSON.stringify(newCart);
+          } else{
+            localStorage.cart = JSON.stringify(newCart);
+          }
+            
         }
     }
 }
