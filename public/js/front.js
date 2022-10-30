@@ -1923,6 +1923,19 @@ __webpack_require__.r(__webpack_exports__);
     AppHeader: _AppHeader_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     RestaurantDetails: _Pages_RestaurantDetails_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     CartPage: _Pages_CartPage_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      cart: []
+    };
+  },
+  methods: {
+    populatedCart: function populatedCart(cart) {
+      this.cart = cart;
+    },
+    unpopulatedCart: function unpopulatedCart(cart) {
+      this.cart = cart;
+    }
   }
 });
 
@@ -1959,7 +1972,16 @@ __webpack_require__.r(__webpack_exports__);
       if (tendina.classList.contains('open')) {
         tendina.classList.remove('open');
       }
-    }
+    } // removeDish(dish){
+    //   console.log(dish);
+    //   this.currentCart = this.currentCart.filter(item => item !== dish);
+    //   this.cart = this.cart.filter(item => item !== dish);
+    //   localStorage.cart = JSON.stringify(this.cart);
+    //   this.$emit('unpopulated-cart', this.currentCart);
+    // },
+  },
+  props: {
+    currentCart: Array
   }
 });
 
@@ -1978,8 +2000,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'CartPage',
   data: function data() {
     return {
-      cart: [],
-      price: 7
+      cart: []
     };
   },
   methods: {
@@ -1989,10 +2010,11 @@ __webpack_require__.r(__webpack_exports__);
         return item !== dish;
       });
       localStorage.cart = JSON.stringify(this.cart);
+      this.$emit('unpopulated-cart', this.cart);
     },
     getSubTotal: function getSubTotal(dish) {
       var subTotal = 0;
-      subTotal = this.price * dish.quantity;
+      subTotal = dish.price * dish.quantity;
       return subTotal;
     },
     getCurrentQuantity: function getCurrentQuantity(dish) {
@@ -2013,6 +2035,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart);
+    }
+  },
+  watch: {
+    cart: function cart(newCart) {
+      localStorage.cart = JSON.stringify(newCart);
     }
   }
 });
@@ -2124,9 +2151,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       restaurant: null,
-      pippo: '',
       cart: []
     };
+  },
+  props: {
+    currentCartt: Array
   },
   methods: {
     fetchRestaurant: function fetchRestaurant() {
@@ -2151,7 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
       var element = this.cart.find(function (element) {
         return element.dish === dish.id;
       });
-      console.log(element);
+
       // Se è il primo
       if (this.cart.length === 0) {
         this.cart.push(currentDish);
@@ -2179,6 +2208,7 @@ __webpack_require__.r(__webpack_exports__);
           die();
         }
       }
+      this.$emit('populated-cart', this.cart);
     }
   },
   mounted: function mounted() {
@@ -2189,7 +2219,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     cart: function cart(newCart) {
-      localStorage.cart = JSON.stringify(newCart);
+      if (this.currentCartt) {
+        localStorage.cart = JSON.stringify(newCart);
+      } else {
+        localStorage.cart = JSON.stringify(newCart);
+      }
     }
   }
 });
@@ -2210,7 +2244,19 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("AppHeader"), _vm._v(" "), _c("router-view")], 1);
+  return _c("div", [_c("AppHeader", {
+    attrs: {
+      currentCart: _vm.cart
+    }
+  }), _vm._v(" "), _c("router-view", {
+    attrs: {
+      currentCart: _vm.cart
+    },
+    on: {
+      "populated-cart": _vm.populatedCart,
+      "unpopulated-cart": _vm.unpopulatedCart
+    }
+  })], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2280,22 +2326,55 @@ var render = function render() {
         return _vm.toggleTendina();
       }
     }
-  }, [_c("span", [_vm._v(_vm._s(_vm.cart.length))])]), _vm._v(" "), _c("div", {
+  }, [_c("span", [_vm._v(_vm._s(_vm.currentCart.length > 0 ? _vm.currentCart.length : _vm.cart.length))])]), _vm._v(" "), _c("div", {
     attrs: {
       id: "tendina"
     }
   }, [_c("ul", {
     staticClass: "list-unstyled"
-  }, _vm._l(_vm.cart, function (dish) {
-    return _c("li", [_vm._v(_vm._s(dish.dish))]);
-  }), 0), _vm._v(" "), _c("router-link", {
+  }, [_vm._l(_vm.cart, function (dish) {
+    return !_vm.currentCart.length ? _c("li", [_c("div", {
+      staticClass: "cart-container d-flex align-items-center justify-content-between"
+    }, [_c("div", {
+      staticClass: "dish-card d-flex align-items-center"
+    }, [_c("img", {
+      attrs: {
+        src: dish.image,
+        alt: ""
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "description"
+    }, [_c("h5", {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(dish.name))]), _vm._v(" "), _c("strong", {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(dish.price) + "€")]), _vm._v(" "), _c("span", [_vm._v("Quantità: " + _vm._s(dish.quantity))])])])])]) : _vm._e();
+  }), _vm._v(" "), _vm._l(_vm.currentCart, function (dish) {
+    return _vm.currentCart.length ? _c("li", [_c("div", {
+      staticClass: "cart-container d-flex align-items-center justify-content-between"
+    }, [_c("div", {
+      staticClass: "dish-card d-flex align-items-center"
+    }, [_c("img", {
+      attrs: {
+        src: dish.image,
+        alt: ""
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "description"
+    }, [_c("h5", {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(dish.name))]), _vm._v(" "), _c("strong", {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(dish.price) + "€")]), _vm._v(" "), _c("span", [_vm._v("Quantità: " + _vm._s(dish.quantity))])])])])]) : _vm._e();
+  })], 2), _vm._v(" "), _c("router-link", {
     staticClass: "nav-link",
     attrs: {
       to: {
         name: "cart"
       }
     }
-  }, [_c("span", {
+  }, [_c("a", {
+    staticClass: "btn btn-danger",
     on: {
       click: function click($event) {
         return _vm.closeTendina();
@@ -2363,7 +2442,7 @@ var render = function render() {
           return _vm.removeDish(dish);
         }
       }
-    })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dish.dish))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.price) + "€")]), _vm._v(" "), _c("td", [_c("input", {
+    })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dish.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dish.price) + "€")]), _vm._v(" "), _c("td", [_c("input", {
       attrs: {
         type: "number",
         id: "quantity"
@@ -2643,7 +2722,7 @@ var render = function render() {
     staticClass: "container"
   }, [_c("h2", {
     staticClass: "text-white text-center p-5"
-  }, [_vm._v(_vm._s(_vm.restaurant.name) + "ciao")]), _vm._v(" "), _c("ul", {
+  }, [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.cart.length))]), _vm._v(" "), _c("ul", {
     staticClass: "d-flex flex-wrap list-unstyled"
   }, _vm._l(_vm.restaurant.dishes, function (dish) {
     return _c("li", {
@@ -7057,7 +7136,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "header[data-v-0851419a] {\n  position: fixed;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  z-index: 1;\n}\nheader nav[data-v-0851419a] {\n  position: relative;\n  border-radius: 40px;\n  padding: 15px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nheader nav img[data-v-0851419a] {\n  height: 30px;\n}\nheader nav i[data-v-0851419a] {\n  height: 40px;\n  width: 40px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  background-color: rgb(188, 33, 33);\n  color: white;\n}\nheader nav i span[data-v-0851419a] {\n  margin-left: 5px;\n}\nheader nav #tendina[data-v-0851419a] {\n  display: none;\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  transform: translate(0, 100%);\n  padding: 20px;\n  background-color: white;\n  width: 200px;\n  height: 200px;\n  border-radius: 20px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nheader nav #tendina.open[data-v-0851419a] {\n  display: block;\n}", ""]);
+exports.push([module.i, "header[data-v-0851419a] {\n  position: fixed;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  z-index: 1;\n}\nheader nav[data-v-0851419a] {\n  position: relative;\n  border-radius: 40px;\n  padding: 15px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nheader nav img[data-v-0851419a] {\n  height: 30px;\n}\nheader nav i.fa-bag-shopping[data-v-0851419a] {\n  height: 40px;\n  width: 40px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  background-color: rgb(188, 33, 33);\n  color: white;\n}\nheader nav i.fa-bag-shopping span[data-v-0851419a] {\n  margin-left: 5px;\n}\nheader nav #tendina[data-v-0851419a] {\n  display: none;\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  transform: translate(0, 100%);\n  padding: 20px;\n  background-color: white;\n  width: 320px;\n  min-height: 200px;\n  border-radius: 20px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nheader nav #tendina.open[data-v-0851419a] {\n  display: block;\n}\nheader nav #tendina .cart-container[data-v-0851419a] {\n  margin-top: 5px;\n}\nheader nav #tendina .cart-container h5[data-v-0851419a] {\n  font-size: 16px;\n}\nheader nav #tendina .cart-container img[data-v-0851419a] {\n  width: 80px;\n  height: 80px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 50%;\n  border: 2px solid rgb(188, 33, 33);\n  margin-right: 10px;\n}", ""]);
 
 // exports
 
@@ -54855,7 +54934,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })
