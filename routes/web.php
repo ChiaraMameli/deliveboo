@@ -41,7 +41,7 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
 });
 
 // PAYMENTS ROUTES
-Route::get('/cart', function(){
+Route::get('/payment', function(){
 
     $gateway = new Braintree\Gateway([
         'environment' => config('services.braintree.environment'),
@@ -52,8 +52,7 @@ Route::get('/cart', function(){
 
 
     $token = $gateway->ClientToken()->generate();
-
-    return view('guest.home', ['token' => $token]);
+    return view('braintree', ['token' => $token]);
 
 });
 
@@ -77,7 +76,7 @@ Route::post('/checkout', function(Request $request){
         ]
     ]);
 //! (||!is_null($result->transaction) --- DA VERIFICARE CHE QUESTO ULTERIORE CONTROLLO FUNZIONI(PER I VALORI NEGATIVI)
-    if ($result->success || !is_null($result->transaction)) {
+    if ($result->success) {
         $transaction = $result->transaction;
 
         // header("Location: " . $baseUrl . "transaction.php?id=" . $transaction->id);

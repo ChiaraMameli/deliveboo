@@ -9,14 +9,26 @@ class BraintreeController extends Controller
 {
     public function index(){
 
-        $config = new Braintree\Configuration([
+        $gateway = new Braintree\Gateway([
         'environment' => config('services.braintree.environment'),
         'merchantId' => config('services.braintree.merchantId'),
         'publicKey' => config('services.braintree.publicKey'),
         'privateKey' => config('services.braintree.privateKey')
     ]);
 
-    $gateway = new Braintree\Gateway($config);
+    if($request->input('nonce') != null){
+        var_dump($request->input('nonce'));
+        $nonceFromTheClient = $request->input('nonce');
+    
+        $gateway->transaction()->sale([
+            'amount' => '10.00',
+            'paymentMethodNonce' => $nonceFromTheClient,
+            'options' => [
+                'submitForSettlement' => True
+            ]
+        ]);
+        return view ('dashboard');
+    }
 
     $token = $gateway->ClientToken()->generate();
 
