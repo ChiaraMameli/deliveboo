@@ -118,54 +118,7 @@ export default {
             selectedToggle(){
                 this.isSelected = !this.isSelected
             },
-            filteredRestaurants() {
-                //svuoto gli array al click del bottone
-                this.categorySelected = [];
-                this.restaurantWithSelected = [];
-                // filtro dalle categorie quelle selezionate
-                let categorySelected = this.categories.filter((category)=>{
-                   if( category.isSelected && category.isSelected == true){
-
-                       this.categorySelected.push(category);
-                         return true
-                    
-                  
-                }else{ []}
-                })
-                //categoria filtrata
-                console.log(categorySelected);
-
-                if(categorySelected[0]) {
-                    this.restaurants.forEach(restaurant => {
-                      //    controllo che l'id della categoria del singolo ristorante nel ciclo sia la stessa della categoria filtrata
-                      if (restaurant.categories[0]['id'] == categorySelected[0]['id']){
-                          
-                         this.isSelected = true
-                         
-                          return this.restaurantWithSelected.push(restaurant)
-                      } 
-                     
-                    });
-                   
-                } else this.isSelected = true
-
-                
-                
-                //id della categoria filtrata
-                //console.log(categorySelected[0]);
-
-            // l'id della categoria del singolo ristorante nel ciclo 
-            // console.log(restaurant.categories[0]['id'])
-            
-            // tutti i ristoranti caricati nell'array
-            //  console.log(this.restaurantWithSelected)
-            
-            // ternario equivalente all'if riga 125
-            //    restaurant.categories[0]['id'] == categorySelected[0]['id'] ? this.restaurantWithSelected.push(restaurant) : this.restaurantWithSelected = []
-            
-            // l'id del primo dei ristoranti caricati dal db
-            // console.log(this.restaurants.categories[0]['id'])
-        },
+       
         },
         
     mounted() {
