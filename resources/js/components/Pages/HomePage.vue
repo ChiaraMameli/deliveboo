@@ -2,65 +2,47 @@
     <main>
         <div class="container">
             <h2>Benvenuto in TheLiveBoo!</h2>
-            <!-- filtro -->
-            <div>
-                Cosa vuoi mangiare? Spunta le catogorie per visuallizare i
-                ristoranti
+            <div class="row">
+                <div class="jumbotron"></div>
 
-                <div
-                    v-for="(category, i) in categories"
-                    :key="i"
-                    class="form-check form-switch"
-                >
-                    <input
-                        class="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        v-model="category.isSelected"
-                        :value="category.id"
-                    />
-                    <label class="form-check-label">{{ category.label }}</label>
+
+                <!-- filtro -->
+                <div class="col-12 my-3">
+                    Cosa vuoi mangiare? Spunta le catogorie per visualizzare i
+                    ristoranti
                 </div>
-                <!-- filtro con map i ristoranti per categoria al click -->
-                <button
-                    @click="filterRestaurants()"
-                    type="button"
-                    class="btn btn-sm btn-info"
-                >
-                    Mostra ristoranti
-                </button>
-            </div>
-            <!-- prova lista ristoranti-->
-            <div class="d-flex my-5">
-                <div>
-                    <div
-                        class="card"
-                        v-for="restaurant in restaurantWithSelected"
-                        :key="restaurant.id"
-                    >
-                        <h2>{{ restaurant.name }}</h2>
-                        <img class="h100" :src="restaurant.image" alt="" />
-                        <h5>
-                            <strong>Indirizzo: </strong>{{ restaurant.address }}
-                        </h5>
-
-                        <h5>
-                            <strong>Categorie: </strong> <br /><span
-                                v-for="(category, i) in restaurant.categories"
-                                :key="i"
-                                >{{ category.label }} <br
-                            /></span>
-                        </h5>
-                        <router-link
-                            :to="{
-                                name: 'restaurant',
-                                params: { id: restaurant.id },
-                            }"
-                            class="btn btn-success m-auto"
-                            >Vedi
-                        </router-link>
+                <div class="col-12 d-flex my-3 justify-content-between">
+                    <div v-for="(category, i) in categories" :key="i" class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" v-model="category.isSelected"
+                            :value="category.id" />
+                        <label class="form-check-label">{{ category.label }}</label>
                     </div>
+                    <!-- filtro con map i ristoranti per categoria al click -->
+                    <button @click="filterRestaurants()" type="button" class="btn btn-sm btn-info">
+                        Mostra ristoranti
+                    </button>
                 </div>
+                <!-- prova lista ristoranti-->
+
+                <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
+                    v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
+                    <h2>{{ restaurant.name }}</h2>
+                    <img class="rounded img-fluid" :src="restaurant.image" alt="" />
+                    <h5>
+                        <strong>Indirizzo: </strong>{{ restaurant.address }}
+                    </h5>
+
+                    <h5>
+                        <strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories"
+                            :key="i">{{ category.label }} <br /></span>
+                    </h5>
+                    <router-link :to="{
+                        name: 'restaurant',
+                        params: { id: restaurant.id },
+                    }" class="btn btn-success mb-2">Vedi
+                    </router-link>
+                </div>
+
             </div>
         </div>
     </main>
@@ -124,7 +106,20 @@ export default {
 </script>
 
 <style>
-.h100 {
-    height: 300px;
+.h-250 {
+    height: 260.5px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.b-radius-1 {
+    border-radius: 1rem;
+}
+
+h5 {
+    margin: 0.8rem 0;
+    font-weight: bold;
 }
 </style>
