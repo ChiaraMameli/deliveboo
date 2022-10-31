@@ -14,7 +14,7 @@
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description}}</p>
               <strong class="">{{dish.price}}€</strong>
-              <i @click="addToCart(dish), getFeedback();" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
+              <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
               <div class="alert alert-primary d-none">
               Hai aggiunto il piatto al carrello
             </div>
@@ -44,14 +44,18 @@ methods: {
             });
         },
         getFeedback(){
+
           const addDish = document.querySelectorAll('.fa-plus');
-          const alert = document.querySelectorAll('.alert');
-          
+          const alert = document.querySelectorAll('.alert');        
+
+          // PARTE AL SECONDO CLICK
           for(let i = 0; i < addDish.length; i++){
-          
-                alert[i].classList.remove('d-none');  
             
+            addDish[i].addEventListener('click', function(){
+                alert[i].classList.remove('d-none');  
+              })
           }
+        
 
         },
         addToCart(dish){
@@ -107,13 +111,6 @@ methods: {
         if(localStorage.cart){
             this.cart = JSON.parse(localStorage.cart);
         }
-
-        // const jumbotron = document.getElementById('jumbotron');
-        // console.log(jumbotron);
-        // jumbotron.style.backgroundImage = "url(" + this.restaurant.image + ")";
-    },
-    created(){
-      console.log(this.restaurant);
     },
     watch:{
         cart(newCart){
