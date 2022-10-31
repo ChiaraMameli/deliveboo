@@ -122,7 +122,9 @@ export default {
             restaurantWithSelected: [],
         };
     },
-
+    components:{
+        AppLoader
+    },
     methods: {
         fetchData() {
             this.isLoading = true;
