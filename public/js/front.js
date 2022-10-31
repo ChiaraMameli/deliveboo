@@ -1997,9 +1997,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AppLoader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../AppLoader */ "./resources/js/components/AppLoader.vue");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomePage",
   data: function data() {
@@ -2012,6 +2014,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   methods: {
     fetchData: function fetchData() {
       var _this = this;
+      this.isLoading = true;
       axios.get("http://127.0.0.1:8000/api/restaurants").then(function (res) {
         _this.restaurants = res.data.restaurants;
         _this.categories = res.data.categories;
@@ -2019,7 +2022,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       })["catch"](function (err) {
         console.log(err);
       });
-      this.isLoading = false;
     },
     filterRestaurants: function filterRestaurants() {
       // filtro dalle categorie quelle selezionate
@@ -2313,36 +2315,13 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.isLoading ? _c("AppLoader") : _c("main", [_c("div", {
     staticClass: "container"
-  }, [_c("h1", [_vm._v(" Benvenuto in DeliveBoo!")]), _vm._v(" "), _c("div", {
+  }, [_c("h2", [_vm._v("Benvenuto in TheLiveBoo!")]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
-    attrs: {
-      id: "jumbotron"
-    }
-  }, [_vm._v("//to choose a jumbo")]), _vm._v(" "), _c("div", {
+    staticClass: "jumbotron"
+  }), _vm._v(" "), _c("div", {
     staticClass: "col-12 my-3"
-  }, [_vm._v("\n                    Cosa vuoi mangiare? Spunta le catogorie per visuallizare i ristoranti:\n                ")]), _vm._v(" "), _c("div", {
-    staticClass: "col-12 my-3"
-  }, [_vm._v("\n                    Oppure inserisci tu la tipologia di ristorante che stai cercando: "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.searchByCategory,
-      expression: "searchByCategory"
-    }],
-    attrs: {
-      type: "textarea"
-    },
-    domProps: {
-      value: _vm.searchByCategory
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.searchByCategory = $event.target.value;
-      }
-    }
-  })]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Cosa vuoi mangiare? Spunta le catogorie per visualizzare i\n                ristoranti\n            ")]), _vm._v(" "), _c("div", {
     staticClass: "col-12 d-flex my-3 justify-content-between"
   }, [_vm._l(_vm.categories, function (category, i) {
     return _c("div", {
@@ -2355,7 +2334,7 @@ var render = function render() {
         value: category.isSelected,
         expression: "category.isSelected"
       }],
-      staticClass: "form-check-input pointer",
+      staticClass: "form-check-input",
       attrs: {
         type: "checkbox",
         role: "switch"
@@ -2395,61 +2374,32 @@ var render = function render() {
         return _vm.filterRestaurants();
       }
     }
-  }, [_vm._v("\n                Mostra ristoranti\n            ")])], 2), _vm._v(" "), _c("div", {
-    staticClass: "d-flex my-5"
-  }, [_c("div", _vm._l(_vm.restaurantWithSelected, function (restaurant) {
+  }, [_vm._v("\n                    Mostra ristoranti\n                ")])], 2), _vm._v(" "), _vm._l(_vm.restaurantWithSelected, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
-    }, [_c("div", [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
-      staticClass: "rounded img-fluid",
-      attrs: {
-        src: restaurant.image,
-        alt: ""
-      }
-    }), _vm._v(" "), _c("h5", [_vm._v("Indirizzo: ")]), _vm._v(" "), _c("span", [_vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_vm._v("Categorie: ")]), _vm._v(" "), _vm._l(restaurant.categories, function (category, i) {
-      return _c("span", {
-        key: i
-      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    }), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success mb-2",
-      attrs: {
-        to: {
-          name: "restaurant-details",
-          params: {
-            id: restaurant.id
-          }
-        }
-      }
-    }, [_vm._v("Vedi\n                            ")])], 2)]);
-  }), 0) : _c("div", {
-    staticClass: "row"
-  }, _vm._l(_vm.restaurants, function (restaurant) {
-    return _c("div", {
-      key: restaurant.id,
-      staticClass: "card col-xl-3 col-lg-4 my-3 col-md-6 col-sm-12 justify-content-between py-2 b-radius-1"
     }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
       staticClass: "rounded img-fluid",
       attrs: {
         src: restaurant.image,
         alt: ""
       }
-    }), _vm._v(" "), _c("h5", [_vm._v("Indirizzo: ")]), _vm._v(" "), _c("span", [_vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_vm._v("Categorie:  ")]), _vm._v(" "), _vm._l(restaurant.categories, function (category, i) {
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address) + "\n                ")]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    }), _vm._v(" "), _c("router-link", {
+    })], 2), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-success mb-2",
       attrs: {
         to: {
-          name: "restaurant-details",
+          name: "restaurant",
           params: {
             id: restaurant.id
           }
         }
       }
-    }, [_vm._v("Vedi\n                    ")])], 2);
-  }), 0)])])]);
+    }, [_vm._v("Vedi\n                ")])], 1);
+  })], 2)])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -6891,7 +6841,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.h-250 {\r\n    height: 260.5px;\n}\n.pointer{\r\n    cursor: pointer;\n}\n.b-radius-1{\r\n    border-radius: 1rem;\n}\nh5{\r\n    margin: 0.8rem 0;\r\n    font-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "\n.h-250 {\r\n    height: 260.5px;\n}\n.pointer {\r\n    cursor: pointer;\n}\n.b-radius-1 {\r\n    border-radius: 1rem;\n}\nh5 {\r\n    margin: 0.8rem 0;\r\n    font-weight: bold;\n}\r\n", ""]);
 
 // exports
 
