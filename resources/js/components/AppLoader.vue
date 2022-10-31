@@ -15,6 +15,7 @@ name: 'AppLoader',
 </script>
 
 <style scoped lang="scss">
+//sfondo
 .center{
     background: #262626;
     display: flex;
@@ -23,50 +24,38 @@ name: 'AppLoader',
     min-height:100vh;
     z-index: 1000;
 .ring {
-        // top: 0;
-        // right: 0;
-        // left: 0;
-        // bottom: 0;
-        // position: fixed;
         position: absolute;
 
         width: 250px;
         height: 250px;
-        // background: transparent;
-        // border: 3px solid #ff3529;
         border-radius: 50%;
-        // text-align: center;
-        // line-height: 180px;
-        // box-shadow: 0 0 20px rgba(0, 0, 0, .5);
         color: #ff2000;
         text-shadow: 0 0 10px #ff0000;
-        
+        // posizionato ad occhio sulla vh
         span {
             color:#ce3737;
             position: fixed;
-                top: calc(50% - 100px);
-                left: calc(50% - 60px);
+            top: calc(50% - 100px);
+            left: calc(50% - 60px);
             line-height:200px;
             font-size: 1.3rem;
             letter-spacing: 0.3rem;
             text-transform: uppercase;
+            //animazione testo
             animation: text 3s ease-in-out infinite;
         }
 
 
     }
-    
+    //anello con animazione che ruota
     .ring::before {
      position: absolute;
      content: '';
-     // z-index: 1000;
      top: 0;
      left: 0;
      width: 100%;
      height: 100%;
      box-shadow: 0 0 20px rgba($color: #ce3737, $alpha: .4);
-     //  border-top: 3px solid #db1b1b;
-     //  border-right: 3px solid #db1b1b;
      border-radius: 50%;
      animation: ring 2s linear infinite;
     }
