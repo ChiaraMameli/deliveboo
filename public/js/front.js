@@ -2008,8 +2008,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     return {
       restaurants: [],
       categories: [],
-      restaurantWithSelected: []
+      restaurantWithSelected: [],
+      isLoading: false
     };
+  },
+  components: {
+    AppLoader: _AppLoader__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
     fetchData: function fetchData() {
@@ -2022,6 +2026,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       })["catch"](function (err) {
         console.log(err);
       });
+      this.isLoading = false;
     },
     filterRestaurants: function filterRestaurants() {
       // filtro dalle categorie quelle selezionate
@@ -2392,7 +2397,7 @@ var render = function render() {
       staticClass: "btn btn-success mb-2",
       attrs: {
         to: {
-          name: "restaurant",
+          name: "restaurant-details",
           params: {
             id: restaurant.id
           }
@@ -54494,7 +54499,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\Laravel\progetto finale\deliveboo\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\laravel\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

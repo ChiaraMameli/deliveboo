@@ -38,7 +38,7 @@
                             :key="i">{{ category.label }} <br /></span>
                     </h5>
                     <router-link :to="{
-                        name: 'restaurant',
+    name: 'restaurant-details',
                         params: { id: restaurant.id },
                     }" class="btn btn-success mb-2">Vedi
                     </router-link>
