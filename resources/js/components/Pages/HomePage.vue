@@ -58,9 +58,12 @@ export default {
             restaurants: [],
             categories: [],
             restaurantWithSelected: [],
+            isLoading: false,
         };
     },
-
+    components:{
+        AppLoader
+    },
     methods: {
         fetchData() {
             this.isLoading = true;
@@ -74,6 +77,7 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
+            this.isLoading = false;
         },
 
         filterRestaurants() {
