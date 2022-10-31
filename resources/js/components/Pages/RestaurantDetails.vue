@@ -2,7 +2,7 @@
   <main id="restaurant-details">
     <div id="jumbotron">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
-      <p>{{restaurant.address}}</p>
+      <p class="text-white text-center">{{restaurant.address}}</p>
       <img :src="restaurant.image" alt="">
     </div>
     <div class="container">
@@ -14,10 +14,12 @@
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description}}</p>
               <strong class="">{{dish.price}}€</strong>
-              <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
-              <div class="alert alert-primary d-none">
+              <div class="d-flex">
+                <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
+              <span class="alert alert-primary d-none">
               Hai aggiunto il piatto al carrello
-            </div>
+              </span>
+              </div>
             </div>
           </div>
         </li>
@@ -53,6 +55,13 @@ methods: {
             
             addDish[i].addEventListener('click', function(){
                 alert[i].classList.remove('d-none');  
+                addDish[i].classList.remove('d-flex');
+                addDish[i].classList.add('d-none');
+                setTimeout(function(){
+                  alert[i].classList.add('d-none');
+                  addDish[i].classList.add('d-flex');
+                  addDish[i].classList.remove('d-none');
+              },2000);
               })
           }
         
