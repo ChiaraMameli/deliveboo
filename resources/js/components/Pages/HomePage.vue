@@ -120,6 +120,7 @@ export default {
             restaurants: [],
             categories: [],
             restaurantWithSelected: [],
+            isLoading: false,
         };
     },
     components:{
