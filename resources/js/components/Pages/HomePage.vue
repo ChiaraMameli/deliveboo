@@ -38,7 +38,7 @@
                             :key="i">{{ category.label }} <br /></span>
                     </h5>
                     <router-link :to="{
-    name: 'restaurant-details',
+                        name: 'restaurant-details',
                         params: { id: restaurant.id },
                     }" class="btn btn-success mb-2">Vedi
                     </router-link>
@@ -61,7 +61,7 @@ export default {
             isLoading: false,
         };
     },
-    components:{
+    components: {
         AppLoader
     },
     methods: {
@@ -88,18 +88,24 @@ export default {
             //categoria filtrata
 
             if (categorySelected.length > 0) {
+                // this.restaurantWithSelected = this.restaurants.filter(
+                //     (restaurant) => {
+                //         for (const category1 of categorySelected) {
+                //             let found = false
+                //             for (const category2 of restaurant.categories) {
+
+                //                 if (category1.id === category2.id) {
+                //                     found = true
+                //                     break;
+                //                 }
+                //             }
+                //             if (!found) return false
+                //         }
+                //         return true;
+                //     }
+                // );
                 this.restaurantWithSelected = this.restaurants.filter(
-                    (restaurant) => {
-                        for (const category1 of restaurant.categories) {
-                            for (const category2 of categorySelected) {
-                                if (category1.id === category2.id) {
-                                    return true;
-                                }
-                            }
-                        }
-                        return false;
-                    }
-                );
+                    (restaurant) => categorySelected.every(category1 => restaurant.categories.some(category2 => category1.id === category2.id)))
             } else {
                 this.restaurantWithSelected = this.restaurants;
             }
