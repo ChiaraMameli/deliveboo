@@ -2470,7 +2470,7 @@ var render = function render() {
           return _vm.removeDish(dish);
         }
       }
-    })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dish.dish))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.price) + "€")]), _vm._v(" "), _c("td", [_c("input", {
+    })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dish.dish))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dish.price) + "€")]), _vm._v(" "), _c("td", [_c("input", {
       attrs: {
         type: "number",
         step: "1",
@@ -2524,7 +2524,7 @@ var staticRenderFns = [function () {
     attrs: {
       scope: "col"
     }
-  }, [_vm._v("Piattooo")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("Piatto")]), _vm._v(" "), _c("th", {
     attrs: {
       scope: "col"
     }
@@ -7258,7 +7258,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.h100 {\n    height: 100px;\n}\n", ""]);
+exports.push([module.i, "\n.h100 {\r\n    height: 100px;\n}\r\n", ""]);
 
 // exports
 
@@ -55073,7 +55073,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\laravel\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
