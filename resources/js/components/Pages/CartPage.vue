@@ -19,7 +19,7 @@
                         <tr v-for="dish in cart" :key="dish.id">
                         <th scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></th>
                         <td>{{dish.dish}}</td>
-                        <td>{{price}}€</td>
+                        <td>{{dish.price}}€</td>
                         <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50" :value="dish.quantity" id="quantity"></td>
                         <td>{{getSubTotal(dish)}}€</td>
                         </tr>
