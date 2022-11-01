@@ -51,9 +51,8 @@
                         <label for="address">Indirizzo completo</label>
                         <input type="text" class="form-control" id="address">
                     </div>
+                    <button type="submit" class="btn btn-primary">Ordina</button>
                 </form>
-                <router-link :to="{ name: 'payment'}" class="btn btn-primary m-auto"> Vai al Checkout
-                </router-link>
             </div>
         </div>
     </main>
