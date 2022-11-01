@@ -9,7 +9,7 @@
                     <thead class="bg-danger text-white">
                         <tr>
                         <th scope="col"></th>
-                        <th scope="col">Piattooo</th>
+                        <th scope="col">Piatto</th>
                         <th scope="col">Prezzo</th>
                         <th scope="col">Quantità</th>
                         <th scope="col">Sub-totale</th>
