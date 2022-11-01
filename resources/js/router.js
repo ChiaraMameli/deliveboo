@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 import HomePage from './components/Pages/HomePage';
 import RestaurantDetails from './components/Pages/RestaurantDetails';
 import CartPage from './components/Pages/CartPage';
-import ThankYouPage from './components/Pages/ThankYouPage'
+import ThankYouPage from './components/Pages/ThankYouPage';
+import AppPayment from './components/AppPayment'
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,7 @@ const routes = new VueRouter({
         {path: '/restaurants/:id' , component: RestaurantDetails, name:'restaurant-details'},
         {path: '/cart' , component: CartPage, name:'cart'},
         {path: '/thank-you-page' , component: ThankYouPage, name:'thank-you-page'},
+        {path: '/payment' , component: AppPayment, name:'payment'},
         
     ],
 })

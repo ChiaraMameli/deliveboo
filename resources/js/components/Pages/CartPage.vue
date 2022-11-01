@@ -32,7 +32,7 @@
             </div>
 
             <div class="card cart p-5 mt-5">
-                <form>
+                <form id="checkout-form">
                     <div class="form-group">
                         <label for="name">Nome e cognome</label>
                         <input type="text" class="form-control" id="name">
@@ -51,8 +51,9 @@
                         <label for="address">Indirizzo completo</label>
                         <input type="text" class="form-control" id="address">
                     </div>
-                    <button type="submit" class="btn btn-primary">Ordina</button>
                 </form>
+                <router-link :to="{ name: 'payment'}" class="btn btn-primary m-auto"> Vai al Checkout
+                </router-link>
             </div>
         </div>
     </main>
