@@ -1,11 +1,9 @@
 <template>
     <AppLoader v-if="isLoading" />
     <main v-else>
+    <div id="home-jumbo"></div>
         <div class="container">
-            <h2>Benvenuto in TheLiveBoo!</h2>
             <div class="row">
-                <div class="jumbotron"></div>
-
 
                 <!-- filtro -->
                 <div class="col-12 my-3">
@@ -19,31 +17,31 @@
                         <label class="form-check-label">{{ category.label }}</label>
                     </div>
                     <!-- filtro con map i ristoranti per categoria al click -->
-                    <button @click="filterRestaurants()" type="button" class="btn btn-sm btn-info">
+                    <button @click="filterRestaurants()" type="button" class="btn btn-sm bg-dred text-white">
                         Mostra ristoranti
                     </button>
                 </div>
                 <!-- prova lista ristoranti-->
+                <div class="d-flex justify-content-between flex-wrap p">
+                    <div class="card restaurant" v-for="restaurant in restaurants" :key="restaurant.id">
+                        <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ restaurant.name }}</h5>
+                            <p class="card-text">{{ restaurant.description }}</p>
+                            <strong class="">{{ restaurant.address }}</strong>
+                            <h5>
+                                <strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories"
+                                    :key="i">{{ category.label }} <br /></span>
+                            </h5>
 
-                <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
-                    v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
-                    <h2>{{ restaurant.name }}</h2>
-                    <img class="rounded img-fluid" :src="restaurant.image" alt="" />
-                    <h5>
-                        <strong>Indirizzo: </strong>{{ restaurant.address }}
-                    </h5>
-
-                    <h5>
-                        <strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories"
-                            :key="i">{{ category.label }} <br /></span>
-                    </h5>
-                    <router-link :to="{
-    name: 'restaurant-details',
-                        params: { id: restaurant.id },
-                    }" class="btn btn-success mb-2">Vedi
-                    </router-link>
+                            <router-link :to="{
+                                name: 'restaurant-details',
+                                params: { id: restaurant.id },
+                            }" class="btn btn-success mb-2">Vedi
+                            </router-link>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </main>
@@ -73,11 +71,13 @@ export default {
                     this.restaurants = res.data.restaurants;
                     this.categories = res.data.categories;
                     console.log(this.restaurants);
+                    this.isLoading = false;
+
                 })
                 .catch((err) => {
                     console.log(err);
+                    this.isLoading = false;
                 });
-            this.isLoading = false;
         },
 
         filterRestaurants() {
@@ -112,21 +112,58 @@ export default {
 };
 </script>
 
-<style>
-.h-250 {
-    height: 260.5px;
-}
+<style lang="scss" scoped>
+main{
+    min-height: 100vh;
+    background-color: #F6E7C1;
 
-.pointer {
-    cursor: pointer;
-}
+        #home-jumbo{
+        padding-top: 100px;
+        height: 600px;
+        background-image: url('../../../image/jumbo-home.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
 
-.b-radius-1 {
-    border-radius: 1rem;
-}
+        }
+    
+    input{
+        accent-color: rgb(188, 33, 33);
+    }
+    
+    .card.restaurant{
+        width: calc(25% - 10px);
+        border-radius: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        border: none;
 
-h5 {
-    margin: 0.8rem 0;
-    font-weight: bold;
-}
+          img{
+            border-radius: 20px 20px 0 0;
+          }
+
+          strong{
+            font-size: 22px;
+          }
+
+          i{
+          cursor: pointer;
+          border-radius: 50%;
+          border: 2px solid rgb(188, 33, 33);
+          color: rgb(188, 33, 33);
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          font-size: 20px;
+          transition: 0.5s;
+
+          &:hover{
+            background-color: rgb(188, 33, 33);
+            color: white;
+          }
+        }
+    }}
+    .bg-dred{
+        background-color: rgb(188, 33, 33);
+    }
 </style>
