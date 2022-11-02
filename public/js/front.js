@@ -1998,6 +1998,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AppLoader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../AppLoader */ "./resources/js/components/AppLoader.vue");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomePage",
@@ -2006,7 +2009,8 @@ __webpack_require__.r(__webpack_exports__);
       restaurants: [],
       categories: [],
       restaurantWithSelected: [],
-      isLoading: false
+      isLoading: false,
+      showAllRestaurants: true
     };
   },
   components: {
@@ -2026,6 +2030,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isLoading = false;
     },
     filterRestaurants: function filterRestaurants() {
+      this.showAllRestaurants = false;
       // filtro dalle categorie quelle selezionate
       var categorySelected = this.categories.filter(function (category) {
         return category.isSelected;
@@ -2033,32 +2038,46 @@ __webpack_require__.r(__webpack_exports__);
       //categoria filtrata
 
       if (categorySelected.length > 0) {
-        // this.restaurantWithSelected = this.restaurants.filter(
-        //     (restaurant) => {
-        //         for (const category1 of categorySelected) {
-        //             let found = false
-        //             for (const category2 of restaurant.categories) {
-
-        //                 if (category1.id === category2.id) {
-        //                     found = true
-        //                     break;
-        //                 }
-        //             }
-        //             if (!found) return false
-        //         }
-        //         return true;
-        //     }
-        // );
+        // approccio imperativo
         this.restaurantWithSelected = this.restaurants.filter(function (restaurant) {
-          return categorySelected.every(function (category1) {
-            return restaurant.categories.some(function (category2) {
-              return category1.id === category2.id;
-            });
-          });
+          var _iterator = _createForOfIteratorHelper(categorySelected),
+            _step;
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var category1 = _step.value;
+              var found = false;
+              var _iterator2 = _createForOfIteratorHelper(restaurant.categories),
+                _step2;
+              try {
+                for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                  var category2 = _step2.value;
+                  if (category1.id === category2.id) {
+                    found = true;
+                    break;
+                  }
+                }
+              } catch (err) {
+                _iterator2.e(err);
+              } finally {
+                _iterator2.f();
+              }
+              if (!found) return false;
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+          return true;
         });
+
+        // approccio funzionale
+        // this.restaurantWithSelected = this.restaurants.filter(
+        //     (restaurant) => categorySelected.every(category1 => restaurant.categories.some(category2 => category1.id === category2.id)))
       } else {
         this.restaurantWithSelected = this.restaurants;
       }
+      console.log(this.restaurantWithSelected);
     }
   },
   mounted: function mounted() {
@@ -2371,7 +2390,9 @@ var render = function render() {
         return _vm.filterRestaurants();
       }
     }
-  }, [_vm._v("\n                    Mostra ristoranti\n                ")])], 2), _vm._v(" "), _vm._l(_vm.restaurantWithSelected, function (restaurant) {
+  }, [_vm._v("\n                    Mostra ristoranti\n                ")])], 2), _vm._v(" "), _vm.showAllRestaurants ? _c("div", {
+    staticClass: "d-flex flex-wrap"
+  }, _vm._l(_vm.restaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
@@ -2381,7 +2402,7 @@ var render = function render() {
         src: restaurant.image,
         alt: ""
       }
-    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address) + "\n                ")]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address) + "\n                    ")]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
@@ -2395,8 +2416,35 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v("Vedi\n                ")])], 1);
-  })], 2)])]);
+    }, [_vm._v("Vedi\n                    ")])], 1);
+  }), 0) : _c("div", {
+    staticClass: "d-flex flex-wrap"
+  }, _vm._l(_vm.restaurantWithSelected, function (restaurant) {
+    return _c("div", {
+      key: restaurant.id,
+      staticClass: "card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
+    }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
+      staticClass: "rounded img-fluid",
+      attrs: {
+        src: restaurant.image,
+        alt: ""
+      }
+    }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address) + "\n                    ")]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+      return _c("span", {
+        key: i
+      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
+    })], 2), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success mb-2",
+      attrs: {
+        to: {
+          name: "restaurant-details",
+          params: {
+            id: restaurant.id
+          }
+        }
+      }
+    }, [_vm._v("Vedi\n                    ")])], 1);
+  }), 0)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

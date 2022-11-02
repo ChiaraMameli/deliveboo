@@ -25,23 +25,49 @@
                 </div>
                 <!-- prova lista ristoranti-->
 
-                <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
-                    v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
-                    <h2>{{ restaurant.name }}</h2>
-                    <img class="rounded img-fluid" :src="restaurant.image" alt="" />
-                    <h5>
-                        <strong>Indirizzo: </strong>{{ restaurant.address }}
-                    </h5>
+                <!-- if -->
+                <div v-if="showAllRestaurants" class="d-flex flex-wrap">
 
-                    <h5>
-                        <strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories"
-                            :key="i">{{ category.label }} <br /></span>
-                    </h5>
-                    <router-link :to="{
-                        name: 'restaurant-details',
-                        params: { id: restaurant.id },
-                    }" class="btn btn-success mb-2">Vedi
-                    </router-link>
+                    <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
+                        v-for="restaurant in restaurants" :key="restaurant.id">
+                        <h2>{{ restaurant.name }}</h2>
+                        <img class="rounded img-fluid" :src="restaurant.image" alt="" />
+                        <h5>
+                            <strong>Indirizzo: </strong>{{ restaurant.address }}
+                        </h5>
+
+                        <h5>
+                            <strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories"
+                                :key="i">{{ category.label }} <br /></span>
+                        </h5>
+                        <router-link :to="{
+                            name: 'restaurant-details',
+                            params: { id: restaurant.id },
+                        }" class="btn btn-success mb-2">Vedi
+                        </router-link>
+                    </div>
+                </div>
+                <!-- else -->
+                <div v-else class="d-flex flex-wrap">
+
+                    <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
+                        v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
+                        <h2>{{ restaurant.name }}</h2>
+                        <img class="rounded img-fluid" :src="restaurant.image" alt="" />
+                        <h5>
+                            <strong>Indirizzo: </strong>{{ restaurant.address }}
+                        </h5>
+
+                        <h5>
+                            <strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories"
+                                :key="i">{{ category.label }} <br /></span>
+                        </h5>
+                        <router-link :to="{
+                            name: 'restaurant-details',
+                            params: { id: restaurant.id },
+                        }" class="btn btn-success mb-2">Vedi
+                        </router-link>
+                    </div>
                 </div>
 
             </div>
@@ -59,6 +85,7 @@ export default {
             categories: [],
             restaurantWithSelected: [],
             isLoading: false,
+            showAllRestaurants: true,
         };
     },
     components: {
@@ -81,6 +108,7 @@ export default {
         },
 
         filterRestaurants() {
+            this.showAllRestaurants = false;
             // filtro dalle categorie quelle selezionate
             let categorySelected = this.categories.filter(
                 (category) => category.isSelected
@@ -88,27 +116,32 @@ export default {
             //categoria filtrata
 
             if (categorySelected.length > 0) {
-                // this.restaurantWithSelected = this.restaurants.filter(
-                //     (restaurant) => {
-                //         for (const category1 of categorySelected) {
-                //             let found = false
-                //             for (const category2 of restaurant.categories) {
-
-                //                 if (category1.id === category2.id) {
-                //                     found = true
-                //                     break;
-                //                 }
-                //             }
-                //             if (!found) return false
-                //         }
-                //         return true;
-                //     }
-                // );
+                // approccio imperativo
                 this.restaurantWithSelected = this.restaurants.filter(
-                    (restaurant) => categorySelected.every(category1 => restaurant.categories.some(category2 => category1.id === category2.id)))
+                    (restaurant) => {
+                        for (const category1 of categorySelected) {
+                            let found = false
+                            for (const category2 of restaurant.categories) {
+
+                                if (category1.id === category2.id) {
+                                    found = true
+                                    break;
+                                }
+                            }
+                            if (!found) return false
+                        }
+                        return true;
+                    }
+                );
+
+                // approccio funzionale
+                // this.restaurantWithSelected = this.restaurants.filter(
+                //     (restaurant) => categorySelected.every(category1 => restaurant.categories.some(category2 => category1.id === category2.id)))
+
             } else {
                 this.restaurantWithSelected = this.restaurants;
             }
+            console.log(this.restaurantWithSelected)
         },
     },
 
