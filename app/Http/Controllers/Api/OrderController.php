@@ -31,11 +31,14 @@ class OrderController extends Controller
     public function store(Request $request )
     {
         //Log::info('request', $requesst->all());
-        $order = new Order;
+        //$order = new Order;
+        Order::create($request->all());
         $order->customer_name = $request->get('customer_name');
         $order->customer_email = $request->get('customer_email');
         $order->customer_phone = $request->get('customer_phone');
         $order->customer_address = $request->get('customer_address');
+        $order->restaurant_id = $request->get('restaurant_id');
+        $order->amount = $request->get('amount');
         
         $order->save();
         return response()->json([
