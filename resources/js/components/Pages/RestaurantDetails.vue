@@ -56,8 +56,8 @@ methods: {
         },
         addToCart(dish){
           const currentDish = {
-            'dish': dish.id, 
-            'restaurant': dish.restaurant_id,             
+            'dish_id': dish.id, 
+            'restaurant_id': dish.restaurant_id,             
             'name': dish.name, 
             'image': dish.image,
             'description': dish.description,
@@ -74,20 +74,20 @@ methods: {
 
           }
           // Se è già presente nell'array e se il piatto appartiene al ristorante del primo elemento  
-          else if(typeof element !== "undefined" && (this.cart[0].restaurant === dish.restaurant_id)){
+          else if(typeof element !== "undefined" && (this.cart[0].restaurant_id === dish.restaurant_id)){
 
               currentDish.quantity = element.quantity += 1;
-              this.cart.splice(this.cart.findIndex(e => e.dish === dish.id), 1);
+              this.cart.splice(this.cart.findIndex(e => e.dish_id === dish.id), 1);
               this.cart.push(currentDish);
 
           } 
           // Se non è presente nell'array e il piatto appartiene al ristorante del primo elemento
-          else if(typeof element == "undefined" && (this.cart[0].restaurant === dish.restaurant_id)){
+          else if(typeof element == "undefined" && (this.cart[0].restaurant_id === dish.restaurant_id)){
               this.cart.push(currentDish);
 
           } 
           // Se non è il primo elemento e il piatto appartiene a un ristorante diverso rispetto al primo piatto del carrello
-          else if((this.cart.length > 0) && (this.cart[0].restaurant != dish.restaurant_id)) {
+          else if((this.cart.length > 0) && (this.cart[0].restaurant_id != dish.restaurant_id)) {
             console.log('non puoi');
             const hasConfirmed = confirm("Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?");
               if(hasConfirmed) {
@@ -99,7 +99,7 @@ methods: {
           }
 
           this.$emit('populated-cart', this.cart);
-
+            //! se il carrello è vuoto blocco l'ordine!
         }
     },
     mounted() {

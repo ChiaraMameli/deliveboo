@@ -2012,7 +2012,8 @@ __webpack_require__.r(__webpack_exports__);
         customer_email: '',
         customer_phone: '',
         customer_address: ''
-      }
+      },
+      amount: 10
       // order: [], //deve diventare cart
     };
   },
@@ -2044,32 +2045,42 @@ __webpack_require__.r(__webpack_exports__);
         die();
       }
     },
-    // getAmount(dish){  //#tofix
-    //   return  this.getSubTotal(dish) * this.getCurrentQuantity(dish) 
+    // getAmount(cart){ 
+    //     let totalAmount 
+    //     for( let i = 0; i < cart.length; i++){
+    //     let element = this.getSubTotal()
+    //     console.log(element);
+    // };
+    //   return totalAmount
     // },
-    catchData: function catchData() {
+    getData: function getData() {
       var _this = this;
+      //axios
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/orders', {
         customer_name: this.form.customer_name,
         //??
         customer_email: this.form.customer_email,
         customer_phone: this.form.customer_phone,
         customer_address: this.form.customer_address
-      }).then(function (res) {
-        //fill the order with the form data, way1
-        //dati del form
-        var formData = res.config['data'];
-        var parsedData = JSON.parse(formData);
-        //array del new_order che arriva da db
-        var newOrder = res.data['new_order'];
-        console.log(res);
-        console.log(res.data);
-        //console.log(res.data[0]);
-        console.log(res.data['new_order']);
-        // ci carico i dati 
-        newOrder.push(parsedData);
-        _this.order.push(newOrder);
-        console.log(_this.order);
+        //restaurant_id
+        //amount
+      }).then(function () {
+        _this.form.customer_name = "", _this.form.customer_email = "", _this.form.customer_phone = "", _this.form.customer_address = "";
+
+        // //fill the order with the form data, way1
+        //     //dati del form
+        //     const formData = res.config['data'];
+        //     const parsedData = JSON.parse(formData);
+        //     //array del new_order che arriva da db
+        // const newOrder = res.data['new_order'];
+        //      console.log(res);
+        //      console.log(res.data);
+        //     //console.log(res.data[0]);
+        //     console.log(res.data['new_order']);
+        //     // ci carico i dati 
+        //     newOrder.push(parsedData);
+        // this.order.push(newOrder);
+        // console.log(this.order);
         //fill the order with the form data, way2
         //     const data = res.data;
 
@@ -2080,9 +2091,21 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart);
+      // let my_order_dish = this.cart.forEach(cart => (
+      //     cart.find(cart[0])
+      //     ));
+      console.log(this.cart);
+      // return my_order_dish;
     }
   },
+
   // created(){
+  //  if (localStorage.cart) {
+  // let my_cart =  this.cart.find(cart => (cart.restaurant));
+  // //my_cart.push(this.amount)
+  // console.log(my_cart)
+  //      return my_cart;
+  //  } 
   //     this.$http.get('http://127.0.0.1:8000/api/user-details', {
   //         name: this.form.name,
   //         email: this.form.email,
@@ -2091,7 +2114,8 @@ __webpack_require__.r(__webpack_exports__);
   //     }).then(function (data) {
   //         console.log(data)
   //     });
-  // },
+
+  //},
   watch: {
     cart: function cart(newCart) {
       localStorage.cart = JSON.stringify(newCart);
@@ -2227,8 +2251,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     addToCart: function addToCart(dish) {
       var currentDish = {
-        'dish': dish.id,
-        'restaurant': dish.restaurant_id,
+        'dish_id': dish.id,
+        'restaurant_id': dish.restaurant_id,
         'name': dish.name,
         'image': dish.image,
         'description': dish.description,
@@ -2245,19 +2269,19 @@ __webpack_require__.r(__webpack_exports__);
         this.cart.push(currentDish);
       }
       // Se è già presente nell'array e se il piatto appartiene al ristorante del primo elemento  
-      else if (typeof element !== "undefined" && this.cart[0].restaurant === dish.restaurant_id) {
+      else if (typeof element !== "undefined" && this.cart[0].restaurant_id === dish.restaurant_id) {
         currentDish.quantity = element.quantity += 1;
         this.cart.splice(this.cart.findIndex(function (e) {
-          return e.dish === dish.id;
+          return e.dish_id === dish.id;
         }), 1);
         this.cart.push(currentDish);
       }
       // Se non è presente nell'array e il piatto appartiene al ristorante del primo elemento
-      else if (typeof element == "undefined" && this.cart[0].restaurant === dish.restaurant_id) {
+      else if (typeof element == "undefined" && this.cart[0].restaurant_id === dish.restaurant_id) {
         this.cart.push(currentDish);
       }
       // Se non è il primo elemento e il piatto appartiene a un ristorante diverso rispetto al primo piatto del carrello
-      else if (this.cart.length > 0 && this.cart[0].restaurant != dish.restaurant_id) {
+      else if (this.cart.length > 0 && this.cart[0].restaurant_id != dish.restaurant_id) {
         console.log('non puoi');
         var hasConfirmed = confirm("Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?");
         if (hasConfirmed) {
@@ -2268,6 +2292,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       this.$emit('populated-cart', this.cart);
+      //! se il carrello è vuoto blocco l'ordine!
     }
   },
   mounted: function mounted() {
@@ -2555,7 +2580,8 @@ var render = function render() {
     staticClass: "card cart p-5 mt-5"
   }, [_c("form", {
     attrs: {
-      id: "checkout-form"
+      id: "checkout-form",
+      action: "http://127.0.0.1:8000/payment"
     }
   }, [_c("div", {
     staticClass: "form-group"
@@ -2675,7 +2701,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.catchData();
+        return _vm.getData();
       }
     }
   }, [_vm._v("Ordina")])])])])]);

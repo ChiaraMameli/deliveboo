@@ -18,17 +18,17 @@
                     </thead>
                     <tbody>
                         <tr v-for="dish in cart" :key="dish.id">
-                        <th scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></th>
-                        <td>{{dish.dish}}</td>
-                        <td>{{dish.price}}€</td>
-                        <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50" :value="dish.quantity" id="quantity"></td>
-                        <td>{{getSubTotal(dish)}}€</td>
-                         </tr>
+                            <th scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></th>
+                            <td>{{dish.dish}}</td>
+                            <td>{{dish.price}}€</td>
+                            <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50" :value="dish.quantity" id="quantity"></td>
+                            <td>{{getSubTotal(dish)}}€</td>
+                        </tr>
+                        <!-- <td >{{getAmount(cart)}}€</td> -->
                          <tr class="d-flex flex-end">
 
                              <td > €</td>
-                             <!-- <td >{{getAmount(dish)}}€</td> -->
-                         </tr>
+                         </tr> 
                 </tbody>
                 </table>
                 <div class="d-flex justify-content-between">
@@ -38,7 +38,8 @@
             </div>
 
             <div class="card cart p-5 mt-5">
-                <form id="checkout-form">
+                <!-- action(?) -->
+                <form id="checkout-form" action="http://127.0.0.1:8000/payment">
                     <div class="form-group">
                         <label for="customer_name">Nome e cognome</label>
                         <input v-model="form.customer_name" type="text" class="form-control" id="customer_name">
@@ -57,7 +58,7 @@
                         <label for="customer_address">Indirizzo completo</label>
                         <input v-model="form.customer_address" type="text" class="form-control" id="customer_address">
                     </div>
-                    <button @click.prevent="catchData()" type="submit" class="btn btn-primary">Ordina</button>
+                    <button @click.prevent="getData()" type="submit" class="btn btn-primary">Ordina</button>
                 </form>
             </div>
         </div>
@@ -77,6 +78,7 @@ export default{
                 customer_phone: '',
                 customer_address: '',
             },
+            amount: 10,
            // order: [], //deve diventare cart
         }
     },
@@ -108,32 +110,49 @@ export default{
                 die();
               }
         },
-        // getAmount(dish){  //#tofix
-        //   return  this.getSubTotal(dish) * this.getCurrentQuantity(dish) 
+        // getAmount(cart){ 
+        //     let totalAmount 
+        //     for( let i = 0; i < cart.length; i++){
+        //     let element = this.getSubTotal()
+        //     console.log(element);
+        // };
+        //   return totalAmount
         // },
 
-        catchData(){
+        getData(){
          
+            //axios
             axios.post('http://127.0.0.1:8000/api/orders', {
                 customer_name: this.form.customer_name,//??
                 customer_email: this.form.customer_email,
                 customer_phone: this.form.customer_phone,
                 customer_address: this.form.customer_address,
-            }).then(res => {
-                //fill the order with the form data, way1
-                    //dati del form
-                    const formData = res.config['data'];
-                    const parsedData = JSON.parse(formData);
-                    //array del new_order che arriva da db
-                const newOrder = res.data['new_order'];
-                     console.log(res);
-                     console.log(res.data);
-                    //console.log(res.data[0]);
-                    console.log(res.data['new_order']);
-                    // ci carico i dati 
-                    newOrder.push(parsedData);
-                this.order.push(newOrder);
-                console.log(this.order);
+                //restaurant_id
+                //amount
+            }).then(() => {
+                
+                this.form.customer_name = "",
+                this.form.customer_email = "",
+                this.form.customer_phone = "",
+                this.form.customer_address = ""
+                
+                
+                
+                
+                // //fill the order with the form data, way1
+                //     //dati del form
+                //     const formData = res.config['data'];
+                //     const parsedData = JSON.parse(formData);
+                //     //array del new_order che arriva da db
+                // const newOrder = res.data['new_order'];
+                //      console.log(res);
+                //      console.log(res.data);
+                //     //console.log(res.data[0]);
+                //     console.log(res.data['new_order']);
+                //     // ci carico i dati 
+                //     newOrder.push(parsedData);
+                // this.order.push(newOrder);
+                // console.log(this.order);
                 //fill the order with the form data, way2
             //     const data = res.data;
               
@@ -145,9 +164,20 @@ export default{
     mounted(){
         if(localStorage.cart){
             this.cart = JSON.parse(localStorage.cart);
+            // let my_order_dish = this.cart.forEach(cart => (
+            //     cart.find(cart[0])
+            //     ));
+                console.log(this.cart)
+           // return my_order_dish;
         }
     },
     // created(){
+        //  if (localStorage.cart) {
+        // let my_cart =  this.cart.find(cart => (cart.restaurant));
+        // //my_cart.push(this.amount)
+        // console.log(my_cart)
+        //      return my_cart;
+        //  } 
     //     this.$http.get('http://127.0.0.1:8000/api/user-details', {
     //         name: this.form.name,
     //         email: this.form.email,
@@ -156,7 +186,8 @@ export default{
     //     }).then(function (data) {
     //         console.log(data)
     //     });
-    // },
+
+     //},
     watch:{
         cart(newCart){
             localStorage.cart = JSON.stringify(newCart);

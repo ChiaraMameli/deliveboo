@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Models\Order;
 
 
@@ -15,9 +16,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      //  
+        return Order::all();
       
     }
 
@@ -27,11 +28,19 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Order $order )
+    public function store(Request $request )
     {
-        $data = $request->all();
-       
-        return response()->json(compact('order'));
+        //Log::info('request', $requesst->all());
+        $order = new Order;
+        $order->customer_name = $request->get('customer_name');
+        $order->customer_email = $request->get('customer_email');
+        $order->customer_phone = $request->get('customer_phone');
+        $order->customer_address = $request->get('customer_address');
+        
+        $order->save();
+        return response()->json([
+            'message' => 'creato nuovo ordine'
+        ]);
     }
 
     /**
