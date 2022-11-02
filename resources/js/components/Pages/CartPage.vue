@@ -79,6 +79,7 @@ export default{
                 customer_address: '',
             },
             amount: 10,
+            restaurant_id: 0,
            // order: [], //deve diventare cart
         }
     },
@@ -120,13 +121,28 @@ export default{
         // },
 
         getData(){
-         
+            const dishes = [];
+
+            this.cart.forEach(item => {
+                const dish = {
+                    'id': item.dish,
+                    'quantity': item.quantity
+                }
+                dishes.push(dish);
+                this.restaurant_id = item.restaurant; 
+            })
+            console.log(dishes);
+            console.log(this.restaurant_id);
+
+
             //axios
             axios.post('http://127.0.0.1:8000/api/orders', {
                 customer_name: this.form.customer_name,//??
                 customer_email: this.form.customer_email,
                 customer_phone: this.form.customer_phone,
                 customer_address: this.form.customer_address,
+                restaurant_id: this.restaurant_id,
+                dishes: dishes,
                 //restaurant_id
                 //amount
             }).then(() => {
