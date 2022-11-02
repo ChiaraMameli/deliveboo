@@ -1,14 +1,18 @@
 <template>
     <AppLoader v-if="isLoading" />
     <main v-else>
-    <div id="home-jumbo"></div>
+    <div id="home-jumbo">
+        <div id="login-btn">
+            <h3 class="d-inline">Sei un ristoratore? </h3>
+            <a href="/register" class="btn btn-primary">Registrati</a> <p class="d-inline">o</p> <a href="/login" class="btn btn-warning">Accedi</a>
+        </div>
+    </div>
         <div class="container">
             <div class="row">
 
                 <!-- filtro -->
-                <div class="col-12 my-3">
-                    Cosa vuoi mangiare? Spunta le catogorie per visualizzare i
-                    ristoranti
+                <div class="col-12 my-3 pt-3">
+                    <h3>Cosa vuoi mangiare? Spunta le catogorie per visualizzare i ristoranti</h3>
                 </div>
                 <div class="col-12 d-flex my-3 justify-content-between">
                     <div v-for="(category, i) in categories" :key="i" class="form-check form-switch">
@@ -17,12 +21,12 @@
                         <label class="form-check-label">{{ category.label }}</label>
                     </div>
                     <!-- filtro con map i ristoranti per categoria al click -->
-                    <button @click="filterRestaurants()" type="button" class="btn btn-sm bg-dred text-white">
+                    <button @click="filterRestaurants()" type="button" class="btn bg-dred">
                         Mostra ristoranti
                     </button>
                 </div>
                 <!-- prova lista ristoranti-->
-                <div class="d-flex justify-content-between flex-wrap p">
+                <div class="d-flex justify-content-between flex-wrap pb-5">
                     <div class="card restaurant" v-for="restaurant in restaurants" :key="restaurant.id">
                         <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
                         <div class="card-body">
@@ -37,7 +41,7 @@
                             <router-link :to="{
                                 name: 'restaurant-details',
                                 params: { id: restaurant.id },
-                            }" class="btn btn-success mb-2">Vedi
+                            }" class="btn btn-success bg-dred mb-2">Vedi
                             </router-link>
                         </div>
                     </div>
@@ -125,6 +129,17 @@ main{
         background-size: cover;
         position: relative;
 
+         #login-btn {
+            background-color: #4D4D4D;
+            color: #FFF;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            position: absolute;
+            bottom: 10px;
+            right: 50%;
+            transform: translateX(50%);
+         }
         }
     
     input{
@@ -145,25 +160,16 @@ main{
           strong{
             font-size: 22px;
           }
-
-          i{
-          cursor: pointer;
-          border-radius: 50%;
-          border: 2px solid rgb(188, 33, 33);
-          color: rgb(188, 33, 33);
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          font-size: 20px;
-          transition: 0.5s;
-
-          &:hover{
-            background-color: rgb(188, 33, 33);
-            color: white;
-          }
         }
-    }}
-    .bg-dred{
+    }
+    .btn.bg-dred{
+        border: 2px solid rgb(188, 33, 33);
+        background-color: #FFF;
+        color: rgb(188, 33, 33);
+    }
+
+    .btn.bg-dred:hover {
         background-color: rgb(188, 33, 33);
+        color: white;
     }
 </style>

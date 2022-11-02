@@ -67,7 +67,7 @@ methods: {
             'description': dish.description,
             'ingredients': dish.ingredients,
             'price': dish.price,
-            'quantity': 1
+            'quantity': 1,
           };
 
           const element = this.cart.find(element => element.dish === dish.id);
