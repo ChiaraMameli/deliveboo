@@ -13,7 +13,7 @@
                         <th scope="col">Prezzo</th>
                         <th scope="col">Quantità</th>
                         <th scope="col">Sub-totale</th>
-                        <th scope="col">Totale</th>
+                            <th scope="col">Totale</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,8 +23,12 @@
                         <td>{{dish.price}}€</td>
                         <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50" :value="dish.quantity" id="quantity"></td>
                         <td>{{getSubTotal(dish)}}€</td>
-                        <td >€</td>
-                    </tr>
+                         </tr>
+                         <tr class="d-flex flex-end">
+
+                             <td > €</td>
+                             <!-- <td >{{getAmount(dish)}}€</td> -->
+                         </tr>
                 </tbody>
                 </table>
                 <div class="d-flex justify-content-between">
@@ -73,7 +77,7 @@ export default{
                 customer_phone: '',
                 customer_address: '',
             },
-            order: [], //deve diventare cart
+           // order: [], //deve diventare cart
         }
     },
     methods:{
@@ -104,13 +108,8 @@ export default{
                 die();
               }
         },
-        // getAmount(cart){
-        //     let total = 0;
-        //     for(let i = 0; i < this.cart.length; i++){
-        //         total += this.cart.dish.price * this.cart.dish.quantity;
-
-        //     };
-        //     console.log(cart);
+        // getAmount(dish){  //#tofix
+        //   return  this.getSubTotal(dish) * this.getCurrentQuantity(dish) 
         // },
 
         catchData(){

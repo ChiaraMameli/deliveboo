@@ -1999,7 +1999,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//import axios from 'axios';
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CartPage',
   data: function data() {
@@ -2010,8 +2012,8 @@ __webpack_require__.r(__webpack_exports__);
         customer_email: '',
         customer_phone: '',
         customer_address: ''
-      },
-      order: [] //deve diventare cart
+      }
+      // order: [], //deve diventare cart
     };
   },
 
@@ -2042,16 +2044,12 @@ __webpack_require__.r(__webpack_exports__);
         die();
       }
     },
-    // getAmount(cart){
-    //     let total = 0;
-    //     for(let i = 0; i < this.cart.length; i++){
-    //         total += this.cart.dish.price * this.cart.dish.quantity;
-    //     };
-    //     console.log(cart);
+    // getAmount(dish){  //#tofix
+    //   return  this.getSubTotal(dish) * this.getCurrentQuantity(dish) 
     // },
     catchData: function catchData() {
       var _this = this;
-      this.$http.post('http://127.0.0.1:8000/api/orders', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/orders', {
         customer_name: this.form.customer_name,
         //??
         customer_email: this.form.customer_email,
@@ -2511,7 +2509,7 @@ var render = function render() {
     staticClass: "card cart p-5 mt-5"
   }, [_c("table", {
     staticClass: "table"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.cart, function (dish) {
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm._l(_vm.cart, function (dish) {
     return _c("tr", {
       key: dish.id
     }, [_c("th", {
@@ -2541,8 +2539,8 @@ var render = function render() {
           return _vm.getCurrentQuantity(dish);
         }
       }
-    })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.getSubTotal(dish)) + "€")]), _vm._v(" "), _c("td", [_vm._v("€")])]);
-  }), 0)]), _vm._v(" "), _c("div", {
+    })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.getSubTotal(dish)) + "€")])]);
+  }), _vm._v(" "), _vm._m(2)], 2)]), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-between"
   }, [_c("i", {
     staticClass: "fa-solid fa-rotate-left btn btn-primary updated"
@@ -2723,6 +2721,12 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Totale")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tr", {
+    staticClass: "d-flex flex-end"
+  }, [_c("td", [_vm._v(" €")])]);
 }];
 render._withStripped = true;
 

@@ -15,11 +15,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Order $order)
+    public function index()
     {
-        
-        $order = new Order;
-        return response()->json(compact('order'));
+      //  
+      
     }
 
     /**
@@ -28,9 +27,10 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Order $order )
     {
-        //
+        dd($request);
+        return response()->json(compact('order'));
     }
 
     /**
@@ -39,9 +39,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        //
+       
     }
 
     /**
