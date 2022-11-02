@@ -17,7 +17,7 @@ name: 'AppLoader',
 <style scoped lang="scss">
 //sfondo
 .center{
-    background: #262626;
+    background: #F6E7C1;
     display: flex;
     align-items: center;
     justify-content: center;
