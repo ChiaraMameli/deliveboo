@@ -1,11 +1,6 @@
 <template>
-<<<<<<< HEAD
-  <main id="restaurant-details">
-    <!-- jumbotron -->
-=======
   <AppLoader v-if="isLoading" />
   <main v-else id="restaurant-details">
->>>>>>> ba61d4c17e88300355afb09a7e824b2f03823695
     <div id="jumbotron">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
       <p class="text-white text-center">{{restaurant.address}}</p>
