@@ -1,6 +1,11 @@
 <template>
+<<<<<<< HEAD
   <main id="restaurant-details">
     <!-- jumbotron -->
+=======
+  <AppLoader v-if="isLoading" />
+  <main v-else id="restaurant-details">
+>>>>>>> ba61d4c17e88300355afb09a7e824b2f03823695
     <div id="jumbotron">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
       <p class="text-white text-center">{{restaurant.address}}</p>
@@ -43,20 +48,29 @@
 </template>
 
 <script>
+import AppLoader from "../AppLoader";
 export default {
 name:'RestaurantDetails',
 data(){
   return{
     restaurant: null,
     cart: [],
+    isLoading: false
   }
 },
+components:{
+        AppLoader
+    },
 methods: {
         fetchRestaurant() {
+            this.isLoading = true;
+
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
                 this.restaurant = res.data.restaurant;
+                this.isLoading = false;
             }).catch(err => {
                 console.log(err);
+                this.isLoading = false;
             });
         },
         getFeedback(){
@@ -90,7 +104,7 @@ methods: {
             'description': dish.description,
             'ingredients': dish.ingredients,
             'price': dish.price,
-            'quantity': 1
+            'quantity': 1,
           };
 
           const element = this.cart.find(element => element.dish === dish.id);

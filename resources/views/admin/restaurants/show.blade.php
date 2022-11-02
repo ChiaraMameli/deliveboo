@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container text-center">
 
     <header>
         <h1>Nome ristorante: {{ $restaurant_details->name }}</h1>
@@ -37,21 +37,21 @@
     </div>
     <footer class="d-flex align-items-center justify-content-between mt-5">
 
-        <a href="{{ route('admin.home' , $restaurant_details) }}" class="btn btn-outline-primary">
-            <i class="fa-solid fa-circle-left"> </i> Torna alla home
+        <a href="{{ route('admin.home' , $restaurant_details) }}" class="btn btn-dark">
+            <i class="fa-solid fa-rotate-left"></i> Torna indietro
         </a>
         <div class="d-flex">
 
             <a href="{{ route('admin.restaurants.edit', $restaurant_details) }}"
-                class="btn btn-sm btn-outline-secondary p-2">
-                <i class="fa-solid fa-file-pen"></i> Modifica
+                class="btn btn-warning p-2">
+                <i class="fa-solid fa-pencil"></i> Modifica
             </a>
             <form action="{{ route('admin.restaurants.destroy', $restaurant_details->id )}}" method="POST"
                 class="delete-form mx-2">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-outline-danger">
-                    <i class="fa-solid fa-trash-can"></i> Elimina!
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa-solid fa-trash-can"></i> Elimina
                 </button>
 
             </form>

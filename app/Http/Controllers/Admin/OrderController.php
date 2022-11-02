@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Order;
 use App\Models\Dish;
 use App\Models\Restaurant;
+use App\Mail\OrderMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 
 class OrderController extends Controller
 {
@@ -48,7 +51,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Dopo aver storato l'ordine invio la mail
+        $mail = new OrderMail();
+        $restaurant_owner = "mameli.chiara@libero.it";
+        $customer = "mameli.chiara@libero.it";
+        Mail::to($restaurent_owner)->send($mail);
+        Mail::to($customer)->send($mail);
     }
 
     /**
