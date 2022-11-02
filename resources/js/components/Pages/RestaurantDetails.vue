@@ -1,13 +1,5 @@
 <template>
   <main id="restaurant-details">
-    <!-- modale -->
-    <div id="overlay" class="d-none">
-      <div id="modale" class="bg-white p-5 rounded d-none">
-        <p>Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?</p>
-        <a id="modale-button-no" href="" class="btn btn-primary">Annulla</a>
-        <a id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
-      </div>
-    </div>
     <!-- jumbotron -->
     <div id="jumbotron">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
@@ -25,6 +17,16 @@
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description}}</p>
               <strong class="">{{dish.price}}€</strong>
+
+              <!-- modale -->
+              <div id="overlay" class="d-none">
+                <div id="modale" class="bg-white p-5 rounded d-none">
+                  <p>Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?</p>
+                  <a id="modale-button-no" href="" class="btn btn-primary">Annulla</a>
+                  <a @click="emptyCart(dish)" id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
+                </div>
+              </div>
+
               <!-- button add to cart -->
               <div class="d-flex">
                 <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
@@ -124,13 +126,6 @@ methods: {
             overlay.classList.remove('d-none');
             modale.classList.remove('d-none');
             
-            modaleButtonYes.addEventListener('click', function(event){
-                this.cart = [];
-                this.cart.push(currentDish)
-              return this.cart;
-              
-            })
-
             modaleButtonNo.addEventListener('click', function(){
               console.log('no');
             })
@@ -146,7 +141,24 @@ methods: {
 
           this.$emit('populated-cart', this.cart);
 
-        }
+        },
+        emptyCart(dish){
+          const currentDish = {
+            'dish': dish.id, 
+            'restaurant': dish.restaurant_id,             
+            'name': dish.name, 
+            'image': dish.image,
+            'description': dish.description,
+            'ingredients': dish.ingredients,
+            'price': dish.price,
+            'quantity': 1
+          };
+
+          this.cart = [];
+          this.cart.push(currentDish)
+        return this.cart;
+
+        },
     },
     mounted() {
         this.fetchRestaurant();
