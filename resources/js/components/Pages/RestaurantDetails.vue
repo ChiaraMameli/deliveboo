@@ -1,14 +1,14 @@
 <template>
   <main id="restaurant-details">
-    <div id="jumbotron">
+    <div id="jumbotron" v-bind:style="{ backgroundImage: 'url(' + restaurant.image + ')' }">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
-      <p>{{restaurant.address}}</p>
-      <img :src="restaurant.image" alt="">
     </div>
+    <p class="text-center p-1">Indirizzo: {{restaurant.address}}</p>
     <div class="container">
+      <h2 class="text-white text-center p-5">Menu:</h2>
       <ul class="d-flex flex-wrap list-unstyled">
-        <li class="p-3" v-for="dish in restaurant.dishes" :key="dish.id">
-          <div class="card dish">
+        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in restaurant.dishes" :key="dish.id">
+          <div class="card dish p-2">
             <img :src="dish.image" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{dish.name}}</h5>
@@ -126,24 +126,37 @@ methods: {
 
 <style lang="scss" scoped>
   #restaurant-details{
-    background-color: rgb(188, 33, 33);
-    padding: 50px;
+    background-color: #E84342;
+    padding-bottom: 50px;
 
     h2{
-      font-size: 46px;
-      text-shadow: 0 0 5px rgb(39, 39, 39);
+        min-width: 500px;
+        font-size: 76px;
+        text-shadow: 0 0 6px rgb(16, 16, 16);
+      }
+    
+    #jumbotron{
+      padding-top: 150px;
+      height: 500px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    p{
+      background-color: white;
     }
 
     ul{
       li{
-        width: 25%;
         .card.dish{
-          width: 25;
           border-radius: 20px;
           border: none;
 
           img{
             border-radius: 20px 20px 0 0;
+            height: 250px;
+            object-fit: cover;
           }
 
           strong{
@@ -151,18 +164,18 @@ methods: {
           }
 
           i{
-          cursor: pointer;
-          border-radius: 50%;
-          border: 2px solid rgb(188, 33, 33);
-          color: rgb(188, 33, 33);
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          font-size: 20px;
-          transition: 0.5s;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #E84342;
+            color: #E84342;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            transition: 0.5s;
 
           &:hover{
-            background-color: rgb(188, 33, 33);
+            background-color: #E84342;
             color: white;
           }
         }

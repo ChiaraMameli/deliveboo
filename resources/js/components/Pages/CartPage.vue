@@ -8,22 +8,30 @@
                 <table class="table">
                     <thead class="bg-danger text-white">
                         <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Piattooo</th>
-                        <th scope="col">Prezzo</th>
-                        <th scope="col">Quantità</th>
-                        <th scope="col">Sub-totale</th>
+                            <th scope="col"></th>
+                            <th scope="col">Piattooo</th>
+                            <th scope="col">Prezzo</th>
+                            <th scope="col">Quantità</th>
+                            <th scope="col">Sub-totale</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="dish in cart" :key="dish.id">
-                        <th scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></th>
-                        <td>{{dish.dish}}</td>
-                        <td>{{price}}€</td>
-                        <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50" :value="dish.quantity" id="quantity"></td>
-                        <td>{{getSubTotal(dish)}}€</td>
+                            <td scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></td>
+                            <td>{{dish.name}}</td>
+                            <td>{{dish.price}}€</td>
+                            <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50" :value="dish.quantity" id="quantity"></td>
+                            <td>{{getSubTotal(dish)}}€</td>
                         </tr>
                     </tbody>
+                </table>
+                <table class="table">
+                    <thead class="bg-danger text-white">
+                        <tr class="d-flex justify-content-between">
+                            <th scope="col">Totale</th>
+                            <th scope="col">{{getTotal()}}</th>
+                        </tr>
+                    </thead>
                 </table>
                 <div class="d-flex justify-content-between">
                     <i class="fa-solid fa-rotate-left btn btn-primary updated">Aggiorna carrello</i>
@@ -64,6 +72,7 @@ export default{
     data(){
         return{
             cart: [],
+            total: 0,
         }
     },
     methods:{
@@ -78,6 +87,14 @@ export default{
             let subTotal = 0;
             subTotal = dish.price * dish.quantity;
             return subTotal;
+        },
+        getTotal(){
+            let totalPrice = 0;
+            this.cart.forEach(dish => {
+                totalPrice += dish.price * dish.quantity;
+            });
+            this.total = totalPrice;
+            return totalPrice + '€';
         },
         getCurrentQuantity(dish){
             const inputValue = document.getElementById('quantity');
@@ -111,6 +128,14 @@ export default{
     #cart{
         min-height: calc(100vh - 50px);
         background-color: #F6E7C1;
+
+        thead{
+            border-radius: 20px;
+
+            th{
+                border: none;
+            }
+        }
 
         .jumbotron{
             height: 600px;
