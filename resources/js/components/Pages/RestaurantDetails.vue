@@ -22,7 +22,7 @@
               <div id="overlay" class="d-none">
                 <div id="modale" class="bg-white p-5 rounded d-none">
                   <p>Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?</p>
-                  <a id="modale-button-no" href="" class="btn btn-primary">Annulla</a>
+                  <a id="modale-button-no" class="btn btn-primary">Annulla</a>
                   <a @click="emptyCart(dish)" id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
                 </div>
               </div>
@@ -119,7 +119,6 @@ methods: {
             // Recupero gli elementi per mostrare la modale
             const modale = document.getElementById('modale');
             const overlay = document.getElementById('overlay');
-            const modaleButtonYes = document.getElementById('modale-button-yes');
             const modaleButtonNo = document.getElementById('modale-button-no');
 
             // mostro la modale in pagina
@@ -127,16 +126,9 @@ methods: {
             modale.classList.remove('d-none');
             
             modaleButtonNo.addEventListener('click', function(){
-              console.log('no');
+              overlay.classList.add('d-none');
+              modale.classList.add('d-none');
             })
-
-            // const hasConfirmed = confirm("Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?");
-            //   if(hasConfirmed) {
-            //     this.cart = [];
-            //     this.cart.push(currentDish)
-            //   } else {
-            //     die();
-            //   }
           }
 
           this.$emit('populated-cart', this.cart);
@@ -156,8 +148,7 @@ methods: {
 
           this.cart = [];
           this.cart.push(currentDish)
-        return this.cart;
-
+          return this.cart;
         },
     },
     mounted() {
