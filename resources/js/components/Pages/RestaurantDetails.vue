@@ -1,24 +1,36 @@
 <template>
   <main id="restaurant-details">
+    <!-- modale -->
+    <div id="overlay" class="d-none">
+      <div id="modale" class="bg-white p-5 rounded d-none">
+        <p>Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?</p>
+        <a id="modale-button-no" href="" class="btn btn-primary">Annulla</a>
+        <a id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
+      </div>
+    </div>
+    <!-- jumbotron -->
     <div id="jumbotron">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
       <p class="text-white text-center">{{restaurant.address}}</p>
       <img :src="restaurant.image" alt="">
     </div>
+    <!-- menu -->
     <div class="container">
       <ul class="d-flex flex-wrap list-unstyled">
         <li class="p-3" v-for="dish in restaurant.dishes" :key="dish.id">
+          <!-- dish card -->
           <div class="card dish">
             <img :src="dish.image" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description}}</p>
               <strong class="">{{dish.price}}€</strong>
+              <!-- button add to cart -->
               <div class="d-flex">
                 <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
-              <span class="alert alert-primary d-none">
-              Hai aggiunto il piatto al carrello
-              </span>
+                <span class="alert alert-primary d-none">
+                Hai aggiunto il piatto al carrello
+                </span>
               </div>
             </div>
           </div>
@@ -101,14 +113,35 @@ methods: {
           } 
           // Se non è il primo elemento e il piatto appartiene a un ristorante diverso rispetto al primo piatto del carrello
           else if((this.cart.length > 0) && (this.cart[0].restaurant != dish.restaurant_id)) {
-            console.log('non puoi');
-            const hasConfirmed = confirm("Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?");
-              if(hasConfirmed) {
+
+            // Recupero gli elementi per mostrare la modale
+            const modale = document.getElementById('modale');
+            const overlay = document.getElementById('overlay');
+            const modaleButtonYes = document.getElementById('modale-button-yes');
+            const modaleButtonNo = document.getElementById('modale-button-no');
+
+            // mostro la modale in pagina
+            overlay.classList.remove('d-none');
+            modale.classList.remove('d-none');
+            
+            modaleButtonYes.addEventListener('click', function(event){
                 this.cart = [];
                 this.cart.push(currentDish)
-              } else {
-                die();
-              }
+              return this.cart;
+              
+            })
+
+            modaleButtonNo.addEventListener('click', function(){
+              console.log('no');
+            })
+
+            // const hasConfirmed = confirm("Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?");
+            //   if(hasConfirmed) {
+            //     this.cart = [];
+            //     this.cart.push(currentDish)
+            //   } else {
+            //     die();
+            //   }
           }
 
           this.$emit('populated-cart', this.cart);
@@ -137,6 +170,28 @@ methods: {
   #restaurant-details{
     background-color: rgb(188, 33, 33);
     padding: 50px;
+    position: relative;
+
+    #overlay {
+      position: fixed; /* Sit on top of the page content */
+      width: 100%; /* Full width (cover the whole page) */
+      height: 100%; /* Full height (cover the whole page) */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+      z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+      cursor: pointer; /* Add a pointer on hover */
+
+        #modale{
+        position: absolute;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+    }
 
     h2{
       font-size: 46px;
