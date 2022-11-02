@@ -1,20 +1,32 @@
 <template>
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <!-- logo -->
     <router-link :to="{name:'home'}" class="nav-link">
       <img src="../../image/logo-deliveboo.png" alt="" @click="closeTendina()">
     </router-link>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <router-link class="nav-link" :to="{name:'cart'}"><span @click="closeTendina()">Cart</span></router-link>
-        </li>
-      </ul>
+
+    <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarNav">
+      <div class="left-menu">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name:'cart'}"><span @click="closeTendina()">Cart</span></router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="right-menu d-lg-flex align-items-center">
+        <div id="login-btn">
+          <p class="d-inline">Sei un ristoratore? </p>
+          <a href="/register" class="btn btn-primary">Registrati</a> <p class="d-inline">o</p> <a href="/login" class="btn btn-warning">Accedi</a>
+        </div>
+        <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping ml-4 mr-2"><span>{{currentCart.length > 0 ? currentCart.length : cart.length}}</span></i>
+      </div>
     </div>
-    <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping"><span>{{currentCart.length > 0 ? currentCart.length : cart.length}}</span></i>
+
     <div id="tendina">
       <ul class="list-unstyled">
         <li v-if="!currentCart.length" v-for="dish in cart">
@@ -96,7 +108,7 @@ header{
   top: 10px;
   left: 10px;
   right: 10px;
-  z-index: 1;
+  z-index: 3;
 
   nav{
     position: relative;
@@ -115,8 +127,9 @@ header{
       justify-content: center;
       align-items: center;
       border-radius: 50%;
-      background-color: rgb(188, 33, 33);
+      background-color: #E84342;
       color: white;
+      cursor: pointer;
 
       span{
         margin-left: 5px;
@@ -151,7 +164,7 @@ header{
           height: 80px;
           object-fit: cover;
           border-radius: 50%;
-          border: 2px solid rgb(188, 33, 33);
+          border: 2px solid #E84342;
           margin-right: 10px;
         }
       }

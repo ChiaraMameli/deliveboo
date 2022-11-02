@@ -2,47 +2,53 @@
     <AppLoader v-if="isLoading" />
     <main v-else>
     <div id="home-jumbo">
-        <div id="login-btn">
-            <h3 class="d-inline">Sei un ristoratore? </h3>
-            <a href="/register" class="btn btn-primary">Registrati</a> <p class="d-inline">o</p> <a href="/login" class="btn btn-warning">Accedi</a>
-        </div>
+        <img class="img-fluid" src="../../../image/hamburger-3.png" alt="">
     </div>
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
 
                 <!-- filtro -->
                 <div class="col-12 my-3 pt-3">
-                    <h3>Cosa vuoi mangiare? Spunta le catogorie per visualizzare i ristoranti</h3>
+                    <h3>Cosa vuoi mangiare?</h3>
+                    <p class="mb-5">Spunta le catogorie per visualizzare i ristoranti</p>
                 </div>
-                <div class="col-12 d-flex my-3 justify-content-between">
-                    <div v-for="(category, i) in categories" :key="i" class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" v-model="category.isSelected"
-                            :value="category.id" />
-                        <label class="form-check-label">{{ category.label }}</label>
+
+                <div class="categories-choice col-12 d-md-flex align-items-center">
+                    <div class="col-12 col-md-9 d-flex my-3 justify-content-between align-items-center checkbox mb-5 flex-md-wrap">
+                        <div v-for="(category, i) in categories" :key="i" class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" v-model="category.isSelected"
+                                :value="category.id" />
+                            <label class="form-check-label">{{ category.label }}</label>
+                        </div>
+                        <!-- filtro con map i ristoranti per categoria al click -->
                     </div>
-                    <!-- filtro con map i ristoranti per categoria al click -->
-                    <button @click="filterRestaurants()" type="button" class="btn bg-dred">
-                        Mostra ristoranti
-                    </button>
+                    <div class="button col-12 col-md-3 d-flex justify-content-center align-items-center mb-4">
+                        <button @click="filterRestaurants()" type="button" class="btn">
+                            Mostra ristoranti
+                        </button>
+                    </div>
                 </div>
+                
                 <!-- prova lista ristoranti-->
                 <div class="d-flex justify-content-between flex-wrap pb-5">
-                    <div class="card restaurant" v-for="restaurant in restaurants" :key="restaurant.id">
-                        <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ restaurant.name }}</h5>
-                            <p class="card-text">{{ restaurant.description }}</p>
-                            <strong class="">{{ restaurant.address }}</strong>
-                            <h5>
-                                <strong>Categorie: </strong> <br /><span v-for="(category, i) in restaurant.categories"
-                                    :key="i">{{ category.label }} <br /></span>
-                            </h5>
+                    <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurants" :key="restaurant.id">
+                        <div class="inside-card p-2">
+                            <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ restaurant.name }}</h5>
+                                <p class="card-text">{{ restaurant.description }}</p>
+                                <span class="">{{ restaurant.address }}</span>
+                                <h5>
+                                    <span>Categorie: </span> <br /><span v-for="(category, i) in restaurant.categories"
+                                        :key="i">{{ category.label }} <br /></span>
+                                </h5>
 
-                            <router-link :to="{
-                                name: 'restaurant-details',
-                                params: { id: restaurant.id },
-                            }" class="btn btn-success bg-dred mb-2">Vedi
-                            </router-link>
+                                <router-link :to="{
+                                    name: 'restaurant-details',
+                                    params: { id: restaurant.id },
+                                }" class="btn btn-success bg-dred mb-2">Vedi
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,15 +125,22 @@ export default {
 <style lang="scss" scoped>
 main{
     min-height: 100vh;
-    background-color: #F6E7C1;
+    background-color: #E84342;
 
         #home-jumbo{
-        padding-top: 100px;
-        height: 600px;
-        background-image: url('../../../image/jumbo-home.png');
+        padding-top: 240px;
+        background-image: url('../../../image/logo-deliveboo.png');
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: contain;
+        background-position: 0 80px;
+        display: flex;
+        justify-content: center;
+        height: 800px;
         position: relative;
+
+        img{
+            max-height: 100%;
+        }
 
          #login-btn {
             background-color: #4D4D4D;
@@ -141,35 +154,93 @@ main{
             transform: translateX(50%);
          }
         }
-    
-    input{
-        accent-color: rgb(188, 33, 33);
-    }
-    
-    .card.restaurant{
-        width: calc(25% - 10px);
-        border-radius: 20px;
-        padding-left: 0;
-        padding-right: 0;
-        border: none;
 
-          img{
-            border-radius: 20px 20px 0 0;
-          }
+        .container{
+            
+            h3{
+                text-align: center;
+                color: white;
+                font-size: 80px;
+                line-height: 65px;
+                margin-bottom: 30px;
+            }
 
-          strong{
-            font-size: 22px;
-          }
+            p{
+                text-align: center;
+                color: white;
+                font-size: 26px;
+            }
+
+            .categories-choice{
+
+                .checkbox{
+                    background-color: white;
+                    padding: 15px 35px;
+                    border-radius: 50px;
+                    box-shadow: 0 0 5px rgb(146, 146, 146);
+                }
+
+                .btn{
+                    background-color: white;
+                    color: black;
+                    border-radius: 30px;
+                    border: 2px solid white;
+                    padding: 10px 15px;
+                    transition: 0.5s;
+
+                    &:hover{
+                        transform: scale(1.2);
+                    }
+                }
+
+            }
+
+            
+
+            .card.restaurant{
+                background-color: #E84342;
+                padding: 0;
+                border: none;
+
+                .inside-card{
+                    background-color: white;
+                    border-radius: 20px;
+
+                    img{
+                        border-radius: 20px 20px 0 0;
+                        height: 200px;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+
+                    strong{
+                        font-size: 22px;
+                    }
+                }
+
+                .btn.bg-dred{
+                    margin-top: 10px;
+                    border-radius: 20px;
+                    border: none;
+                    background-color: #E84342;
+                    color: white;
+                    transition: 0.5s;
+
+                    &:hover{
+                        transform: scale(1.2);
+                    }
+                }
+
+                
+            }
+
+
+                
+
+                input{
+                    accent-color: #E84342;
+                }
         }
     }
-    .btn.bg-dred{
-        border: 2px solid rgb(188, 33, 33);
-        background-color: #FFF;
-        color: rgb(188, 33, 33);
-    }
-
-    .btn.bg-dred:hover {
-        background-color: rgb(188, 33, 33);
-        color: white;
-    }
+    
 </style>
