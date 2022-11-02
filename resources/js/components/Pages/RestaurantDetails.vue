@@ -1,5 +1,6 @@
 <template>
-  <main id="restaurant-details">
+  <AppLoader v-if="isLoading" />
+  <main v-else id="restaurant-details">
     <div id="jumbotron">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
       <p>{{restaurant.address}}</p>
@@ -27,20 +28,29 @@
 </template>
 
 <script>
+import AppLoader from "../AppLoader";
 export default {
 name:'RestaurantDetails',
 data(){
   return{
     restaurant: null,
     cart: [],
+    isLoading: false
   }
 },
+components:{
+        AppLoader
+    },
 methods: {
         fetchRestaurant() {
+            this.isLoading = true;
+
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
                 this.restaurant = res.data.restaurant;
+                this.isLoading = false;
             }).catch(err => {
                 console.log(err);
+                this.isLoading = false;
             });
         },
         getFeedback(){
