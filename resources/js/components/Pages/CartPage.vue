@@ -58,7 +58,7 @@
                         <label for="customer_address">Indirizzo completo</label>
                         <input v-model="form.customer_address" type="text" class="form-control" id="customer_address">
                     </div>
-                    <button @click.prevent="getData()" type="submit" class="btn btn-primary">Ordina</button>
+                    <button @click="getData()" type="submit" class="btn btn-primary">Ordina</button>
                 </form>
             </div>
         </div>
@@ -145,6 +145,7 @@ export default{
                 this.restaurant_id = item.restaurant; 
             })
             //axios
+            
             this.$http.post('http://127.0.0.1:8000/api/orders-store', {
                 customer_name: this.form.customer_name,
                 customer_email: this.form.customer_email,

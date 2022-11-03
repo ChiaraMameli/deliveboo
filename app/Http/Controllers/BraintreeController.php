@@ -21,6 +21,7 @@ class BraintreeController extends Controller
         $nonceFromTheClient = $request->input('nonce');
     
         $gateway->transaction()->sale([
+            //passato il dato dal db
             'amount' => '10.00',
             'paymentMethodNonce' => $nonceFromTheClient,
             'options' => [
