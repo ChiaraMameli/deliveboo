@@ -5,7 +5,7 @@
             <img class="img-fluid" src="../../../image/hamburger-3.png" alt="">
         </div>
         <div class="container mt-5">
-            <div class="row">
+            <div class="row justify-content-center">
 
                 <!-- filtro -->
                 <div class="col-12 my-3 pt-3">
@@ -33,9 +33,8 @@
 
                 <!-- prova lista ristoranti-->
                 <!-- if -->
-                <div v-if="showAllRestaurants" class="d-flex justify-content-between flex-wrap pb-5">
-                    <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurants"
-                        :key="restaurant.id">
+                <div v-if="showAllRestaurants" class="d-flex flex-wrap pb-5">
+                    <div class="card restaurant p-2" v-for="restaurant in restaurants" :key="restaurant.id">
                         <div class="inside-card p-2">
                             <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
                             <div class="card-body">
@@ -56,9 +55,8 @@
                     </div>
                 </div>
                 <!-- else -->
-                <div v-else class="d-flex justify-content-between flex-wrap pb-5">
-                    <div class="card restaurant p-2 col-12 col-md-6 col-lg-3"
-                        v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
+                <div v-else class="d-flex flex-wrap pb-5">
+                    <div class="card restaurant p-2" v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
                         <div class="inside-card p-2">
                             <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
                             <div class="card-body">
@@ -245,6 +243,8 @@ main {
             border: none;
 
             .inside-card {
+                height: 500px;
+                width: 300px;
                 background-color: white;
                 border-radius: 20px;
 

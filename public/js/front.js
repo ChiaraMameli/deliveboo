@@ -2777,7 +2777,7 @@ var render = function render() {
   })]), _vm._v(" "), _c("div", {
     staticClass: "container mt-5"
   }, [_c("div", {
-    staticClass: "row"
+    staticClass: "row justify-content-center"
   }, [_c("div", {
     staticClass: "col-12 my-3 pt-3"
   }, [_c("h3", [_vm._v("Cosa vuoi mangiare?")]), _vm._v(" "), _c("p", {
@@ -2840,11 +2840,11 @@ var render = function render() {
       }
     }
   }, [_vm._v("\n                        Mostra ristoranti\n                    ")])])]), _vm._v(" "), _vm.showAllRestaurants ? _c("div", {
-    staticClass: "d-flex justify-content-between flex-wrap pb-5"
+    staticClass: "d-flex flex-wrap pb-5"
   }, _vm._l(_vm.restaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
-      staticClass: "card restaurant p-2 col-12 col-md-6 col-lg-3"
+      staticClass: "card restaurant p-2"
     }, [_c("div", {
       staticClass: "inside-card p-2"
     }, [_c("img", {
@@ -2875,11 +2875,11 @@ var render = function render() {
       }
     }, [_vm._v("Vedi\n                            ")])], 1)])]);
   }), 0) : _c("div", {
-    staticClass: "d-flex justify-content-between flex-wrap pb-5"
+    staticClass: "d-flex flex-wrap pb-5"
   }, _vm._l(_vm.restaurantWithSelected, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
-      staticClass: "card restaurant p-2 col-12 col-md-6 col-lg-3"
+      staticClass: "card restaurant p-2"
     }, [_c("div", {
       staticClass: "inside-card p-2"
     }, [_c("img", {
@@ -7495,7 +7495,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "main[data-v-c1896678] {\n  min-height: 100vh;\n  background-color: #E84342;\n}\nmain #home-jumbo[data-v-c1896678] {\n  padding-top: 240px;\n  background-image: url(" + escape(__webpack_require__(/*! ../../../image/logo-deliveboo.png */ "./resources/image/logo-deliveboo.png")) + ");\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-position: 0 80px;\n  display: flex;\n  justify-content: center;\n  height: 800px;\n  position: relative;\n}\nmain #home-jumbo img[data-v-c1896678] {\n  max-height: 100%;\n}\nmain #home-jumbo #login-btn[data-v-c1896678] {\n  background-color: #4D4D4D;\n  color: #FFF;\n  border-radius: 20px;\n  padding: 20px;\n  text-align: center;\n  position: absolute;\n  bottom: 10px;\n  right: 50%;\n  transform: translateX(50%);\n}\nmain .container h3[data-v-c1896678] {\n  text-align: center;\n  color: white;\n  font-size: 80px;\n  line-height: 65px;\n  margin-bottom: 30px;\n}\nmain .container p[data-v-c1896678] {\n  text-align: center;\n  color: white;\n  font-size: 26px;\n}\nmain .container .categories-choice .checkbox[data-v-c1896678] {\n  background-color: white;\n  padding: 15px 35px;\n  border-radius: 50px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nmain .container .categories-choice .btn[data-v-c1896678] {\n  background-color: white;\n  color: black;\n  border-radius: 30px;\n  border: 2px solid white;\n  padding: 10px 15px;\n  transition: 0.5s;\n}\nmain .container .categories-choice .btn[data-v-c1896678]:hover {\n  transform: scale(1.2);\n}\nmain .container .card.restaurant[data-v-c1896678] {\n  background-color: #E84342;\n  padding: 0;\n  border: none;\n}\nmain .container .card.restaurant .inside-card[data-v-c1896678] {\n  background-color: white;\n  border-radius: 20px;\n}\nmain .container .card.restaurant .inside-card img[data-v-c1896678] {\n  border-radius: 20px 20px 0 0;\n  height: 200px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\nmain .container .card.restaurant .inside-card strong[data-v-c1896678] {\n  font-size: 22px;\n}\nmain .container .card.restaurant .btn.bg-dred[data-v-c1896678] {\n  margin-top: 10px;\n  border-radius: 20px;\n  border: none;\n  background-color: #E84342;\n  color: white;\n  transition: 0.5s;\n}\nmain .container .card.restaurant .btn.bg-dred[data-v-c1896678]:hover {\n  transform: scale(1.2);\n}\nmain .container input[data-v-c1896678] {\n  accent-color: #E84342;\n}", ""]);
+exports.push([module.i, "main[data-v-c1896678] {\n  min-height: 100vh;\n  background-color: #E84342;\n}\nmain #home-jumbo[data-v-c1896678] {\n  padding-top: 240px;\n  background-image: url(" + escape(__webpack_require__(/*! ../../../image/logo-deliveboo.png */ "./resources/image/logo-deliveboo.png")) + ");\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-position: 0 80px;\n  display: flex;\n  justify-content: center;\n  height: 800px;\n  position: relative;\n}\nmain #home-jumbo img[data-v-c1896678] {\n  max-height: 100%;\n}\nmain #home-jumbo #login-btn[data-v-c1896678] {\n  background-color: #4D4D4D;\n  color: #FFF;\n  border-radius: 20px;\n  padding: 20px;\n  text-align: center;\n  position: absolute;\n  bottom: 10px;\n  right: 50%;\n  transform: translateX(50%);\n}\nmain .container h3[data-v-c1896678] {\n  text-align: center;\n  color: white;\n  font-size: 80px;\n  line-height: 65px;\n  margin-bottom: 30px;\n}\nmain .container p[data-v-c1896678] {\n  text-align: center;\n  color: white;\n  font-size: 26px;\n}\nmain .container .categories-choice .checkbox[data-v-c1896678] {\n  background-color: white;\n  padding: 15px 35px;\n  border-radius: 50px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nmain .container .categories-choice .btn[data-v-c1896678] {\n  background-color: white;\n  color: black;\n  border-radius: 30px;\n  border: 2px solid white;\n  padding: 10px 15px;\n  transition: 0.5s;\n}\nmain .container .categories-choice .btn[data-v-c1896678]:hover {\n  transform: scale(1.2);\n}\nmain .container .card.restaurant[data-v-c1896678] {\n  background-color: #E84342;\n  padding: 0;\n  border: none;\n}\nmain .container .card.restaurant .inside-card[data-v-c1896678] {\n  height: 500px;\n  width: 300px;\n  background-color: white;\n  border-radius: 20px;\n}\nmain .container .card.restaurant .inside-card img[data-v-c1896678] {\n  border-radius: 20px 20px 0 0;\n  height: 200px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\nmain .container .card.restaurant .inside-card strong[data-v-c1896678] {\n  font-size: 22px;\n}\nmain .container .card.restaurant .btn.bg-dred[data-v-c1896678] {\n  margin-top: 10px;\n  border-radius: 20px;\n  border: none;\n  background-color: #E84342;\n  color: white;\n  transition: 0.5s;\n}\nmain .container .card.restaurant .btn.bg-dred[data-v-c1896678]:hover {\n  transform: scale(1.2);\n}\nmain .container input[data-v-c1896678] {\n  accent-color: #E84342;\n}", ""]);
 
 // exports
 
