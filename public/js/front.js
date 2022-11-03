@@ -2864,17 +2864,32 @@ var render = function render() {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success bg-dred mb-2",
-      attrs: {
-        to: {
-          name: "restaurant-details",
-          params: {
-            id: restaurant.id
+    })], 2), _vm._v(" "), _vm._l(_vm.restaurantWithSelected, function (restaurant) {
+      return _c("div", {
+        key: restaurant.id,
+        staticClass: "card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
+      }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
+        staticClass: "rounded img-fluid",
+        attrs: {
+          src: restaurant.image,
+          alt: ""
+        }
+      }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address) + "\n                                ")]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+        return _c("span", {
+          key: i
+        }, [_vm._v(_vm._s(category.label) + "\n                                        "), _c("br")]);
+      })], 2), _vm._v(" "), _c("router-link", {
+        staticClass: "btn btn-success mb-2",
+        attrs: {
+          to: {
+            name: "restaurant-details",
+            params: {
+              id: restaurant.id
+            }
           }
         }
-      }
-    }, [_vm._v("Vedi\n                            ")])], 1)])]);
+      }, [_vm._v("Vedi\n                                ")])], 1);
+    })], 2)])]);
   }), 0)])])]);
 };
 var staticRenderFns = [];
@@ -55490,7 +55505,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/prova/deliveboo/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })
