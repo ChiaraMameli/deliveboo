@@ -78,7 +78,7 @@ export default{
                 customer_phone: '',
                 customer_address: '',
             },
-            amount: 10,
+            total: 0,
             restaurant_id: 0,
            // order: [], //deve diventare cart
         }
@@ -97,6 +97,14 @@ export default{
             
             return subTotal;
         },
+        getTotal() {
+            let totalPrice = 0;
+            this.cart.forEach(dish => {
+                totalPrice += dish.price * dish.quantity;
+            });
+            this.total = totalPrice;
+            return totalPrice + '€';
+        },
         getCurrentQuantity(dish){
             const inputValue = document.getElementById('quantity');
 
@@ -111,15 +119,6 @@ export default{
                 die();
               }
         },
-        // getAmount(cart){ 
-        //     let totalAmount 
-        //     for( let i = 0; i < cart.length; i++){
-        //     let element = this.getSubTotal()
-        //     console.log(element);
-        // };
-        //   return totalAmount
-        // },
-
         getData(){
             const dishes = [];
 
