@@ -17,7 +17,6 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('restaurant_id')->nullable(); 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('set null');
-            $table->string('status');
             $table->smallInteger('amount');
             $table->string('customer_name');
             $table->string('customer_phone', 15);

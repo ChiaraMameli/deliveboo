@@ -2013,7 +2013,8 @@ __webpack_require__.r(__webpack_exports__);
         customer_phone: '',
         customer_address: ''
       },
-      amount: 10
+      amount: 0,
+      restaurant_id: 0
       // order: [], //deve diventare cart
     };
   },
@@ -2032,6 +2033,14 @@ __webpack_require__.r(__webpack_exports__);
       subTotal = dish.price * dish.quantity;
       return subTotal;
     },
+    getTotal: function getTotal() {
+      var totalPrice = 0;
+      this.cart.forEach(function (dish) {
+        totalPrice += dish.price * dish.quantity;
+      });
+      this.amount = totalPrice;
+      return totalPrice + '€';
+    },
     getCurrentQuantity: function getCurrentQuantity(dish) {
       var inputValue = document.getElementById('quantity');
       dish.quantity = inputValue.value;
@@ -2041,38 +2050,42 @@ __webpack_require__.r(__webpack_exports__);
       if (hasConfirmed) {
         localStorage.cart = [];
         this.cart = [];
+        //svuoto anche db?
       } else {
         die();
       }
     },
-    // getAmount(cart){ 
-    //     let totalAmount 
-    //     for( let i = 0; i < cart.length; i++){
-    //     let element = this.getSubTotal()
-    //     console.log(element);
-    // };
-    //   return totalAmount
-    // },
     getData: function getData() {
       var _this = this;
+      var dishes = [];
+      this.cart.forEach(function (item) {
+        var dish = {
+          'id': item.dish,
+          'quantity': item.quantity
+        };
+        dishes.push(dish);
+        _this.restaurant_id = item.restaurant;
+      });
       //axios
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/orders', {
-        customer_name: this.form.customer_name,
-        //??
-        customer_email: this.form.customer_email,
-        customer_phone: this.form.customer_phone,
-        customer_address: this.form.customer_address
-        //restaurant_id
-        //amount
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/orders-store', {
+        customer_name: form.customer_name,
+        customer_email: form.customer_email,
+        customer_phone: form.customer_phone,
+        customer_address: form.customer_address,
+        restaurant_id: restaurant_id,
+        amount: total
       }).then(function () {
-        _this.form.customer_name = "", _this.form.customer_email = "", _this.form.customer_phone = "", _this.form.customer_address = "";
 
-        // //fill the order with the form data, way1
+        //     this.form.customer_name = '',
+        //     this.form.customer_email = '',
+        //     this.form.customer_phone = '',
+        //     this.form.customer_address = '',
+        //    this.amount = ''
+
         //     //dati del form
         //     const formData = res.config['data'];
         //     const parsedData = JSON.parse(formData);
         //     //array del new_order che arriva da db
-        // const newOrder = res.data['new_order'];
         //      console.log(res);
         //      console.log(res.data);
         //     //console.log(res.data[0]);
@@ -2091,21 +2104,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart);
-      // let my_order_dish = this.cart.forEach(cart => (
-      //     cart.find(cart[0])
-      //     ));
-      console.log(this.cart);
-      // return my_order_dish;
     }
   },
-
-  // created(){
-  //  if (localStorage.cart) {
-  // let my_cart =  this.cart.find(cart => (cart.restaurant));
-  // //my_cart.push(this.amount)
-  // console.log(my_cart)
-  //      return my_cart;
-  //  } 
   //     this.$http.get('http://127.0.0.1:8000/api/user-details', {
   //         name: this.form.name,
   //         email: this.form.email,
@@ -2251,8 +2251,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     addToCart: function addToCart(dish) {
       var currentDish = {
-        'dish_id': dish.id,
-        'restaurant_id': dish.restaurant_id,
+        'dish': dish.id,
+        'restaurant': dish.restaurant_id,
         'name': dish.name,
         'image': dish.image,
         'description': dish.description,
@@ -2565,7 +2565,9 @@ var render = function render() {
         }
       }
     })]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.getSubTotal(dish)) + "€")])]);
-  }), _vm._v(" "), _vm._m(2)], 2)]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("tr", {
+    staticClass: "d-flex flex-end"
+  }, [_c("td", [_vm._v(" " + _vm._s(_vm.getTotal()))])])], 2)]), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-between"
   }, [_c("i", {
     staticClass: "fa-solid fa-rotate-left btn btn-primary updated"
@@ -2747,12 +2749,6 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Totale")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("tr", {
-    staticClass: "d-flex flex-end"
-  }, [_c("td", [_vm._v(" €")])]);
 }];
 render._withStripped = true;
 

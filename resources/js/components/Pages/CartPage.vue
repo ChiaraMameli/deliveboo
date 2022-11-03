@@ -78,7 +78,7 @@ export default{
                 customer_phone: '',
                 customer_address: '',
             },
-            total: 0,
+            amount: 0,
             restaurant_id: 0,
            // order: [], //deve diventare cart
         }
@@ -102,7 +102,7 @@ export default{
             this.cart.forEach(dish => {
                 totalPrice += dish.price * dish.quantity;
             });
-            this.total = totalPrice;
+            this.amount = totalPrice;
             return totalPrice + '€';
         },
         getCurrentQuantity(dish){
@@ -115,6 +115,7 @@ export default{
               if(hasConfirmed) {
                 localStorage.cart = [];
                 this.cart = [];
+                //svuoto anche db?
               } else {
                 die();
               }
@@ -130,36 +131,31 @@ export default{
                 dishes.push(dish);
                 this.restaurant_id = item.restaurant; 
             })
-            console.log(dishes);
-            console.log(this.restaurant_id);
-
-
             //axios
-            axios.post('http://127.0.0.1:8000/api/orders', {
-                customer_name: this.form.customer_name,//??
-                customer_email: this.form.customer_email,
-                customer_phone: this.form.customer_phone,
-                customer_address: this.form.customer_address,
-                restaurant_id: this.restaurant_id,
-                dishes: dishes,
-                //restaurant_id
-                //amount
+            axios.post('http://127.0.0.1:8000/api/orders-store', {
+                customer_name: form.customer_name,
+                customer_email: form.customer_email,
+                customer_phone: form.customer_phone,
+                customer_address: form.customer_address,
+                restaurant_id: restaurant_id,
+                amount: amount,
+                
+                
             }).then(() => {
                 
-                this.form.customer_name = "",
-                this.form.customer_email = "",
-                this.form.customer_phone = "",
-                this.form.customer_address = ""
+            //     this.form.customer_name = '',
+            //     this.form.customer_email = '',
+            //     this.form.customer_phone = '',
+            //     this.form.customer_address = '',
+            //    this.amount = ''
                 
                 
                 
                 
-                // //fill the order with the form data, way1
                 //     //dati del form
                 //     const formData = res.config['data'];
                 //     const parsedData = JSON.parse(formData);
                 //     //array del new_order che arriva da db
-                // const newOrder = res.data['new_order'];
                 //      console.log(res);
                 //      console.log(res.data);
                 //     //console.log(res.data[0]);
@@ -179,20 +175,9 @@ export default{
     mounted(){
         if(localStorage.cart){
             this.cart = JSON.parse(localStorage.cart);
-            // let my_order_dish = this.cart.forEach(cart => (
-            //     cart.find(cart[0])
-            //     ));
-                console.log(this.cart)
-           // return my_order_dish;
         }
     },
-    // created(){
-        //  if (localStorage.cart) {
-        // let my_cart =  this.cart.find(cart => (cart.restaurant));
-        // //my_cart.push(this.amount)
-        // console.log(my_cart)
-        //      return my_cart;
-        //  } 
+   
     //     this.$http.get('http://127.0.0.1:8000/api/user-details', {
     //         name: this.form.name,
     //         email: this.form.email,
