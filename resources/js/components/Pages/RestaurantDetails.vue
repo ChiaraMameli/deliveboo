@@ -56,8 +56,8 @@ methods: {
         },
         addToCart(dish){
           const currentDish = {
-            'dish_id': dish.id, 
-            'restaurant_id': dish.restaurant_id,             
+            'dish': dish.id, 
+            'restaurant': dish.restaurant_id,             
             'name': dish.name, 
             'image': dish.image,
             'description': dish.description,

@@ -27,7 +27,7 @@
                         <!-- <td >{{getAmount(cart)}}€</td> -->
                          <tr class="d-flex flex-end">
 
-                             <td > €</td>
+                             <td > {{getTotal()}}</td>
                          </tr> 
                 </tbody>
                 </table>
