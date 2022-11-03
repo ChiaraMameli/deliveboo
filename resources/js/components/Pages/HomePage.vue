@@ -46,6 +46,11 @@
                                     <span>Categorie: </span> <br /><span v-for="(category, i) in restaurant.categories"
                                         :key="i">{{ category.label }} <br /></span>
                                 </h5>
+                                <router-link :to="{
+                                    name: 'restaurant-details',
+                                    params: { id: restaurant.id },
+                                }" class="btn btn-success mb-2">Vedi
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -64,6 +69,11 @@
                                     <span>Categorie: </span> <br /><span v-for="(category, i) in restaurant.categories"
                                         :key="i">{{ category.label }} <br /></span>
                                 </h5>
+                                <router-link :to="{
+                                    name: 'restaurant-details',
+                                    params: { id: restaurant.id },
+                                }" class="btn btn-success mb-2">Vedi
+                                </router-link>
 
                             </div>
                         </div>

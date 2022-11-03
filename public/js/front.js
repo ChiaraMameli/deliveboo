@@ -2863,7 +2863,17 @@ var render = function render() {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    })], 2)])])]);
+    })], 2), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success mb-2",
+      attrs: {
+        to: {
+          name: "restaurant-details",
+          params: {
+            id: restaurant.id
+          }
+        }
+      }
+    }, [_vm._v("Vedi\n                            ")])], 1)])]);
   }), 0) : _c("div", {
     staticClass: "d-flex justify-content-between flex-wrap pb-5"
   }, _vm._l(_vm.restaurantWithSelected, function (restaurant) {
@@ -2888,7 +2898,17 @@ var render = function render() {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    })], 2)])])]);
+    })], 2), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-success mb-2",
+      attrs: {
+        to: {
+          name: "restaurant-details",
+          params: {
+            id: restaurant.id
+          }
+        }
+      }
+    }, [_vm._v("Vedi\n                            ")])], 1)])]);
   }), 0)])])]);
 };
 var staticRenderFns = [];
