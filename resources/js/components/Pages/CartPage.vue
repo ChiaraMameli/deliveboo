@@ -38,8 +38,8 @@
             </div>
 
             <div class="card cart p-5 mt-5">
-                <!-- action(?) -->
-                <form id="checkout-form" action="http://127.0.0.1:8000/payment">
+                <!-- action(?) @submit="getData()" -->
+                <form  id="checkout-form" action="http://127.0.0.1:8000/payment">
                     <div class="form-group">
                         <label for="customer_name">Nome e cognome</label>
                         <input v-model="form.customer_name" type="text" class="form-control" id="customer_name">
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+//import axios from 'axios';
 export default{
     name: 'CartPage',
     data(){
@@ -120,6 +120,19 @@ export default{
                 die();
               }
         },
+        // saveData(){
+        //     axios.post('http://127.0.0.1:8000/api/orders-store', {
+        //         customer_name: this.form.customer_name,
+        //         customer_email: this.form.customer_email,
+        //         customer_phone: this.form.customer_phone,
+        //         customer_address: this.form.customer_address,
+        //         restaurant_id: this.restaurant_id,
+        //         amount: this.amount,
+
+
+        //     }).then(() => {
+        //     });
+        // },
         getData(){
             const dishes = [];
 
@@ -132,16 +145,17 @@ export default{
                 this.restaurant_id = item.restaurant; 
             })
             //axios
-            axios.post('http://127.0.0.1:8000/api/orders-store', {
-                customer_name: form.customer_name,
-                customer_email: form.customer_email,
-                customer_phone: form.customer_phone,
-                customer_address: form.customer_address,
-                restaurant_id: restaurant_id,
-                amount: amount,
+            this.$http.post('http://127.0.0.1:8000/api/orders-store', {
+                customer_name: this.form.customer_name,
+                customer_email: this.form.customer_email,
+                customer_phone: this.form.customer_phone,
+                customer_address: this.form.customer_address,
+                restaurant_id: this.restaurant_id,
+                amount: this.amount,
                 
                 
             }).then(() => {
+                // console.log(data)
                 
             //     this.form.customer_name = '',
             //     this.form.customer_email = '',
