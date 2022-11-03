@@ -10,11 +10,13 @@
       <h2 class="text-white text-center p-5">Menu:</h2>
       <ul class="d-flex flex-wrap list-unstyled">
         <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in restaurant.dishes" :key="dish.id">
+
+          <!-- card dish -->
           <div class="card dish p-2">
             <img :src="dish.image" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{dish.name}}</h5>
-              <p class="card-text">{{dish.description}}</p>
+              <p class="card-text">{{cutDescription(dish.description)}}</p>
               <strong class="">{{dish.price}}€</strong>
 
               <!-- modale -->
@@ -86,8 +88,10 @@ methods: {
               },2000);
               })
           }
-        
-
+        },
+        cutDescription(dishDescription){
+            let description = dishDescription.substring(0, 100) + '...';
+            return description;
         },
         addToCart(dish){
           const currentDish = {
@@ -228,6 +232,7 @@ methods: {
         .card.dish{
           border-radius: 20px;
           border: none;
+          height: 580px;
 
           img{
             border-radius: 20px 20px 0 0;
