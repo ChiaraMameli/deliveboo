@@ -2108,11 +2108,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _this.restaurants = res.data.restaurants;
         _this.categories = res.data.categories;
         console.log(_this.restaurants);
-        _this.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
-        _this.isLoading = false;
       });
+      this.isLoading = false;
     },
     filterRestaurants: function filterRestaurants() {
       this.showAllRestaurants = false;
@@ -2840,7 +2839,7 @@ var render = function render() {
         return _vm.filterRestaurants();
       }
     }
-  }, [_vm._v("\n                        Mostra ristoranti\n                    ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                        Mostra ristoranti\n                    ")])])]), _vm._v(" "), _vm.showAllRestaurants ? _c("div", {
     staticClass: "d-flex justify-content-between flex-wrap pb-5"
   }, _vm._l(_vm.restaurants, function (restaurant) {
     return _c("div", {
@@ -2864,32 +2863,32 @@ var render = function render() {
       return _c("span", {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
-    })], 2), _vm._v(" "), _vm._l(_vm.restaurantWithSelected, function (restaurant) {
-      return _c("div", {
-        key: restaurant.id,
-        staticClass: "card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
-      }, [_c("h2", [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("img", {
-        staticClass: "rounded img-fluid",
-        attrs: {
-          src: restaurant.image,
-          alt: ""
-        }
-      }), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Indirizzo: ")]), _vm._v(_vm._s(restaurant.address) + "\n                                ")]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
-        return _c("span", {
-          key: i
-        }, [_vm._v(_vm._s(category.label) + "\n                                        "), _c("br")]);
-      })], 2), _vm._v(" "), _c("router-link", {
-        staticClass: "btn btn-success mb-2",
-        attrs: {
-          to: {
-            name: "restaurant-details",
-            params: {
-              id: restaurant.id
-            }
-          }
-        }
-      }, [_vm._v("Vedi\n                                ")])], 1);
-    })], 2)])]);
+    })], 2)])])]);
+  }), 0) : _c("div", {
+    staticClass: "d-flex justify-content-between flex-wrap pb-5"
+  }, _vm._l(_vm.restaurantWithSelected, function (restaurant) {
+    return _c("div", {
+      key: restaurant.id,
+      staticClass: "card restaurant p-2 col-12 col-md-6 col-lg-3"
+    }, [_c("div", {
+      staticClass: "inside-card p-2"
+    }, [_c("img", {
+      staticClass: "card-img-top",
+      attrs: {
+        src: restaurant.image,
+        alt: restaurant.name
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "card-body"
+    }, [_c("h5", {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_vm._v(_vm._s(restaurant.description))]), _vm._v(" "), _c("span", {}, [_vm._v(_vm._s(restaurant.address))]), _vm._v(" "), _c("h5", [_c("span", [_vm._v("Categorie: ")]), _vm._v(" "), _c("br"), _vm._l(restaurant.categories, function (category, i) {
+      return _c("span", {
+        key: i
+      }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
+    })], 2)])])]);
   }), 0)])])]);
 };
 var staticRenderFns = [];
@@ -55505,7 +55504,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\Laravel\progetto finale\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

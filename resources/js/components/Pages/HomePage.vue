@@ -32,7 +32,8 @@
 
 
                 <!-- prova lista ristoranti-->
-                <div class="d-flex justify-content-between flex-wrap pb-5">
+                <!-- if -->
+                <div v-if="showAllRestaurants" class="d-flex justify-content-between flex-wrap pb-5">
                     <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurants"
                         :key="restaurant.id">
                         <div class="inside-card p-2">
@@ -45,26 +46,25 @@
                                     <span>Categorie: </span> <br /><span v-for="(category, i) in restaurant.categories"
                                         :key="i">{{ category.label }} <br /></span>
                                 </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- else -->
+                <div v-else class="d-flex justify-content-between flex-wrap pb-5">
+                    <div class="card restaurant p-2 col-12 col-md-6 col-lg-3"
+                        v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
+                        <div class="inside-card p-2">
+                            <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ restaurant.name }}</h5>
+                                <p class="card-text">{{ restaurant.description }}</p>
+                                <span class="">{{ restaurant.address }}</span>
+                                <h5>
+                                    <span>Categorie: </span> <br /><span v-for="(category, i) in restaurant.categories"
+                                        :key="i">{{ category.label }} <br /></span>
+                                </h5>
 
-                                <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 my-3 justify-content-between py-2 b-radius-1"
-                                    v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
-                                    <h2>{{ restaurant.name }}</h2>
-                                    <img class="rounded img-fluid" :src="restaurant.image" alt="" />
-                                    <h5>
-                                        <strong>Indirizzo: </strong>{{ restaurant.address }}
-                                    </h5>
-
-                                    <h5>
-                                        <strong>Categorie: </strong> <br /><span
-                                            v-for="(category, i) in restaurant.categories" :key="i">{{ category.label }}
-                                            <br /></span>
-                                    </h5>
-                                    <router-link :to="{
-                                        name: 'restaurant-details',
-                                        params: { id: restaurant.id },
-                                    }" class="btn btn-success mb-2">Vedi
-                                    </router-link>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,13 +102,12 @@ export default {
                     this.restaurants = res.data.restaurants;
                     this.categories = res.data.categories;
                     console.log(this.restaurants);
-                    this.isLoading = false;
 
                 })
                 .catch((err) => {
                     console.log(err);
-                    this.isLoading = false;
                 });
+            this.isLoading = false;
         },
 
         filterRestaurants() {
