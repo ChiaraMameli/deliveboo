@@ -67,9 +67,10 @@ export default {
             categories: [],
             restaurantWithSelected: [],
             isLoading: false,
+            showAllRestaurants: true,
         };
     },
-    components:{
+    components: {
         AppLoader
     },
     methods: {
@@ -91,6 +92,7 @@ export default {
         },
 
         filterRestaurants() {
+            this.showAllRestaurants = false;
             // filtro dalle categorie quelle selezionate
             let categorySelected = this.categories.filter(
                 (category) => category.isSelected
@@ -98,21 +100,32 @@ export default {
             //categoria filtrata
 
             if (categorySelected.length > 0) {
+                // approccio imperativo
                 this.restaurantWithSelected = this.restaurants.filter(
                     (restaurant) => {
-                        for (const category1 of restaurant.categories) {
-                            for (const category2 of categorySelected) {
+                        for (const category1 of categorySelected) {
+                            let found = false
+                            for (const category2 of restaurant.categories) {
+
                                 if (category1.id === category2.id) {
-                                    return true;
+                                    found = true
+                                    break;
                                 }
                             }
+                            if (!found) return false
                         }
-                        return false;
+                        return true;
                     }
                 );
+
+                // approccio funzionale
+                // this.restaurantWithSelected = this.restaurants.filter(
+                //     (restaurant) => categorySelected.every(category1 => restaurant.categories.some(category2 => category1.id === category2.id)))
+
             } else {
                 this.restaurantWithSelected = this.restaurants;
             }
+            console.log(this.restaurantWithSelected)
         },
     },
 
