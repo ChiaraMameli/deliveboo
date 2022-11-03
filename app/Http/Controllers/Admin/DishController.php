@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Dish;
 use App\Models\Restaurant;
+use App\Mail\OrderMail;
+use App\Mail\CustomerOrderMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+
 
 class DishController extends Controller
 {
@@ -84,6 +88,13 @@ class DishController extends Controller
 
         $dish->fill($data);
         $dish->save();
+
+        $mail_owner = new OrderMail();
+        $mail_customer = new CustomerOrderMail();
+        $restaurant_owner = "mameli.chiara@libero.it";
+        $customer = "mameli.chiara@libero.it";
+        Mail::to($restaurant_owner)->send($mail_owner);
+        Mail::to($customer)->send($mail_customer);
 
         return redirect()->route('admin.dishes.index')->with('message', 'Il piatto è stato creato con successo')->with('type', 'success');
 

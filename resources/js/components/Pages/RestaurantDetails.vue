@@ -1,23 +1,40 @@
 <template>
-  <main id="restaurant-details">
-    <div id="jumbotron">
+
+  <AppLoader v-if="isLoading" />
+  <main v-else id="restaurant-details">
+    <div id="jumbotron" v-bind:style="{ backgroundImage: 'url(' + restaurant.image + ')' }">
       <h2 class="text-white text-center p-5">{{restaurant.name}}</h2>
-      <p>{{restaurant.address}}</p>
-      <img :src="restaurant.image" alt="">
     </div>
+    <p class="text-center p-1">Indirizzo: {{restaurant.address}}</p>
     <div class="container">
+      <h2 class="text-white text-center p-5">Menu:</h2>
       <ul class="d-flex flex-wrap list-unstyled">
-        <li class="p-3" v-for="dish in restaurant.dishes" :key="dish.id">
-          <div class="card dish">
+        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in restaurant.dishes" :key="dish.id">
+
+          <!-- card dish -->
+          <div class="card dish p-2">
             <img :src="dish.image" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{dish.name}}</h5>
-              <p class="card-text">{{dish.description}}</p>
+              <p class="card-text">{{cutDescription(dish.description)}}</p>
               <strong class="">{{dish.price}}€</strong>
-              <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
-              <div class="alert alert-primary d-none">
-              Hai aggiunto il piatto al carrello
-            </div>
+
+              <!-- modale -->
+              <div id="overlay" class="d-none">
+                <div id="modale" class="bg-white p-5 rounded d-none">
+                  <p>Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?</p>
+                  <a id="modale-button-no" class="btn btn-primary">Annulla</a>
+                  <a @click="emptyCart(dish)" id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
+                </div>
+              </div>
+
+              <!-- button add to cart -->
+              <div class="d-flex">
+                <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
+                <span class="alert alert-primary d-none">
+                Hai aggiunto il piatto al carrello
+                </span>
+              </div>
             </div>
           </div>
         </li>
@@ -27,20 +44,29 @@
 </template>
 
 <script>
+import AppLoader from "../AppLoader";
 export default {
 name:'RestaurantDetails',
 data(){
   return{
     restaurant: null,
     cart: [],
+    isLoading: false
   }
 },
+components:{
+        AppLoader
+    },
 methods: {
         fetchRestaurant() {
+            this.isLoading = true;
+
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
                 this.restaurant = res.data.restaurant;
+                this.isLoading = false;
             }).catch(err => {
                 console.log(err);
+                this.isLoading = false;
             });
         },
         getFeedback(){
@@ -53,10 +79,19 @@ methods: {
             
             addDish[i].addEventListener('click', function(){
                 alert[i].classList.remove('d-none');  
+                addDish[i].classList.remove('d-flex');
+                addDish[i].classList.add('d-none');
+                setTimeout(function(){
+                  alert[i].classList.add('d-none');
+                  addDish[i].classList.add('d-flex');
+                  addDish[i].classList.remove('d-none');
+              },2000);
               })
           }
-        
-
+        },
+        cutDescription(dishDescription){
+            let description = dishDescription.substring(0, 100) + '...';
+            return description;
         },
         addToCart(dish){
           const currentDish = {
@@ -67,7 +102,7 @@ methods: {
             'description': dish.description,
             'ingredients': dish.ingredients,
             'price': dish.price,
-            'quantity': 1
+            'quantity': 1,
           };
 
           const element = this.cart.find(element => element.dish === dish.id);
@@ -92,19 +127,41 @@ methods: {
           } 
           // Se non è il primo elemento e il piatto appartiene a un ristorante diverso rispetto al primo piatto del carrello
           else if((this.cart.length > 0) && (this.cart[0].restaurant != dish.restaurant_id)) {
-            console.log('non puoi');
-            const hasConfirmed = confirm("Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?");
-              if(hasConfirmed) {
-                this.cart = [];
-                this.cart.push(currentDish)
-              } else {
-                die();
-              }
+
+            // Recupero gli elementi per mostrare la modale
+            const modale = document.getElementById('modale');
+            const overlay = document.getElementById('overlay');
+            const modaleButtonNo = document.getElementById('modale-button-no');
+
+            // mostro la modale in pagina
+            overlay.classList.remove('d-none');
+            modale.classList.remove('d-none');
+            
+            modaleButtonNo.addEventListener('click', function(){
+              overlay.classList.add('d-none');
+              modale.classList.add('d-none');
+            })
           }
 
           this.$emit('populated-cart', this.cart);
 
-        }
+        },
+        emptyCart(dish){
+          const currentDish = {
+            'dish': dish.id, 
+            'restaurant': dish.restaurant_id,             
+            'name': dish.name, 
+            'image': dish.image,
+            'description': dish.description,
+            'ingredients': dish.ingredients,
+            'price': dish.price,
+            'quantity': 1
+          };
+
+          this.cart = [];
+          this.cart.push(currentDish)
+          return this.cart;
+        },
     },
     mounted() {
         this.fetchRestaurant();
@@ -126,24 +183,61 @@ methods: {
 
 <style lang="scss" scoped>
   #restaurant-details{
-    background-color: rgb(188, 33, 33);
-    padding: 50px;
+    background-color: #E84342;
+    padding-bottom: 50px;
+    position: relative;
+
+    #overlay {
+      position: fixed; /* Sit on top of the page content */
+      width: 100%; /* Full width (cover the whole page) */
+      height: 100%; /* Full height (cover the whole page) */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+      z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+      cursor: pointer; /* Add a pointer on hover */
+
+        #modale{
+        position: absolute;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+    }
+    
 
     h2{
-      font-size: 46px;
-      text-shadow: 0 0 5px rgb(39, 39, 39);
+        min-width: 500px;
+        font-size: 76px;
+        text-shadow: 0 0 6px rgb(16, 16, 16);
+      }
+    
+    #jumbotron{
+      padding-top: 150px;
+      height: 500px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    p{
+      background-color: white;
     }
 
     ul{
       li{
-        width: 25%;
         .card.dish{
-          width: 25;
           border-radius: 20px;
           border: none;
+          height: 580px;
 
           img{
             border-radius: 20px 20px 0 0;
+            height: 250px;
+            object-fit: cover;
           }
 
           strong{
@@ -151,18 +245,18 @@ methods: {
           }
 
           i{
-          cursor: pointer;
-          border-radius: 50%;
-          border: 2px solid rgb(188, 33, 33);
-          color: rgb(188, 33, 33);
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          font-size: 20px;
-          transition: 0.5s;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #E84342;
+            color: #E84342;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            transition: 0.5s;
 
           &:hover{
-            background-color: rgb(188, 33, 33);
+            background-color: #E84342;
             color: white;
           }
         }

@@ -14,7 +14,7 @@
                     <p class="card-text"><strong>Prezzo:</strong>€ {{$dish->setCommaOnPrice()}}</p>
 
                     <div class="card-footer d-flex justify-content-between">
-                        <a href="{{route('admin.dishes.index')}}" class="btn btn-dark">Torna indietro</a>
+                        <a href="{{route('admin.dishes.index')}}" class="btn btn-dark"> Torna indietro</a>
                         <div class="d-flex">
                             <a class="btn btn-warning" href="{{route('admin.dishes.edit', $dish)}}">Modifica</a>
                             <form action="{{route('admin.dishes.destroy', $dish)}}" method="POST" class="delete-form">
