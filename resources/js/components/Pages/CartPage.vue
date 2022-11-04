@@ -8,11 +8,12 @@
                 <table class="table">
                     <thead class="bg-danger text-white">
                         <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Piattooo</th>
-                            <th scope="col">Prezzo</th>
-                            <th scope="col">Quantità</th>
-                            <th scope="col">Sub-totale</th>
+                        <th scope="col"></th>
+                        <th scope="col">Piatto</th>
+                        <th scope="col">Prezzo</th>
+                        <th scope="col">Quantità</th>
+                        <th scope="col">Sub-totale</th>
+                            <th scope="col">Totale</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,12 +68,21 @@
 </template>
 
 <script>
+//import axios from 'axios';
 export default{
     name: 'CartPage',
     data(){
         return{
             cart: [],
+            form:{
+                customer_name: '',
+                customer_email: '',
+                customer_phone: '',
+                customer_address: '',
+            },
             amount: 0,
+            restaurant_id: 0,
+           // order: [], //deve diventare cart
         }
     },
     methods:{
@@ -106,9 +116,100 @@ export default{
               if(hasConfirmed) {
                 localStorage.cart = [];
                 this.cart = [];
+                //svuoto anche db?
               } else {
                 die();
               }
+        },
+        // getPivotData(){
+        //     const dishes = [];
+
+        //     this.cart.forEach(item => {
+        //         const dish = {
+        //             'id': item.dish,
+        //             'quantity': item.quantity
+        //         }
+        //         dishes.push(dish);
+        //         this.restaurant_id = item.restaurant;
+        //     });
+        //     console.log(dishes);
+            
+        //      this.$http.post('http://127.0.0.1:8000/api/pivot', {
+        //         dish_id: dishes[0].id,
+        //         order_id: this.order_id,
+        //         quantity: dishes[0].quantity,
+               
+
+
+        //     }).then(() => {
+        //     });
+
+       // }, 
+            // saveData(){
+        //     axios.post('http://127.0.0.1:8000/api/orders-store', {
+        //         customer_name: this.form.customer_name,
+        //         customer_email: this.form.customer_email,
+        //         customer_phone: this.form.customer_phone,
+        //         customer_address: this.form.customer_address,
+        //         restaurant_id: this.restaurant_id,
+        //         amount: this.amount,
+
+
+        //     }).then(() => {
+        //     });
+        // },
+        getData(){
+            const dishes = [];
+
+            this.cart.forEach(item => {
+                const dish = {
+                    'id': item.dish,
+                    'quantity': item.quantity
+                }
+                dishes.push(dish);
+                this.restaurant_id = item.restaurant;
+            });
+            //axios
+           // this.getPivotData();
+            this.$http.post('http://127.0.0.1:8000/api/orders-store', {
+                customer_name: this.form.customer_name,
+                customer_email: this.form.customer_email,
+                customer_phone: this.form.customer_phone,
+                customer_address: this.form.customer_address,
+                restaurant_id: this.restaurant_id,
+                amount: this.amount,
+                
+                
+            }).then(() => {
+                // console.log(data)
+                
+                 this.form.customer_name = '',
+                 this.form.customer_email = '',
+                 this.form.customer_phone = '',
+                 this.form.customer_address = '',
+                 this.amount = ''
+                });
+                
+                
+                
+                
+                //     //dati del form
+                //     const formData = res.config['data'];
+                //     const parsedData = JSON.parse(formData);
+                //     //array del new_order che arriva da db
+                //      console.log(res);
+                //      console.log(res.data);
+                //     //console.log(res.data[0]);
+                //     console.log(res.data['new_order']);
+                //     // ci carico i dati 
+                //     newOrder.push(parsedData);
+                // this.order.push(newOrder);
+                // console.log(this.order);
+                //fill the order with the form data, way2
+            //     const data = res.data;
+              
+                //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
+               
         },
     },
     mounted(){
@@ -116,6 +217,17 @@ export default{
             this.cart = JSON.parse(localStorage.cart);
         };
     },
+   
+    //     this.$http.get('http://127.0.0.1:8000/api/user-details', {
+    //         name: this.form.name,
+    //         email: this.form.email,
+    //         phone: this.form.phone,
+    //         address: this.form.address,
+    //     }).then(function (data) {
+    //         console.log(data)
+    //     });
+
+     //},
     watch:{
         cart(newCart){
             localStorage.cart = JSON.stringify(newCart);

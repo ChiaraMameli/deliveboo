@@ -17,12 +17,11 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('restaurant_id')->nullable(); 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('set null');
-            $table->string('status');
-            $table->smallInteger('amount');
-            $table->string('customer_name');
-            $table->string('customer_phone', 15);
-            $table->string('customer_email');
-            $table->string('customer_address');
+            $table->smallInteger('amount')->default(50);
+            $table->string('customer_name')->default('pippo');
+            $table->string('customer_phone', 15)->default(1234567890);
+            $table->string('customer_email')->default('io@tu.noi');
+            $table->string('customer_address')->default('casatua');
             $table->timestamps();
         });
     }

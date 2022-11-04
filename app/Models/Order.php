@@ -14,5 +14,5 @@ class Order extends Model
         return $this->belongsToMany('App\Models\Dish')->withPivot(['quantity']);
     }
 
-
+    protected $fillable = ['customer_name','customer_email','costumer_phone','costumer_address','amount','restaurant_id'];
 }

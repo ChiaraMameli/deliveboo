@@ -29,7 +29,7 @@
 
     <div id="tendina" :class="{ 'open': clicked }">
       <ul class="list-unstyled">
-        <li v-if="!currentCart.length" v-for="dish in cart">
+        <!-- <li v-if="!currentCart.length" v-for="dish in cart" :key="dish.id"> -->
           <div class="cart-container d-flex align-items-center justify-content-between">
             <div class="dish-card d-flex align-items-center">
               <img :src="dish.image" alt="">
@@ -41,8 +41,8 @@
             </div>
             <!-- <i @click="removeDish(dish)" class="fa-solid fa-xmark"></i> -->
           </div>
-        </li>
-        <li v-if="currentCart.length" v-for="dish in currentCart">
+        <!-- </li> -->
+        <!-- <li v-if="currentCart.length" v-for="dish in currentCart" :key="dish.id"> -->
           <div class="cart-container d-flex align-items-center justify-content-between">
             <div class="dish-card d-flex align-items-center">
               <img :src="dish.image" alt="">
@@ -54,10 +54,11 @@
             </div>
             <!-- <i @click="removeDish(dish)" class="fa-solid fa-xmark"></i> -->
           </div>
-        </li>
+        <!-- </li> -->
       </ul>
       <router-link class="nav-link" :to="{name:'cart'}"><a class="btn btn-danger" @click="closeTendina()">Vai al carrello</a></router-link>
     </div>
+    
   </nav>
   </header>
 </template>

@@ -181,6 +181,13 @@ methods: {
         if(localStorage.cart){
             this.cart = JSON.parse(localStorage.cart);
         }
+
+        // const jumbotron = document.getElementById('jumbotron');
+        // console.log(jumbotron);
+        // jumbotron.style.backgroundImage = "url(" + this.restaurant.image + ")";
+    },
+    created(){
+      console.log(this.restaurant);
     },
     watch:{
         cart(newCart){
