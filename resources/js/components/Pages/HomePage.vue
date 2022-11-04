@@ -2,7 +2,7 @@
     <AppLoader v-if="isLoading" />
     <main v-else>
         <div id="home-jumbo">
-            <img class="img-fluid" src="../../../image/hamburger-3.png" alt="">
+            <img class="img-fluid col-12 col-md-9 col-lg-6 mt-5" src="../../../image/hamburger-3.png" alt="">
         </div>
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -31,10 +31,34 @@
                 </div>
 
 
+                <!-- <div class="d-flex justify-content-between flex-wrap pb-5">
+                    <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurants" :key="restaurant.id">
+                        <div class="inside-card p-2">
+                            <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ restaurant.name }}</h5>
+                                <p class="card-text">{{ restaurant.description }}</p>
+                                <span class="">{{ restaurant.address }}</span>
+                                <h5>
+                                    <span>Categorie: </span> <br /><span v-for="(category, i) in restaurant.categories"
+                                        :key="i">{{ category.label }} <br /></span>
+                                </h5>
+
+                                <router-link :to="{
+                                    name: 'restaurant-details',
+                                    params: { id: restaurant.id },
+                                }" class="btn btn-success bg-dred mb-2">Vedi
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+
                 <!-- prova lista ristoranti-->
                 <!-- if -->
-                <div v-if="showAllRestaurants" class="d-flex flex-wrap pb-5">
-                    <div class="card restaurant p-2" v-for="restaurant in restaurants" :key="restaurant.id">
+                <div v-if="showAllRestaurants" class="d-flex justify-content-between flex-wrap pb-5">
+                    <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurants" :key="restaurant.id">
                         <div class="inside-card p-2">
                             <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
                             <div class="card-body">
@@ -55,8 +79,8 @@
                     </div>
                 </div>
                 <!-- else -->
-                <div v-else class="d-flex flex-wrap pb-5">
-                    <div class="card restaurant p-2" v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
+                <div v-else class="d-flex justify-content-between flex-wrap pb-5">
+                    <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
                         <div class="inside-card p-2">
                             <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
                             <div class="card-body">
@@ -168,7 +192,7 @@ main {
     background-color: #E84342;
 
     #home-jumbo {
-        padding-top: 240px;
+        padding-top: 120px;
         background-image: url('../../../image/logo-deliveboo.png');
         background-repeat: no-repeat;
         background-size: contain;
@@ -180,6 +204,7 @@ main {
 
         img {
             max-height: 100%;
+            object-fit: contain;
         }
 
         #login-btn {
@@ -243,8 +268,6 @@ main {
             border: none;
 
             .inside-card {
-                height: 500px;
-                width: 300px;
                 background-color: white;
                 border-radius: 20px;
 
