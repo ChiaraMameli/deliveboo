@@ -27,6 +27,9 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
     //Restaurant routes
     Route::resource('restaurants', 'RestaurantController');
 
+    //Toggle is_visible route
+    Route::patch('dishes/{dish}/toggle', 'DishController@toggle')->name('dishes.toggle');
+
     //Dish routes
     Route::resource('dishes', 'DishController');
 

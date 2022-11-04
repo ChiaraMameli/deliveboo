@@ -2864,7 +2864,7 @@ var render = function render() {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
     })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success mb-2",
+      staticClass: "btn bg-dred mb-2",
       attrs: {
         to: {
           name: "restaurant-details",
@@ -2899,7 +2899,7 @@ var render = function render() {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
     })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success mb-2",
+      staticClass: "btn bg-dred mb-2",
       attrs: {
         to: {
           name: "restaurant-details",
@@ -55524,7 +55524,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\Laravel\progetto finale\deliveboo\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })
