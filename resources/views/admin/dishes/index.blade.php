@@ -20,6 +20,7 @@
             <tr>
             <th scope="col">id</th>
             <th scope="col">Nome</th>
+            <th scope="col">Stato</th>
             <th scope="col">Descrizione</th>
             <th scope="col">Ingredienti</th>
             <th scope="col">Prezzo</th>
@@ -32,6 +33,15 @@
                 <tr>
                     <td>{{$dish->id}}</td>
                     <th scope="row">{{$dish->name}}</th>
+                    <th> 
+                        <form action="{{route('admin.dishes.toggle', $dish)}}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button class="btn btn-outline">
+                                <i class="fa-2x fa-solid fa-toggle-{{$dish->is_visible ? 'on' : 'off'}} text-{{$dish->is_visible ? 'success' : 'danger'}}"></i>
+                            </button>
+                        </form>
+                    </th>
                     <td>{{$dish->setDescriptionExtract()}}</td>
                     <td>{{$dish->setIngredientsExtract()}}</td>
                     <td>{{$dish->setCommaOnPrice()}}</td>

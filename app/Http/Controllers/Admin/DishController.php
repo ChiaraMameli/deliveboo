@@ -184,4 +184,15 @@ class DishController extends Controller
         
         return redirect()->route('admin.dishes.index')->with('message', 'Il piatto è stato eliminato con successo!')->with('type', 'success');
     }
+
+    public function toggle(Dish $dish)
+    {
+        $dish->is_visible = !$dish->is_visible;
+        $dish->save();
+
+        $condition = $dish->is_visible ? '' : 'non';
+
+        return redirect()->route('admin.dishes.index')->with('message', "Adesso i clienti $condition vedranno $dish->name sulla tua pagina e $condition potranno acquistarlo")->with('type', 'success');
+
+    }
 }
