@@ -2207,9 +2207,14 @@ __webpack_require__.r(__webpack_exports__);
       this.isLoading = true;
       axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then(function (res) {
         _this.restaurant = res.data.restaurant;
+<<<<<<< HEAD
         var dishes = res.data.restaurant.dishes;
         console.log(dishes);
         dishes.forEach(function (dish) {
+=======
+        var restaurant_dishes = res.data.restaurant.dishes;
+        restaurant_dishes.forEach(function (dish) {
+>>>>>>> f9c1dd6 (added control on dish name)
           if (dish.is_visible) _this.dishes.push(dish);
         });
         _this.isLoading = false;
