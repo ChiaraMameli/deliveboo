@@ -8,42 +8,6 @@
     <p class="text-center p-1">Indirizzo: {{restaurant.address}}</p>
     <div class="container">
       <h2 class="text-white text-center p-5">Menu:</h2>
-
-      <!-- numero 1 -->
-      <ul class="d-flex flex-wrap list-unstyled">
-        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in dishes" :key="dish.id">
-
-          <!-- card dish -->
-          <div class="card dish p-2">
-            <img :src="dish.image" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{dish.name}}</h5>
-              <p class="card-text">{{cutDescription(dish.description)}}</p>
-              <strong class="">{{dish.price}}€</strong>
-
-              <!-- modale -->
-              <div id="overlay" class="d-none">
-                <div id="modale" class="bg-white p-5 rounded d-none">
-                  <p>Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?</p>
-                  <a id="modale-button-no" class="btn btn-primary">Annulla</a>
-                  <a @click="emptyCart(dish)" id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
-                </div>
-              </div>
-
-              <!-- button add to cart -->
-              <div class="d-flex">
-                <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
-                <span class="alert alert-primary d-none">
-                Hai aggiunto il piatto al carrello
-                </span>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-
-
-      <!-- numero 2 -->
       <ul class="d-flex flex-wrap list-unstyled">
         <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in dishes" :key="dish.id">
 

@@ -2209,6 +2209,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.restaurant = res.data.restaurant;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         var dishes = res.data.restaurant.dishes;
         console.log(dishes);
         dishes.forEach(function (dish) {
@@ -2228,6 +2229,12 @@ __webpack_require__.r(__webpack_exports__);
         });
 =======
 >>>>>>> af2f6d6 (fixed)
+=======
+        var restaurant_dishes = res.data.restaurant.dishes;
+        restaurant_dishes.forEach(function (dish) {
+          if (dish.is_visible) _this.dishes.push(dish);
+        });
+>>>>>>> f9c1dd6 (added control on dish name)
         _this.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
