@@ -2188,11 +2188,18 @@ __webpack_require__.r(__webpack_exports__);
     return {
       restaurant: null,
       cart: [],
+      dishes: [],
       isLoading: false
     };
   },
   components: {
     AppLoader: _AppLoader__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    setImage: function setImage() {
+      var _this$dish$image;
+      return (_this$dish$image = this.dish.image) !== null && _this$dish$image !== void 0 ? _this$dish$image : "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg";
+    }
   },
   methods: {
     fetchRestaurant: function fetchRestaurant() {
@@ -2200,6 +2207,10 @@ __webpack_require__.r(__webpack_exports__);
       this.isLoading = true;
       axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then(function (res) {
         _this.restaurant = res.data.restaurant;
+        var restaurant_dishes = res.data.restaurant.dishes;
+        restaurant_dishes.forEach(function (dish) {
+          if (dish.is_visible) _this.dishes.push(dish);
+        });
         _this.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
@@ -2952,7 +2963,7 @@ var render = function render() {
     staticClass: "text-white text-center p-5"
   }, [_vm._v("Menu:")]), _vm._v(" "), _c("ul", {
     staticClass: "d-flex flex-wrap list-unstyled"
-  }, _vm._l(_vm.restaurant.dishes, function (dish) {
+  }, _vm._l(_vm.dishes, function (dish) {
     return _c("li", {
       key: dish.id,
       staticClass: "p-3 col-12 col-md-6 col-lg-3"
