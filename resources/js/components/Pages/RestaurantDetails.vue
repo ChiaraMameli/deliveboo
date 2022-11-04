@@ -9,7 +9,7 @@
     <div class="container">
       <h2 class="text-white text-center p-5">Menu:</h2>
       <ul class="d-flex flex-wrap list-unstyled">
-        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in restaurant.dishes" :key="dish.id">
+        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in dishes" :key="dish.id">
 
           <!-- card dish -->
           <div class="card dish p-2">
@@ -51,18 +51,30 @@ data(){
   return{
     restaurant: null,
     cart: [],
+    dishes:[],
     isLoading: false
   }
 },
 components:{
         AppLoader
     },
+computed: {
+  setImage(){
+    return this.dish.image ?? "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg";
+  }
+},
 methods: {
         fetchRestaurant() {
             this.isLoading = true;
 
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
                 this.restaurant = res.data.restaurant;
+                const restaurant_dishes = res.data.restaurant.dishes;
+
+                restaurant_dishes.forEach(dish => {
+                  if(dish.is_visible)this.dishes.push(dish)
+                });
+
                 this.isLoading = false;
             }).catch(err => {
                 console.log(err);
