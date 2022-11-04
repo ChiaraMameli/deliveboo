@@ -45,7 +45,7 @@
 
       <!-- numero 2 -->
       <ul class="d-flex flex-wrap list-unstyled">
-        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in restaurant.dishes" :key="dish.id">
+        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in dishes" :key="dish.id">
 
           <!-- card dish -->
           <div class="card dish p-2">
