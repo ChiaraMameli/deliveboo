@@ -72,7 +72,7 @@ export default{
     data(){
         return{
             cart: [],
-            total: 0,
+            amount: 0,
         }
     },
     methods:{
@@ -93,7 +93,7 @@ export default{
             this.cart.forEach(dish => {
                 totalPrice += dish.price * dish.quantity;
             });
-            this.total = totalPrice;
+            this.amount = totalPrice;
             return totalPrice + '€';
         },
         getCurrentQuantity(dish){
@@ -114,13 +114,16 @@ export default{
     mounted(){
         if(localStorage.cart){
             this.cart = JSON.parse(localStorage.cart);
-        }
+        };
     },
     watch:{
         cart(newCart){
             localStorage.cart = JSON.stringify(newCart);
+        },
+        amount(newAmount){
+            localStorage.amount = JSON.stringify(newAmount);
         }
-    }
+    },
 }
 </script>
 

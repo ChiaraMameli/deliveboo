@@ -1,6 +1,6 @@
 <template>
     <div>
-        <AppHeader :currentCart="cart"/>
+        <AppHeader :currentCart="cart" :clicked="clicked"/>
         <router-view @populated-cart="populatedCart" :currentCart="cart" @unpopulated-cart="unpopulatedCart"></router-view>
     </div>
 </template>
@@ -17,11 +17,13 @@ import ThankYouPage from './Pages/ThankYouPage.vue';
         data(){
             return{
                 cart: [],
+                clicked: false,
             }
         },
         methods:{
             populatedCart(cart){
                 this.cart = cart;
+                this.clicked = true;
             },
             unpopulatedCart(cart){
                 this.cart = cart;

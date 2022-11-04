@@ -23,11 +23,11 @@
           <p class="d-inline">Sei un ristoratore? </p>
           <a href="/register" class="btn btn-primary">Registrati</a> <p class="d-inline">o</p> <a href="/login" class="btn btn-warning">Accedi</a>
         </div>
-        <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping ml-4 mr-2"><span>{{currentCart.length > 0 ? currentCart.length : cart.length}}</span></i>
+        <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping ml-4 mr-2"><span>{{getTotalQuantity(currentCart.length > 0 ? currentCart : cart)}}</span></i>
       </div>
     </div>
 
-    <div id="tendina">
+    <div id="tendina" :class="{ 'open': clicked }">
       <ul class="list-unstyled">
         <li v-if="!currentCart.length" v-for="dish in cart">
           <div class="cart-container d-flex align-items-center justify-content-between">
@@ -86,17 +86,17 @@ export default {
           tendina.classList.remove('open');
         }
       },
-      // removeDish(dish){
-      //   console.log(dish);
-      //   this.currentCart = this.currentCart.filter(item => item !== dish);
-      //   this.cart = this.cart.filter(item => item !== dish);
-      //   localStorage.cart = JSON.stringify(this.cart);
-
-      //   this.$emit('unpopulated-cart', this.currentCart);
-      // },
+      getTotalQuantity(cart){
+        let totalQuantity = 0;
+          cart.forEach(dish => {
+            totalQuantity += dish.quantity;
+          });
+          return totalQuantity;
+      }
     },
     props:{
         currentCart: Array,
+        clicked: Boolean,
     },
 
 }
@@ -144,7 +144,7 @@ header{
       padding: 20px;
       background-color: white;
       width: 320px;
-      min-height: 200px;
+      min-height: 100px;
       border-radius: 20px;
       box-shadow: 0 0 5px rgb(146, 146, 146);
 
