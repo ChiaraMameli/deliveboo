@@ -120,12 +120,19 @@ methods: {
 
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
                 this.restaurant = res.data.restaurant;
+                const dishes = res.data.restaurant.dishes;
+
+                dishes.forEach(dish => {
+                  if(dish.is_visible) this.dishes.push(dish);
+                })
+
                 const restaurant_dishes = res.data.restaurant.dishes;
 
                 restaurant_dishes.forEach(dish => {
                   if(dish.is_visible)this.dishes.push(dish)
                 });
 
+              
                 this.isLoading = false;
             }).catch(err => {
                 console.log(err);
