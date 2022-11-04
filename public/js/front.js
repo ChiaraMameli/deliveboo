@@ -2023,8 +2023,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    goToRestaurantMenu: function goToRestaurantMenu() {
+      var restaurantMenu = this.cart[0].restaurant;
+      return restaurantMenu;
+    },
     removeDish: function removeDish(dish) {
-      console.log(dish);
       this.cart = this.cart.filter(function (item) {
         return item !== dish;
       });
@@ -2584,7 +2587,28 @@ var render = function render() {
     }
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "container pt-3 pb-5"
-  }, [_c("div", {
+  }, [!_vm.cart.length == 0 ? _c("router-link", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      to: {
+        name: "restaurant-details",
+        params: {
+          id: _vm.goToRestaurantMenu()
+        }
+      }
+    }
+  }, [_c("a", {
+    staticClass: "btn btn-secondary"
+  }, [_vm._v("Torna al menu")])]) : _c("router-link", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      to: {
+        name: "home"
+      }
+    }
+  }, [_c("a", {
+    staticClass: "btn btn-secondary"
+  }, [_vm._v("Torna all Home")])]), _vm._v(" "), _c("div", {
     staticClass: "card cart p-5 mt-5"
   }, [_c("table", {
     staticClass: "table"
@@ -2644,7 +2668,7 @@ var render = function render() {
         return _vm.removeAll();
       }
     }
-  }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _vm._m(2)])]);
+  }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _vm._m(2)], 1)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -2670,7 +2694,7 @@ var staticRenderFns = [function () {
     attrs: {
       scope: "col"
     }
-  }, [_vm._v("Piattooo")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("Piatto")]), _vm._v(" "), _c("th", {
     attrs: {
       scope: "col"
     }
@@ -2864,7 +2888,7 @@ var render = function render() {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
     })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success mb-2",
+      staticClass: "btn bg-dred mb-2",
       attrs: {
         to: {
           name: "restaurant-details",
@@ -2899,7 +2923,7 @@ var render = function render() {
         key: i
       }, [_vm._v(_vm._s(category.label) + " "), _c("br")]);
     })], 2), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success mb-2",
+      staticClass: "btn bg-dred mb-2",
       attrs: {
         to: {
           name: "restaurant-details",

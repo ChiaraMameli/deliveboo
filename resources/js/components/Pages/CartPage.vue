@@ -4,12 +4,19 @@
             <img src="../../../image/deliveboo-cart.png" alt="">
         </div>
         <div class="container pt-3 pb-5">
+            <router-link v-if="!cart.length == 0" class="btn btn-secondary"
+                :to="{ name: 'restaurant-details', params: { id: goToRestaurantMenu() } }">
+                <a class="btn btn-secondary">Torna al menu</a>
+            </router-link>
+            <router-link v-else class="btn btn-secondary" :to="{ name: 'home' }">
+                <a class="btn btn-secondary">Torna all Home</a>
+            </router-link>
             <div class="card cart p-5 mt-5">
                 <table class="table">
                     <thead class="bg-danger text-white">
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Piattooo</th>
+                            <th scope="col">Piatto</th>
                             <th scope="col">Prezzo</th>
                             <th scope="col">Quantità</th>
                             <th scope="col">Sub-totale</th>
@@ -18,10 +25,11 @@
                     <tbody>
                         <tr v-for="dish in cart" :key="dish.id">
                             <td scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></td>
-                            <td>{{dish.name}}</td>
-                            <td>{{dish.price}}€</td>
-                            <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50" :value="dish.quantity" id="quantity"></td>
-                            <td>{{getSubTotal(dish)}}€</td>
+                            <td>{{ dish.name }}</td>
+                            <td>{{ dish.price }}€</td>
+                            <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50"
+                                    :value="dish.quantity" id="quantity"></td>
+                            <td>{{ getSubTotal(dish) }}€</td>
                         </tr>
                     </tbody>
                 </table>
@@ -29,13 +37,13 @@
                     <thead class="bg-danger text-white">
                         <tr class="d-flex justify-content-between">
                             <th scope="col">Totale</th>
-                            <th scope="col">{{getTotal()}}</th>
+                            <th scope="col">{{ getTotal() }}</th>
                         </tr>
                     </thead>
                 </table>
                 <div class="d-flex justify-content-between">
                     <i class="fa-solid fa-rotate-left btn btn-primary updated">Aggiorna carrello</i>
-                    <i @click="removeAll()"  class="fa-solid fa-trash btn btn-warning">Svuota carrello</i>
+                    <i @click="removeAll()" class="fa-solid fa-trash btn btn-warning">Svuota carrello</i>
                 </div>
             </div>
 
@@ -67,28 +75,32 @@
 </template>
 
 <script>
-export default{
+export default {
     name: 'CartPage',
-    data(){
-        return{
+    data() {
+        return {
             cart: [],
             total: 0,
         }
     },
-    methods:{
-        removeDish(dish){
-            console.log(dish);
+    methods: {
+        goToRestaurantMenu() {
+            let restaurantMenu = this.cart[0].restaurant;
+            return restaurantMenu
+        },
+
+        removeDish(dish) {
             this.cart = this.cart.filter(item => item !== dish);
             localStorage.cart = JSON.stringify(this.cart);
 
             this.$emit('unpopulated-cart', this.cart);
         },
-        getSubTotal(dish){
+        getSubTotal(dish) {
             let subTotal = 0;
             subTotal = dish.price * dish.quantity;
             return subTotal;
         },
-        getTotal(){
+        getTotal() {
             let totalPrice = 0;
             this.cart.forEach(dish => {
                 totalPrice += dish.price * dish.quantity;
@@ -96,28 +108,32 @@ export default{
             this.total = totalPrice;
             return totalPrice + '€';
         },
-        getCurrentQuantity(dish){
+        getCurrentQuantity(dish) {
             const inputValue = document.getElementById('quantity');
 
             dish.quantity = inputValue.value;
         },
-        removeAll(){
+        removeAll() {
             const hasConfirmed = confirm("Sei sicuro di voler svuotare il carrello?");
-              if(hasConfirmed) {
+            if (hasConfirmed) {
                 localStorage.cart = [];
                 this.cart = [];
-              } else {
+            } else {
                 die();
-              }
+            }
         },
+
+
+
     },
-    mounted(){
-        if(localStorage.cart){
+    mounted() {
+        if (localStorage.cart) {
             this.cart = JSON.parse(localStorage.cart);
         }
+
     },
-    watch:{
-        cart(newCart){
+    watch: {
+        cart(newCart) {
             localStorage.cart = JSON.stringify(newCart);
         }
     }
@@ -125,38 +141,38 @@ export default{
 </script>
 
 <style lang="scss" scoped>
-    #cart{
-        min-height: calc(100vh - 50px);
-        background-color: #F6E7C1;
+#cart {
+    min-height: calc(100vh - 50px);
+    background-color: #F6E7C1;
 
-        thead{
-            border-radius: 20px;
+    thead {
+        border-radius: 20px;
 
-            th{
-                border: none;
-            }
-        }
-
-        .jumbotron{
-            height: 600px;
-            background-image: url('../../../image/delivery-1.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
-
-            img{
-                width: 50%;
-                position: absolute;
-                bottom: 50%;
-                left: 50%;
-                transform: translate(-50%, 50%);
-            }
-        }
-
-        .card.cart{
+        th {
             border: none;
-            border-radius: 20px;
-            box-shadow: 0 0 5px rgb(146, 146, 146);
         }
     }
+
+    .jumbotron {
+        height: 600px;
+        background-image: url('../../../image/delivery-1.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+
+        img {
+            width: 50%;
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+        }
+    }
+
+    .card.cart {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 0 5px rgb(146, 146, 146);
+    }
+}
 </style>
