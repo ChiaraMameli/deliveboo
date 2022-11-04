@@ -9,7 +9,7 @@
     <div class="container">
       <h2 class="text-white text-center p-5">Menu:</h2>
       <ul class="d-flex flex-wrap list-unstyled">
-        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in dishes" :key="dish.id">
+        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in restaurant.dishes" :key="dish.id">
 
           <!-- card dish -->
           <div class="card dish p-2">
@@ -70,17 +70,11 @@ methods: {
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
                 this.restaurant = res.data.restaurant;
                 const dishes = res.data.restaurant.dishes;
+                console.log(dishes)
 
                 dishes.forEach(dish => {
                   if(dish.is_visible) this.dishes.push(dish);
                 })
-
-                const restaurant_dishes = res.data.restaurant.dishes;
-
-                restaurant_dishes.forEach(dish => {
-                  if(dish.is_visible)this.dishes.push(dish)
-                });
-
               
                 this.isLoading = false;
             }).catch(err => {
