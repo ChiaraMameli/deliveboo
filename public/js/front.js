@@ -2233,15 +2233,19 @@ __webpack_require__.r(__webpack_exports__);
 =======
 =======
         var dishes = res.data.restaurant.dishes;
+        console.log(dishes);
         dishes.forEach(function (dish) {
           if (dish.is_visible) _this.dishes.push(dish);
         });
+<<<<<<< HEAD
 >>>>>>> 2377734 (to fix)
         var restaurant_dishes = res.data.restaurant.dishes;
         restaurant_dishes.forEach(function (dish) {
           if (dish.is_visible) _this.dishes.push(dish);
         });
 >>>>>>> f9c1dd6 (added control on dish name)
+=======
+>>>>>>> af2f6d6 (fixed)
         _this.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
@@ -2994,7 +2998,7 @@ var render = function render() {
     staticClass: "text-white text-center p-5"
   }, [_vm._v("Menu:")]), _vm._v(" "), _c("ul", {
     staticClass: "d-flex flex-wrap list-unstyled"
-  }, _vm._l(_vm.dishes, function (dish) {
+  }, _vm._l(_vm.restaurant.dishes, function (dish) {
     return _c("li", {
       key: dish.id,
       staticClass: "p-3 col-12 col-md-6 col-lg-3"
