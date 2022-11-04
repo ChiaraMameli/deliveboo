@@ -1999,9 +1999,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
+//import axios from 'axios';
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CartPage',
   data: function data() {
@@ -2055,7 +2053,7 @@ __webpack_require__.r(__webpack_exports__);
         die();
       }
     },
-    getData: function getData() {
+    getPivotData: function getPivotData() {
       var _this = this;
       var dishes = [];
       this.cart.forEach(function (item) {
@@ -2066,39 +2064,57 @@ __webpack_require__.r(__webpack_exports__);
         dishes.push(dish);
         _this.restaurant_id = item.restaurant;
       });
+      console.log(dishes);
+      this.$http.post('http://127.0.0.1:8000/api/pivot', {
+        dish_id: dishes[0].id,
+        order_id: this.order_id,
+        quantity: dishes[0].quantity
+      }).then(function () {});
+    },
+    // saveData(){
+    //     axios.post('http://127.0.0.1:8000/api/orders-store', {
+    //         customer_name: this.form.customer_name,
+    //         customer_email: this.form.customer_email,
+    //         customer_phone: this.form.customer_phone,
+    //         customer_address: this.form.customer_address,
+    //         restaurant_id: this.restaurant_id,
+    //         amount: this.amount,
+    //     }).then(() => {
+    //     });
+    // },
+    getData: function getData() {
+      var _this2 = this;
       //axios
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/orders-store', {
-        customer_name: form.customer_name,
-        customer_email: form.customer_email,
-        customer_phone: form.customer_phone,
-        customer_address: form.customer_address,
-        restaurant_id: restaurant_id,
-        amount: total
+      this.getPivotData();
+      this.$http.post('http://127.0.0.1:8000/api/orders-store', {
+        customer_name: this.form.customer_name,
+        customer_email: this.form.customer_email,
+        customer_phone: this.form.customer_phone,
+        customer_address: this.form.customer_address,
+        restaurant_id: this.restaurant_id,
+        amount: this.amount
       }).then(function () {
+        // console.log(data)
 
-        //     this.form.customer_name = '',
-        //     this.form.customer_email = '',
-        //     this.form.customer_phone = '',
-        //     this.form.customer_address = '',
-        //    this.amount = ''
-
-        //     //dati del form
-        //     const formData = res.config['data'];
-        //     const parsedData = JSON.parse(formData);
-        //     //array del new_order che arriva da db
-        //      console.log(res);
-        //      console.log(res.data);
-        //     //console.log(res.data[0]);
-        //     console.log(res.data['new_order']);
-        //     // ci carico i dati 
-        //     newOrder.push(parsedData);
-        // this.order.push(newOrder);
-        // console.log(this.order);
-        //fill the order with the form data, way2
-        //     const data = res.data;
-
-        //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
+        _this2.form.customer_name = '', _this2.form.customer_email = '', _this2.form.customer_phone = '', _this2.form.customer_address = '', _this2.amount = '';
       });
+
+      //     //dati del form
+      //     const formData = res.config['data'];
+      //     const parsedData = JSON.parse(formData);
+      //     //array del new_order che arriva da db
+      //      console.log(res);
+      //      console.log(res.data);
+      //     //console.log(res.data[0]);
+      //     console.log(res.data['new_order']);
+      //     // ci carico i dati 
+      //     newOrder.push(parsedData);
+      // this.order.push(newOrder);
+      // console.log(this.order);
+      //fill the order with the form data, way2
+      //     const data = res.data;
+
+      //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
     }
   },
   mounted: function mounted() {
@@ -2584,6 +2600,12 @@ var render = function render() {
     attrs: {
       id: "checkout-form",
       action: "http://127.0.0.1:8000/payment"
+    },
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.getPivotData();
+      }
     }
   }, [_c("div", {
     staticClass: "form-group"

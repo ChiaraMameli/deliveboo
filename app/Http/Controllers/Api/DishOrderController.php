@@ -3,26 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Restaurant;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Models\Order;
+use App\Models\Dish;
 
 
-class OrderController extends Controller
+class DishOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-       
-       
-        
-        return Order::all();
-      
+        //
     }
 
     /**
@@ -31,19 +26,14 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request )
+    public function store(Request $request)
     {
-        $order = new Order;
-        //Order::create($request->all());
-         $order->customer_name = $request->get('customer_name');
-         $order->customer_email = $request->get('customer_email');
-         $order->customer_phone = $request->get('customer_phone');
-         $order->customer_address = $request->get('customer_address');
-         $order->restaurant_id = $request->get('restaurant_id');
-         $order->amount = $request->get('amount');
-         $order->save();
+       $dish_order->dish_id = $request->get('dish_id');
+       $dish_order->order_id = $dish->orders->pluck('id')->toArray();
+       $dish_order->quatity = $request->get('quatity');
+       $dish_order->save();
         return response()->json([
-            'message' => 'creato nuovo ordine'
+            'message' => 'creata pivot paitto-ordine'
         ]);
     }
 
@@ -53,9 +43,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-       
+        //
     }
 
     /**
