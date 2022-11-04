@@ -20,7 +20,9 @@ Route::get('/restaurants', 'Api\RestaurantController@index');
 Route::get('/restaurants/{id}', 'Api\RestaurantController@show');
 Route::get('/orders' , 'Api\OrderController@index');
 Route::post('/orders-store' , 'Api\OrderController@store');
-Route::post('/pivot' , 'Api\DishOrderController@store');
+//Route::post('/pivot' , 'Api\DishOrderController@store');
+
+
 //Route::post('/orders/{id}' , 'Api\OrderController@index');
 // Route::get('/dishes', 'Api\DishController@index');
 // Route::get('/dishes', 'Api\DishController@index');

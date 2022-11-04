@@ -28,6 +28,7 @@ class DishOrderController extends Controller
      */
     public function store(Request $request)
     {
+        //$dish_order = new DishOrder;
        $dish_order->dish_id = $request->get('dish_id');
        $dish_order->order_id = $dish->orders->pluck('id')->toArray();
        $dish_order->quatity = $request->get('quatity');

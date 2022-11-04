@@ -2053,24 +2053,24 @@ __webpack_require__.r(__webpack_exports__);
         die();
       }
     },
-    getPivotData: function getPivotData() {
-      var _this = this;
-      var dishes = [];
-      this.cart.forEach(function (item) {
-        var dish = {
-          'id': item.dish,
-          'quantity': item.quantity
-        };
-        dishes.push(dish);
-        _this.restaurant_id = item.restaurant;
-      });
-      console.log(dishes);
-      this.$http.post('http://127.0.0.1:8000/api/pivot', {
-        dish_id: dishes[0].id,
-        order_id: this.order_id,
-        quantity: dishes[0].quantity
-      }).then(function () {});
-    },
+    // getPivotData(){
+    //     const dishes = [];
+    //     this.cart.forEach(item => {
+    //         const dish = {
+    //             'id': item.dish,
+    //             'quantity': item.quantity
+    //         }
+    //         dishes.push(dish);
+    //         this.restaurant_id = item.restaurant;
+    //     });
+    //     console.log(dishes);
+    //      this.$http.post('http://127.0.0.1:8000/api/pivot', {
+    //         dish_id: dishes[0].id,
+    //         order_id: this.order_id,
+    //         quantity: dishes[0].quantity,
+    //     }).then(() => {
+    //     });
+    // }, 
     // saveData(){
     //     axios.post('http://127.0.0.1:8000/api/orders-store', {
     //         customer_name: this.form.customer_name,
@@ -2083,9 +2083,18 @@ __webpack_require__.r(__webpack_exports__);
     //     });
     // },
     getData: function getData() {
-      var _this2 = this;
+      var _this = this;
+      var dishes = [];
+      this.cart.forEach(function (item) {
+        var dish = {
+          'id': item.dish,
+          'quantity': item.quantity
+        };
+        dishes.push(dish);
+        _this.restaurant_id = item.restaurant;
+      });
       //axios
-      this.getPivotData();
+      // this.getPivotData();
       this.$http.post('http://127.0.0.1:8000/api/orders-store', {
         customer_name: this.form.customer_name,
         customer_email: this.form.customer_email,
@@ -2096,7 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {
         // console.log(data)
 
-        _this2.form.customer_name = '', _this2.form.customer_email = '', _this2.form.customer_phone = '', _this2.form.customer_address = '', _this2.amount = '';
+        _this.form.customer_name = '', _this.form.customer_email = '', _this.form.customer_phone = '', _this.form.customer_address = '', _this.amount = '';
       });
 
       //     //dati del form
@@ -2600,12 +2609,6 @@ var render = function render() {
     attrs: {
       id: "checkout-form",
       action: "http://127.0.0.1:8000/payment"
-    },
-    on: {
-      submit: function submit($event) {
-        $event.preventDefault();
-        return _vm.getPivotData();
-      }
     }
   }, [_c("div", {
     staticClass: "form-group"
@@ -2724,7 +2727,6 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
-        $event.preventDefault();
         return _vm.getData();
       }
     }
