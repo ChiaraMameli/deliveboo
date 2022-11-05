@@ -23,7 +23,7 @@ class CreateDishOrderTable extends Migration
             // ! CASCADE O SET NULL? VERIFICA COMPORTAMENTO
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
-            $table->tinyInteger('quantity');
+            
 
             $table->timestamps();
         });

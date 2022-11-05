@@ -42,7 +42,7 @@
 
             <div class="card cart p-5 mt-5">
                 <!-- @submit.prevent="getPivotData()" -->
-                <form >
+                <form  action="http://127.0.0.1:8000/payment" >
                     <div class="form-group">
                         <label for="name">Nome e cognome</label>
                         <input type="text" v-model="form.customer_name" class="form-control" id="name">
@@ -134,15 +134,15 @@ export default{
             });
             console.log(dishes);
             
-             this.$http.post('http://127.0.0.1:8000/api/pivot', {
-                dish_id: dishes[0].id,
-                quantity: dishes[0].quantity,
-                order_id: this.order_id,
+            //  this.$http.post('http://127.0.0.1:8000/api/pivot', {
+            //     dish_id: dishes[0].id,
+            //     quantity: dishes[0].quantity,
+            //     order_id: this.order_id,
                
 
 
-            }).then(() => {
-            });
+            // }).then(() => {
+            // });
 
        }, 
         //     saveData(){
@@ -191,6 +191,18 @@ export default{
                  this.form.customer_address = '',
                  this.amount = ''
                 });
+
+
+            //     //filling pivot to
+            // this.$http.post('http://127.0.0.1:8000/api/pivot', {
+            //     dish_id: dishes[0].id,
+            //     quantity: dishes[0].quantity,
+            //     order_id: this.order_id,
+
+
+
+            // }).then(() => {
+            // });
                 
                 
                 

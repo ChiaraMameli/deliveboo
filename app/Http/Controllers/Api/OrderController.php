@@ -18,11 +18,11 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-       
-       
-        
+
+
+
         return Order::all();
-      
+
     }
 
     /**
@@ -33,7 +33,8 @@ class OrderController extends Controller
      */
     public function store(Request $request )
     {
-        
+        $data = $request->all();
+        // dd($data);
         $order = new Order;
         //Order::create($request->all());
          $order->customer_name = $request->get('customer_name');
@@ -43,6 +44,7 @@ class OrderController extends Controller
          $order->restaurant_id = $request->get('restaurant_id');
          $order->amount = $request->get('amount');
          $order->save();
+           $order->dishes()->attach($order['id']);
         return response()->json([
             'message' => 'creato nuovo ordine'
         ]);
@@ -56,7 +58,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-       
+
     }
 
     /**

@@ -31,8 +31,9 @@ class DishOrderController extends Controller
     {
         $dish_order = new DishOrder;
        $dish_order->dish_id = $request->get('dish_id');
-       $dish_order->order_id = $dish->orders->pluck('id')->toArray();
-       $dish_order->quatity = $request->get('quatity');
+       $dish_order->order_id = $request->get('order_id');
+       $dish_order->quantity = $request->get('quantity');
+      // $dish_order->order_id = $dishes->order->pluck('id')->toArray();
        $dish_order->save();
         return response()->json([
             'message' => 'creata pivot paitto-ordine'
