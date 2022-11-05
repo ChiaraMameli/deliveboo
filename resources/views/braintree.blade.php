@@ -19,7 +19,7 @@
 
 </head>
 
-<body>
+<body id="payment-body">
     <div class="flex-center position-ref full-height">
         {{--    @if (Route::has('login'))
         <div class="top-right links">
@@ -54,7 +54,7 @@
     </div>
     @endif
 
-    <div class="d-flex justify-content-center text-center">
+    <div class="d-flex justify-content-center align-items-center text-center" style="height: 100vh">
         <div id="dropin-container" style="width: 20rem">
             <form method="post" id="payment-form" action="/checkout">
                 @csrf
@@ -73,7 +73,7 @@
                 </section>
 
                 <input id="nonce" name="payment_method_nonce" type="hidden" />
-                <button class="button" type="submit"><span>Test Transaction</span></button>
+                <button class="button btn btn-primary" type="submit"><span>Paga ora</span></button>
             </form>
         </div>
 
