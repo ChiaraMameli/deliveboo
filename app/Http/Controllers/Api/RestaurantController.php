@@ -40,10 +40,10 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //il ristorante 'cliccato'
-        $restaurant = Restaurant::with('dishes')->findOrFail($id);
+        $restaurant = Restaurant::with('dishes')->where('slug', $slug)->first();
         //i piatti del ristorante selezionato
         
         return response()->json(compact('restaurant'));
