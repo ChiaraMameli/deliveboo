@@ -136,7 +136,7 @@ export default {
         },
         buy(){
             localStorage.cart = JSON.stringify(this.cart);
-            window.scrollTo(0, 1000);
+            // window.scrollTo(0, 1000);
         },
         // getPivotData(){
         //     const dishes = [];
