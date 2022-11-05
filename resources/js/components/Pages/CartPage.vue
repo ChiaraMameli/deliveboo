@@ -27,8 +27,11 @@
                             <td scope="row"><i @click="removeDish(dish)" class="fa-solid fa-xmark"></i></td>
                             <td>{{ dish.name }}</td>
                             <td>{{ dish.price }}€</td>
-                            <td><input @change="getCurrentQuantity(dish)" type="number" step="1" min="1" max="50"
-                                    :value="dish.quantity" id="quantity"></td>
+                            <td>
+                                <button @click="dish.quantity -= 1"  class="btn btn-outline">-</button>
+                                <input type="number" step="1" min="1" max="50" id="quantity" :value="dish.quantity">
+                                <button @click="dish.quantity += 1" class="btn btn-outline">+</button>
+                            </td>
                             <td>{{ getSubTotal(dish) }}€</td>
                         </tr>
                     </tbody>
@@ -42,8 +45,12 @@
                     </thead>
                 </table>
                 <div class="d-flex justify-content-between">
-                    <i class="fa-solid fa-rotate-left btn btn-primary updated">Aggiorna carrello</i>
-                    <i @click="removeAll()" class="fa-solid fa-trash btn btn-warning">Svuota carrello</i>
+                    <button @click="removeAll()" class="btn btn-warning">
+                        <i class="fa-solid fa-trash"> Svuota carrello</i>
+                    </button>
+                    <button @click="buy()" class="btn btn-primary updated">
+                        <i class="fa-solid fa-cart-shopping"> Procedi all'acquisto</i>
+                    </button>
                 </div>
             </div>
 
@@ -88,6 +95,7 @@ export default {
             },
             amount: 0,
             restaurant_id: 0,
+            pippo: [],
             // order: [], //deve diventare cart
         }
     },
@@ -116,11 +124,6 @@ export default {
             this.amount = totalPrice;
             return totalPrice + '€';
         },
-        getCurrentQuantity(dish) {
-            const inputValue = document.getElementById('quantity');
-
-            dish.quantity = inputValue.value;
-        },
         removeAll() {
             const hasConfirmed = confirm("Sei sicuro di voler svuotare il carrello?");
             if (hasConfirmed) {
@@ -130,6 +133,10 @@ export default {
             } else {
                 die();
             }
+        },
+        buy(){
+            localStorage.cart = JSON.stringify(this.cart);
+            window.scrollTo(0, 1000);
         },
         // getPivotData(){
         //     const dishes = [];
