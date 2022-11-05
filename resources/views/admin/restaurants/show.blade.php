@@ -8,19 +8,17 @@
     </header>
     <div class="d-flex flex-column">
         <div class="my-3">
-            <p>
-            <h3> Partita iva: </h3> {{ $restaurant_details->p_iva }} </p>
+            <h3 class="d-inline"> Partita iva: </h3> 
+            <p class="d-inline"> {{ $restaurant_details->p_iva }} </p>
         </div>
         <div class="my-3">
-            <h3> Indirizzo: </h3>
-            {{$restaurant_details->address}}
+            <h3 class="d-inline"> Indirizzo: </h3>
+            <p class="d-inline">{{$restaurant_details->address}}</p>
         </div>
         @if($restaurant_details->image)
         <figure>
-            <p>
             <h3> Immagine ristorante: </h3>
-            </p>
-            <img src=" {{ asset('storage/' . $restaurant_details->image) }}" alt="{{ $restaurant_details->name }}">
+            <img src=" {{ asset('storage/' . $restaurant_details->image) }}" alt="{{ $restaurant_details->name }}" class="img-fluid" style="width: 20rem">
         </figure>
         @endif
         <div class="my-3">

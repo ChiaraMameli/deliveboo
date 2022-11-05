@@ -46,7 +46,7 @@
                     @enderror
                 </div>
                 <!-- immagine -->
-                <div class="col-10 input-group mb-3">
+                <div class="col-10 input-group mb-3" style="height: 10px; margin-top: 35px;">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupFileAddon01">Carica</span>
                     </div>
