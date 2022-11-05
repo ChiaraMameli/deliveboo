@@ -134,12 +134,13 @@ export default {
                     this.restaurants = res.data.restaurants;
                     this.categories = res.data.categories;
                     console.log(this.restaurants);
+                    this.isLoading = false;
 
                 })
                 .catch((err) => {
                     console.log(err);
+                    this.isLoading = false;
                 });
-            this.isLoading = false;
         },
 
         filterRestaurants() {
