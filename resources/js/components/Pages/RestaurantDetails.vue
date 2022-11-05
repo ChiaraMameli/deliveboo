@@ -9,31 +9,39 @@
     <div class="container">
       <h2 class="text-white text-center p-5">Menu:</h2>
       <ul class="d-flex flex-wrap list-unstyled">
-        <li class="p-3 col-12 col-md-6 col-lg-3" v-for="dish in dishes" :key="dish.id">
+        <li class="p-3 col-12" v-for="dish in dishes" :key="dish.id">
 
-          <!-- card dish -->
-          <div class="card dish p-2">
-            <img :src="dish.image" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{dish.name}}</h5>
-              <p class="card-text">{{cutDescription(dish.description)}}</p>
-              <strong class="">{{dish.price}}€</strong>
-
-              <!-- modale -->
-              <div id="overlay" class="d-none">
-                <div id="modale" class="bg-white p-5 rounded d-none">
-                  <p>Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?</p>
-                  <a id="modale-button-no" class="btn btn-primary">Annulla</a>
-                  <a @click="emptyCart(dish)" id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
-                </div>
+          <!-- card -->
+          <div class="card dish mb-3 p-2">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img :src="dish.image" class="img-fluid" alt="...">
               </div>
+              <div class="col-md-8">
+                <div class="card-body d-flex flex-column justify-content-between h-100">
+                  <div class="description">
+                    <h5 class="card-title">{{dish.name}}</h5>
+                    <p class="card-text">{{dish.description}}</p>
+                  </div>
 
-              <!-- button add to cart -->
-              <div class="d-flex">
-                <i @click="addToCart(dish), getFeedback(dish);" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
-                <span class="alert alert-primary d-none">
-                Hai aggiunto il piatto al carrello
-                </span>
+                  <!-- modale -->
+                  <div id="overlay" class="d-none">
+                    <div id="modale" class="bg-white p-5 rounded d-none">
+                      <p>Non puoi inserire un piatto di un altro ristorante. Vuoi svotare il carrello?</p>
+                      <a id="modale-button-no" class="btn btn-primary">Annulla</a>
+                      <a @click="emptyCart(dish)" id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
+                    </div>
+                  </div>
+
+                  <!-- button add to cart -->
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong class="">{{dish.price}}€</strong>
+                    <i @click="addToCart(dish)" class="fa-solid fa-plus d-flex justify-content-center align-items-center mt-3"></i>
+                    <span class="alert alert-primary d-none">
+                    Hai aggiunto il piatto al carrello
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -71,10 +79,6 @@ methods: {
                 this.restaurant = res.data.restaurant;
                 const dishes = res.data.restaurant.dishes;
                 console.log(dishes)
-
-                dishes.forEach(dish => {
-                  if(dish.is_visible) this.dishes.push(dish);
-                })
 
                 const restaurant_dishes = res.data.restaurant.dishes;
 
@@ -192,9 +196,6 @@ methods: {
         // console.log(jumbotron);
         // jumbotron.style.backgroundImage = "url(" + this.restaurant.image + ")";
     },
-    created(){
-      console.log(this.restaurant);
-    },
     watch:{
         cart(newCart){
           if(this.currentCartt){
@@ -258,11 +259,11 @@ methods: {
         .card.dish{
           border-radius: 20px;
           border: none;
-          height: 580px;
 
           img{
-            border-radius: 20px 20px 0 0;
-            height: 250px;
+            border-radius: 20px;
+            width: 500px;
+            height: 100%;
             object-fit: cover;
           }
 

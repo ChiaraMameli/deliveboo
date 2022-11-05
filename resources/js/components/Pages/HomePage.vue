@@ -5,7 +5,7 @@
             <img class="img-fluid col-12 col-md-9 col-lg-6 mt-5" src="../../../image/hamburger-3.png" alt="">
         </div>
         <div class="container mt-5">
-            <div class="row justify-content-center">
+            <div class="row">
 
                 <!-- filtro -->
                 <div class="col-12 my-3 pt-3">
@@ -31,33 +31,9 @@
                 </div>
 
 
-                <!-- <div class="d-flex justify-content-between flex-wrap pb-5">
-                    <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurants" :key="restaurant.id">
-                        <div class="inside-card p-2">
-                            <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ restaurant.name }}</h5>
-                                <p class="card-text">{{ restaurant.description }}</p>
-                                <span class="">{{ restaurant.address }}</span>
-                                <h5>
-                                    <span>Categorie: </span> <br /><span v-for="(category, i) in restaurant.categories"
-                                        :key="i">{{ category.label }} <br /></span>
-                                </h5>
-
-                                <router-link :to="{
-                                    name: 'restaurant-details',
-                                    params: { id: restaurant.id },
-                                }" class="btn btn-success bg-dred mb-2">Vedi
-                                </router-link>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-
                 <!-- prova lista ristoranti-->
                 <!-- if -->
-                <div v-if="showAllRestaurants" class="d-flex justify-content-between flex-wrap pb-5">
+                <div v-if="showAllRestaurants" class="d-flex justify-content-between flex-wrap pb-5 col-12">
                     <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurants" :key="restaurant.id">
                         <div class="inside-card p-2">
                             <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
@@ -79,7 +55,7 @@
                     </div>
                 </div>
                 <!-- else -->
-                <div v-else class="d-flex justify-content-between flex-wrap pb-5">
+                <div v-else class="d-flex justify-content-between flex-wrap pb-5 col-12">
                     <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
                         <div class="inside-card p-2">
                             <img :src="restaurant.image" class="card-img-top" :alt="restaurant.name">
@@ -96,7 +72,6 @@
                                     params: { id: restaurant.id },
                                 }" class="btn bg-dred mb-2">Vedi
                                 </router-link>
-
                             </div>
                         </div>
                     </div>
