@@ -41,7 +41,7 @@
             </div>
 
             <div class="card cart p-5 mt-5">
-                <form>
+                <form @submit.prevent="getPivotData()">
                     <div class="form-group">
                         <label for="name">Nome e cognome</label>
                         <input type="text" class="form-control" id="name">
@@ -60,7 +60,7 @@
                         <label for="address">Indirizzo completo</label>
                         <input type="text" class="form-control" id="address">
                     </div>
-                    <button type="submit" class="btn btn-primary">Ordina</button>
+                    <button @click.prevent="getData()" type="submit" class="btn btn-primary">Ordina</button>
                 </form>
             </div>
         </div>
@@ -82,7 +82,6 @@ export default{
             },
             amount: 0,
             restaurant_id: 0,
-           // order: [], //deve diventare cart
         }
     },
     methods:{
@@ -121,31 +120,31 @@ export default{
                 die();
               }
         },
-        // getPivotData(){
-        //     const dishes = [];
+        getPivotData(){
+            const dishes = [];
 
-        //     this.cart.forEach(item => {
-        //         const dish = {
-        //             'id': item.dish,
-        //             'quantity': item.quantity
-        //         }
-        //         dishes.push(dish);
-        //         this.restaurant_id = item.restaurant;
-        //     });
-        //     console.log(dishes);
+            this.cart.forEach(item => {
+                const dish = {
+                    'id': item.dish,
+                    'quantity': item.quantity
+                }
+                dishes.push(dish);
+                this.restaurant_id = item.restaurant;
+            });
+            console.log(dishes);
             
-        //      this.$http.post('http://127.0.0.1:8000/api/pivot', {
-        //         dish_id: dishes[0].id,
-        //         order_id: this.order_id,
-        //         quantity: dishes[0].quantity,
+             this.$http.post('http://127.0.0.1:8000/api/pivot', {
+                dish_id: dishes[0].id,
+                quantity: dishes[0].quantity,
+                order_id: this.order_id,
                
 
 
-        //     }).then(() => {
-        //     });
+            }).then(() => {
+            });
 
-       // }, 
-            // saveData(){
+       }, 
+        //     saveData(){
         //     axios.post('http://127.0.0.1:8000/api/orders-store', {
         //         customer_name: this.form.customer_name,
         //         customer_email: this.form.customer_email,
@@ -159,18 +158,9 @@ export default{
         //     });
         // },
         getData(){
-            const dishes = [];
-
-            this.cart.forEach(item => {
-                const dish = {
-                    'id': item.dish,
-                    'quantity': item.quantity
-                }
-                dishes.push(dish);
-                this.restaurant_id = item.restaurant;
-            });
+     
             //axios
-           // this.getPivotData();
+            this.getPivotData();
             this.$http.post('http://127.0.0.1:8000/api/orders-store', {
                 customer_name: this.form.customer_name,
                 customer_email: this.form.customer_email,
