@@ -10932,3 +10932,14 @@ a.text-dark:focus {
   }
 }
 
+#payment-body {
+  background-color: #E84342;
+}
+
+#dropin-container {
+  background-color: #FFF;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 5px 10px 10px #000;
+}
+
