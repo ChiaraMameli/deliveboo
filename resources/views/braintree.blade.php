@@ -60,10 +60,10 @@
                 @csrf
                 <section>
                     <label for="amount">
-                        <span class="input-label">Amount</span>
+                        <span class="input-label">Il tuo conto è: {{$amount}}€</span>
                         <div class="input-wrapper amount-wrapper">
                             <!-- gestire dal cart in storage amount da passare -->
-                            <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+                            <input id="amount" name="amount" type="hidden" min="1" placeholder="Amount" value="{{$amount}}">
                         </div>
                     </label>
 

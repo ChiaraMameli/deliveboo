@@ -33,6 +33,8 @@ class BraintreeController extends Controller
 
     $token = $gateway->ClientToken()->generate();
 
-    return view('guest.home', ['token' => $token]);
+    $amount = 20;
+    
+    return view('braintree', ['token' => $token, 'amount' => $amount]);
     }
 }
