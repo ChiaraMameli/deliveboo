@@ -35,7 +35,7 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
     //Dish routes
     Route::resource('dishes', 'DishController');
 
-    //Dish routes
+    //Orders routes
     Route::resource('orders', 'OrderController');
 
     Route::get('/{any}', function(){

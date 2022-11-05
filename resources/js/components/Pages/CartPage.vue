@@ -41,7 +41,8 @@
             </div>
 
             <div class="card cart p-5 mt-5">
-                <form @submit.prevent="getPivotData()">
+                <!-- @submit.prevent="getPivotData()" -->
+                <form >
                     <div class="form-group">
                         <label for="name">Nome e cognome</label>
                         <input type="text" class="form-control" id="name">
@@ -160,8 +161,19 @@ export default{
         getData(){
      
             //axios
-            this.getPivotData();
+            // this.getPivotData();
+            const dishes = [];
+
+            this.cart.forEach(item => {
+                const dish = {
+                    'id': item.dish,
+                    'quantity': item.quantity
+                }
+                dishes.push(dish);
+                this.restaurant_id = item.restaurant;
+            });
             this.$http.post('http://127.0.0.1:8000/api/orders-store', {
+                
                 customer_name: this.form.customer_name,
                 customer_email: this.form.customer_email,
                 customer_phone: this.form.customer_phone,

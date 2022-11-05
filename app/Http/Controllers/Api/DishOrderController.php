@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Dish;
+use App\Models\DishOrder;
 
 
 class DishOrderController extends Controller
@@ -28,7 +29,7 @@ class DishOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //$dish_order = new DishOrder;
+        $dish_order = new DishOrder;
        $dish_order->dish_id = $request->get('dish_id');
        $dish_order->order_id = $dish->orders->pluck('id')->toArray();
        $dish_order->quatity = $request->get('quatity');

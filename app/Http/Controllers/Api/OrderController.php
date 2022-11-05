@@ -33,6 +33,7 @@ class OrderController extends Controller
      */
     public function store(Request $request )
     {
+        
         $order = new Order;
         //Order::create($request->all());
          $order->customer_name = $request->get('customer_name');
