@@ -2037,11 +2037,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 =======
 >>>>>>> 52d94c8 (amount data is on page)
+=======
+>>>>>>> 0e83bba (has a bug)
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CartPage',
   data: function data() {
@@ -2064,7 +2067,10 @@ __webpack_require__.r(__webpack_exports__);
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> 52d94c8 (amount data is on page)
+=======
+>>>>>>> 0e83bba (has a bug)
   methods: {
     goToRestaurantMenu: function goToRestaurantMenu() {
       var restaurantMenu = this.cart[0].restaurant;
@@ -2174,7 +2180,10 @@ __webpack_require__.r(__webpack_exports__);
       //     const data = res.data;
 
       //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
+<<<<<<< HEAD
 >>>>>>> 52d94c8 (amount data is on page)
+=======
+>>>>>>> 0e83bba (has a bug)
     }
   },
   mounted: function mounted() {
@@ -2318,18 +2327,18 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     AppLoader: _AppLoader__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  computed: {
-    setImage: function setImage() {
-      var _this$dish$image;
-      return (_this$dish$image = this.dish.image) !== null && _this$dish$image !== void 0 ? _this$dish$image : "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg";
-    }
-  },
+  // computed: {
+  //   setImage(){
+  //     return this.dish.image ?? "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg";
+  //   }
+  // },
   methods: {
     fetchRestaurant: function fetchRestaurant() {
       var _this = this;
       this.isLoading = true;
-      axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then(function (res) {
+      axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.slug).then(function (res) {
         _this.restaurant = res.data.restaurant;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2342,6 +2351,8 @@ __webpack_require__.r(__webpack_exports__);
 =======
 =======
 >>>>>>> 52d94c8 (amount data is on page)
+=======
+>>>>>>> 0e83bba (has a bug)
         var dishes = res.data.restaurant.dishes;
         console.log(dishes);
         dishes.forEach(function (dish) {
@@ -2351,6 +2362,7 @@ __webpack_require__.r(__webpack_exports__);
         dishes.forEach(function (dish) {
           if (dish.is_visible) _this.dishes.push(dish);
         });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 2377734 (to fix)
@@ -2363,6 +2375,8 @@ __webpack_require__.r(__webpack_exports__);
 >>>>>>> af2f6d6 (fixed)
 =======
 >>>>>>> 52d94c8 (amount data is on page)
+=======
+>>>>>>> 0e83bba (has a bug)
         _this.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
@@ -2858,6 +2872,7 @@ var render = function render() {
       }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
   }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _c("div", {
     staticClass: "card cart p-5 mt-5"
   }, [_c("form", {
@@ -2989,6 +3004,9 @@ var render = function render() {
 =======
   }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _vm._m(2)], 1)]);
 >>>>>>> 52d94c8 (amount data is on page)
+=======
+  }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _vm._m(2)], 1)]);
+>>>>>>> 0e83bba (has a bug)
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -3156,7 +3174,7 @@ var render = function render() {
         to: {
           name: "restaurant-details",
           params: {
-            id: restaurant.id
+            id: restaurant.slug
           }
         }
       }
@@ -3191,7 +3209,7 @@ var render = function render() {
         to: {
           name: "restaurant-details",
           params: {
-            id: restaurant.id
+            id: restaurant.slug
           }
         }
       }

@@ -47,7 +47,7 @@
                                 </h5>
                                 <router-link :to="{
                                     name: 'restaurant-details',
-                                    params: { id: restaurant.id },
+                                    params: { slug: restaurant.slug },
                                 }" class="btn bg-dred mb-2">Vedi
                                 </router-link>
                             </div>
@@ -69,7 +69,7 @@
                                 </h5>
                                 <router-link :to="{
                                     name: 'restaurant-details',
-                                    params: { id: restaurant.id },
+                                    params: { slug: restaurant.slug },
                                 }" class="btn bg-dred mb-2">Vedi
                                 </router-link>
                             </div>
