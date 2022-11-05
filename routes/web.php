@@ -55,7 +55,9 @@ Route::get('/payment', function(){
 
 
     $token = $gateway->ClientToken()->generate();
-    return view('braintree', ['token' => $token]);
+
+    $amount = 20;
+    return view('braintree', ['token' => $token, 'amount' => $amount]);
 
 });
 

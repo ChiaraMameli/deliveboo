@@ -2036,9 +2036,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
+=======
+>>>>>>> 52d94c8 (amount data is on page)
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CartPage',
   data: function data() {
@@ -2058,9 +2061,16 @@ __webpack_require__.r(__webpack_exports__);
       quantity: 0
     };
   },
+<<<<<<< HEAD
+=======
+
+>>>>>>> 52d94c8 (amount data is on page)
   methods: {
+    goToRestaurantMenu: function goToRestaurantMenu() {
+      var restaurantMenu = this.cart[0].restaurant;
+      return restaurantMenu;
+    },
     removeDish: function removeDish(dish) {
-      console.log(dish);
       this.cart = this.cart.filter(function (item) {
         return item !== dish;
       });
@@ -2145,6 +2155,26 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.form.customer_name = '', _this2.form.customer_email = '', _this2.form.customer_phone = '', _this2.form.customer_address = '', _this2.amount = '';
       });
+<<<<<<< HEAD
+=======
+
+      //     //dati del form
+      //     const formData = res.config['data'];
+      //     const parsedData = JSON.parse(formData);
+      //     //array del new_order che arriva da db
+      //      console.log(res);
+      //      console.log(res.data);
+      //     //console.log(res.data[0]);
+      //     console.log(res.data['new_order']);
+      //     // ci carico i dati 
+      //     newOrder.push(parsedData);
+      // this.order.push(newOrder);
+      // console.log(this.order);
+      //fill the order with the form data, way2
+      //     const data = res.data;
+
+      //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
+>>>>>>> 52d94c8 (amount data is on page)
     }
   },
   mounted: function mounted() {
@@ -2304,32 +2334,24 @@ __webpack_require__.r(__webpack_exports__);
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         var dishes = res.data.restaurant.dishes;
         console.log(dishes);
         dishes.forEach(function (dish) {
 =======
 =======
+=======
+>>>>>>> 52d94c8 (amount data is on page)
         var dishes = res.data.restaurant.dishes;
         console.log(dishes);
+        dishes.forEach(function (dish) {
+          if (dish.is_visible) _this.dishes.push(dish);
+        });
+        var restaurant_dishes = res.data.restaurant.dishes;
         dishes.forEach(function (dish) {
           if (dish.is_visible) _this.dishes.push(dish);
         });
 <<<<<<< HEAD
->>>>>>> 2377734 (to fix)
-        var restaurant_dishes = res.data.restaurant.dishes;
-        restaurant_dishes.forEach(function (dish) {
->>>>>>> f9c1dd6 (added control on dish name)
-          if (dish.is_visible) _this.dishes.push(dish);
-        });
-=======
->>>>>>> af2f6d6 (fixed)
-=======
-=======
-        var dishes = res.data.restaurant.dishes;
-        console.log(dishes);
-        dishes.forEach(function (dish) {
-          if (dish.is_visible) _this.dishes.push(dish);
-        });
 <<<<<<< HEAD
 >>>>>>> 2377734 (to fix)
         var restaurant_dishes = res.data.restaurant.dishes;
@@ -2339,6 +2361,8 @@ __webpack_require__.r(__webpack_exports__);
 >>>>>>> f9c1dd6 (added control on dish name)
 =======
 >>>>>>> af2f6d6 (fixed)
+=======
+>>>>>>> 52d94c8 (amount data is on page)
         _this.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
@@ -2752,7 +2776,28 @@ var render = function render() {
     }
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "container pt-3 pb-5"
-  }, [_c("div", {
+  }, [!_vm.cart.length == 0 ? _c("router-link", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      to: {
+        name: "restaurant-details",
+        params: {
+          id: _vm.goToRestaurantMenu()
+        }
+      }
+    }
+  }, [_c("a", {
+    staticClass: "btn btn-secondary"
+  }, [_vm._v("Torna al menu")])]) : _c("router-link", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      to: {
+        name: "home"
+      }
+    }
+  }, [_c("a", {
+    staticClass: "btn btn-secondary"
+  }, [_vm._v("Torna all Home")])]), _vm._v(" "), _c("div", {
     staticClass: "card cart p-5 mt-5"
   }, [_c("table", {
     staticClass: "table"
@@ -2812,6 +2857,7 @@ var render = function render() {
         return _vm.removeAll();
       }
     }
+<<<<<<< HEAD
   }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _c("div", {
     staticClass: "card cart p-5 mt-5"
   }, [_c("form", {
@@ -2940,6 +2986,9 @@ var render = function render() {
       }
     }
   }, [_vm._v("Ordina")])])])])]);
+=======
+  }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _vm._m(2)], 1)]);
+>>>>>>> 52d94c8 (amount data is on page)
 };
 var staticRenderFns = [function () {
   var _vm = this,
