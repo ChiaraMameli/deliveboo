@@ -61,7 +61,7 @@ components:{
 computed: {
   setImage(){
     return this.dish.image ?? "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg";
-  }
+  },
 },
 methods: {
         fetchRestaurant() {
@@ -70,13 +70,6 @@ methods: {
             axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
                 this.restaurant = res.data.restaurant;
                 const dishes = res.data.restaurant.dishes;
-                console.log(dishes)
-
-                dishes.forEach(dish => {
-                  if(dish.is_visible) this.dishes.push(dish);
-                })
-
-                const restaurant_dishes = res.data.restaurant.dishes;
 
                 dishes.forEach(dish => {
                   if(dish.is_visible) this.dishes.push(dish);
@@ -170,7 +163,7 @@ methods: {
 
           this.$emit('populated-cart', this.cart);
 
-        }
+        },
     },
     mounted() {
         this.fetchRestaurant();

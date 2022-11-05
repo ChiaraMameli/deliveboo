@@ -129,7 +129,6 @@ export default {
             if (hasConfirmed) {
                 localStorage.cart = [];
                 this.cart = [];
-                //svuoto anche db?
             } else {
                 die();
             }
