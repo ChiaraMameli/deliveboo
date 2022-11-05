@@ -12,7 +12,7 @@ const routes = new VueRouter({
     routes: [
         //name verrà usato se la pagina cresce    
         {path: '*' , component: HomePage, name:'home'},
-        {path: '/restaurants/:id' , component: RestaurantDetails, name:'restaurant-details'},
+        {path: '/restaurants/:slug' , component: RestaurantDetails, name:'restaurant-details'},
         {path: '/cart' , component: CartPage, name:'cart'},
         {path: '/thank-you-page' , component: ThankYouPage, name:'thank-you-page'},
         
