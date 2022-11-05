@@ -58,16 +58,16 @@ data(){
 components:{
         AppLoader
     },
-computed: {
-  setImage(){
-    return this.dish.image ?? "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg";
-  }
-},
+// computed: {
+//   setImage(){
+//     return this.dish.image ?? "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg";
+//   }
+// },
 methods: {
         fetchRestaurant() {
             this.isLoading = true;
 
-            axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.id).then((res) => {
+            axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.slug).then((res) => {
                 this.restaurant = res.data.restaurant;
                 const dishes = res.data.restaurant.dishes;
                 console.log(dishes)

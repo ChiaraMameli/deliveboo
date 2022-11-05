@@ -5,6 +5,7 @@ use App\Models\Restaurant;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class RestaurantSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class RestaurantSeeder extends Seeder
             $new_restaurant = new Restaurant();
             $new_restaurant->user_id = $user_id;
             $new_restaurant->name = $restaurant['name'];
+            $new_restaurant->slug = Str::slug($restaurant['name'], '-');
             $new_restaurant->p_iva = $restaurant['p_iva'];
             $new_restaurant->address = $restaurant['address'];
             $new_restaurant->image = $restaurant['image'];

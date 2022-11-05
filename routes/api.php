@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Route::namespace()->group()
 
 Route::get('/restaurants', 'Api\RestaurantController@index');
-Route::get('/restaurants/{id}', 'Api\RestaurantController@show');
+Route::get('/restaurants/:slug', 'Api\RestaurantController@show');
 Route::get('/orders' , 'Api\OrderController@index');
 Route::post('/orders-store' , 'Api\OrderController@store');
 //Route::post('/pivot' , 'Api\DishOrderController@store');
