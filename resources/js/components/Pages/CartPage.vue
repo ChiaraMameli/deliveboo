@@ -45,21 +45,21 @@
                 <form >
                     <div class="form-group">
                         <label for="name">Nome e cognome</label>
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" v-model="form.customer_name" class="form-control" id="name">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email">Indirizzo email</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" v-model="form.customer_email" class="form-control" id="email">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone">Numero di telefono</label>
-                            <input type="phone" class="form-control" id="phone">
+                            <input type="phone" v-model="form.customer_phone" class="form-control" id="phone">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="address">Indirizzo completo</label>
-                        <input type="text" class="form-control" id="address">
+                        <input type="text" v-model="form.customer_address" class="form-control" id="address">
                     </div>
                     <button @click.prevent="getData()" type="submit" class="btn btn-primary">Ordina</button>
                 </form>
