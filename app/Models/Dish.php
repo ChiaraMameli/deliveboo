@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dish extends Model
 {
-    protected $fillable = [
-        'name', 'description', 'ingredients', 'price', 'size'
-    ];
-
+    
     public function restaurant(){
         return $this->belongsTo('App\Models\Restaurant');
     }
 
     public function orders(){
-        return $this->belongsToMany('App\Models\Order');
+        return $this->belongsToMany('App\Models\Order')->withPivot(['quantity']);
     }
 
     public function setDescriptionExtract(){
@@ -35,4 +32,7 @@ class Dish extends Model
         return $this->price;
     }
 
+    protected $fillable = [
+        'name', 'description', 'ingredients', 'price', 'size'
+    ];
 }
