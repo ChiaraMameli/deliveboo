@@ -2038,6 +2038,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -2045,6 +2046,8 @@ __webpack_require__.r(__webpack_exports__);
 >>>>>>> 52d94c8 (amount data is on page)
 =======
 >>>>>>> 0e83bba (has a bug)
+=======
+>>>>>>> 4c3c9c6 (amount data is on page)
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CartPage',
   data: function data() {
@@ -2068,9 +2071,12 @@ __webpack_require__.r(__webpack_exports__);
 =======
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 52d94c8 (amount data is on page)
 =======
 >>>>>>> 0e83bba (has a bug)
+=======
+>>>>>>> 4c3c9c6 (amount data is on page)
   methods: {
     goToRestaurantMenu: function goToRestaurantMenu() {
       var restaurantMenu = this.cart[0].restaurant;
@@ -2181,9 +2187,12 @@ __webpack_require__.r(__webpack_exports__);
 
       //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 52d94c8 (amount data is on page)
 =======
 >>>>>>> 0e83bba (has a bug)
+=======
+>>>>>>> 4c3c9c6 (amount data is on page)
     }
   },
   mounted: function mounted() {
@@ -2344,6 +2353,7 @@ __webpack_require__.r(__webpack_exports__);
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         var dishes = res.data.restaurant.dishes;
         console.log(dishes);
         dishes.forEach(function (dish) {
@@ -2353,6 +2363,8 @@ __webpack_require__.r(__webpack_exports__);
 >>>>>>> 52d94c8 (amount data is on page)
 =======
 >>>>>>> 0e83bba (has a bug)
+=======
+>>>>>>> 4c3c9c6 (amount data is on page)
         var dishes = res.data.restaurant.dishes;
         console.log(dishes);
         dishes.forEach(function (dish) {
@@ -2362,6 +2374,7 @@ __webpack_require__.r(__webpack_exports__);
         dishes.forEach(function (dish) {
           if (dish.is_visible) _this.dishes.push(dish);
         });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2377,6 +2390,8 @@ __webpack_require__.r(__webpack_exports__);
 >>>>>>> 52d94c8 (amount data is on page)
 =======
 >>>>>>> 0e83bba (has a bug)
+=======
+>>>>>>> 4c3c9c6 (amount data is on page)
         _this.isLoading = false;
       })["catch"](function (err) {
         console.log(err);
@@ -2873,6 +2888,7 @@ var render = function render() {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _c("div", {
     staticClass: "card cart p-5 mt-5"
   }, [_c("form", {
@@ -3007,6 +3023,9 @@ var render = function render() {
 =======
   }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _vm._m(2)], 1)]);
 >>>>>>> 0e83bba (has a bug)
+=======
+  }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _vm._m(2)], 1)]);
+>>>>>>> 4c3c9c6 (amount data is on page)
 };
 var staticRenderFns = [function () {
   var _vm = this,
