@@ -83,6 +83,8 @@ export default{
             },
             amount: 0,
             restaurant_id: 0,
+            dish_id: 0,
+            quantity: 0,
         }
     },
     methods:{
@@ -131,39 +133,19 @@ export default{
                 }
                 dishes.push(dish);
                 this.restaurant_id = item.restaurant;
+                
             });
             console.log(dishes);
             
-            //  this.$http.post('http://127.0.0.1:8000/api/pivot', {
-            //     dish_id: dishes[0].id,
-            //     quantity: dishes[0].quantity,
-            //     order_id: this.order_id,
-               
-
-
-            // }).then(() => {
-            // });
 
        }, 
-        //     saveData(){
-        //     axios.post('http://127.0.0.1:8000/api/orders-store', {
-        //         customer_name: this.form.customer_name,
-        //         customer_email: this.form.customer_email,
-        //         customer_phone: this.form.customer_phone,
-        //         customer_address: this.form.customer_address,
-        //         restaurant_id: this.restaurant_id,
-        //         amount: this.amount,
 
-
-        //     }).then(() => {
-        //     });
-        // },
         getData(){
      
             //axios
             // this.getPivotData();
             const dishes = [];
-
+            
             this.cart.forEach(item => {
                 const dish = {
                     'id': item.dish,
@@ -171,7 +153,11 @@ export default{
                 }
                 dishes.push(dish);
                 this.restaurant_id = item.restaurant;
+                this.dish_id = item.dish;
+                //this.quantity = item.quantity;
             });
+            console.log(this.dish_id);
+          
             this.$http.post('http://127.0.0.1:8000/api/orders-store', {
                 
                 customer_name: this.form.customer_name,
@@ -179,17 +165,21 @@ export default{
                 customer_phone: this.form.customer_phone,
                 customer_address: this.form.customer_address,
                 restaurant_id: this.restaurant_id,
+                dish_id: this.dishes_id,
+               // quanity: this.quantity,
                 amount: this.amount,
                 
                 
             }).then(() => {
                 // console.log(data)
                 
-                 this.form.customer_name = '',
-                 this.form.customer_email = '',
-                 this.form.customer_phone = '',
-                 this.form.customer_address = '',
-                 this.amount = ''
+                this.form.customer_name = '',
+                this.form.customer_email = '',
+                this.form.customer_phone = '',
+                this.form.customer_address = '',
+                
+                
+                this.amount = ''
                 });
 
 
@@ -207,22 +197,9 @@ export default{
                 
                 
                 
-                //     //dati del form
-                //     const formData = res.config['data'];
-                //     const parsedData = JSON.parse(formData);
-                //     //array del new_order che arriva da db
-                //      console.log(res);
-                //      console.log(res.data);
-                //     //console.log(res.data[0]);
-                //     console.log(res.data['new_order']);
-                //     // ci carico i dati 
-                //     newOrder.push(parsedData);
-                // this.order.push(newOrder);
-                // console.log(this.order);
-                //fill the order with the form data, way2
-            //     const data = res.data;
+        
               
-                //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
+           
                
         },
     },
