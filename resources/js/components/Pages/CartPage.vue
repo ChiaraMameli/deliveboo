@@ -258,6 +258,7 @@ export default{
         background-image: url('../../../image/delivery-1.png');
         background-repeat: no-repeat;
         background-size: cover;
+        background-position: center;
         position: relative;
 
         img {
