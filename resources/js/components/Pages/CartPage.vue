@@ -154,7 +154,7 @@ export default{
                 dishes.push(dish);
                 this.restaurant_id = item.restaurant;
                 this.dish_id = item.dish;
-                //this.quantity = item.quantity;
+                this.quantity = item.quantity;
             });
             console.log(this.dish_id);
           
@@ -166,7 +166,7 @@ export default{
                 customer_address: this.form.customer_address,
                 restaurant_id: this.restaurant_id,
                 dish_id: this.dish_id,
-                quanity: this.quantity,
+                quantity: this.quantity,
                 amount: this.amount,
                 
                 

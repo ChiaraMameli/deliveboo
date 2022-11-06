@@ -37,7 +37,7 @@ class OrderController extends Controller
         // dd($data);
         $order = new Order;
         //Order::create($request->all());
-        var_dump($data);
+    //var_dump($data);
         $order->customer_name = $request->get('customer_name');
         $order->customer_email = $request->get('customer_email');
         $order->customer_phone = $request->get('customer_phone');
@@ -45,9 +45,10 @@ class OrderController extends Controller
         $order->restaurant_id = $request->get('restaurant_id');
         $order->amount = $request->get('amount');
         $order->save();
-        $order->dishes()->attach($data['dish_id']);
-        $order->dishes()->attach($data['quantity']);
-        //var_dump($request);
+        //$order->dishes()->attach($order->id);
+        //$order->dishes()->sync(['quantity' => $data['quantity']]);
+        $order->dishes()->attach([0 => [ 'dish_id' => $data['dish_id'], 'quantity' => $data['quantity']]]);
+        //var_dump($order->id);
         //$order->dishes()->attach($data->$order_id);
         //$order->dishes()->attach($quantity['quantity']);
         return response()->json([

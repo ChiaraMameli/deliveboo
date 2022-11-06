@@ -2049,7 +2049,9 @@ __webpack_require__.r(__webpack_exports__);
         customer_address: ''
       },
       amount: 0,
-      restaurant_id: 0
+      restaurant_id: 0,
+      dish_id: 0,
+      quantity: 0
     };
   },
   methods: {
@@ -2100,23 +2102,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.restaurant_id = item.restaurant;
       });
       console.log(dishes);
-      this.$http.post('http://127.0.0.1:8000/api/pivot', {
-        dish_id: dishes[0].id,
-        quantity: dishes[0].quantity,
-        order_id: this.order_id
-      }).then(function () {});
     },
-    //     saveData(){
-    //     axios.post('http://127.0.0.1:8000/api/orders-store', {
-    //         customer_name: this.form.customer_name,
-    //         customer_email: this.form.customer_email,
-    //         customer_phone: this.form.customer_phone,
-    //         customer_address: this.form.customer_address,
-    //         restaurant_id: this.restaurant_id,
-    //         amount: this.amount,
-    //     }).then(() => {
-    //     });
-    // },
     getData: function getData() {
       var _this2 = this;
       //axios
@@ -2129,13 +2115,18 @@ __webpack_require__.r(__webpack_exports__);
         };
         dishes.push(dish);
         _this2.restaurant_id = item.restaurant;
+        _this2.dish_id = item.dish;
+        _this2.quantity = item.quantity;
       });
+      console.log(this.dish_id);
       this.$http.post('http://127.0.0.1:8000/api/orders-store', {
         customer_name: this.form.customer_name,
         customer_email: this.form.customer_email,
         customer_phone: this.form.customer_phone,
         customer_address: this.form.customer_address,
         restaurant_id: this.restaurant_id,
+        dish_id: this.dish_id,
+        quantity: this.quantity,
         amount: this.amount
       }).then(function () {
         // console.log(data)
@@ -2143,22 +2134,14 @@ __webpack_require__.r(__webpack_exports__);
         _this2.form.customer_name = '', _this2.form.customer_email = '', _this2.form.customer_phone = '', _this2.form.customer_address = '', _this2.amount = '';
       });
 
-      //     //dati del form
-      //     const formData = res.config['data'];
-      //     const parsedData = JSON.parse(formData);
-      //     //array del new_order che arriva da db
-      //      console.log(res);
-      //      console.log(res.data);
-      //     //console.log(res.data[0]);
-      //     console.log(res.data['new_order']);
-      //     // ci carico i dati 
-      //     newOrder.push(parsedData);
-      // this.order.push(newOrder);
-      // console.log(this.order);
-      //fill the order with the form data, way2
-      //     const data = res.data;
+      //     //filling pivot to
+      // this.$http.post('http://127.0.0.1:8000/api/pivot', {
+      //     dish_id: dishes[0].id,
+      //     quantity: dishes[0].quantity,
+      //     order_id: this.order_id,
 
-      //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
+      // }).then(() => {
+      // });
     }
   },
   mounted: function mounted() {
@@ -2804,7 +2787,121 @@ var render = function render() {
     }
   }, [_vm._v("Svuota carrello")])])]), _vm._v(" "), _c("div", {
     staticClass: "card cart p-5 mt-5"
-  }, [_c("form", [_vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _c("button", {
+  }, [_c("form", {
+    attrs: {
+      action: "http://127.0.0.1:8000/payment"
+    }
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("Nome e cognome")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.customer_name,
+      expression: "form.customer_name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "name"
+    },
+    domProps: {
+      value: _vm.form.customer_name
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "customer_name", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-row"
+  }, [_c("div", {
+    staticClass: "form-group col-md-6"
+  }, [_c("label", {
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v("Indirizzo email")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.customer_email,
+      expression: "form.customer_email"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "email",
+      id: "email"
+    },
+    domProps: {
+      value: _vm.form.customer_email
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "customer_email", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-6"
+  }, [_c("label", {
+    attrs: {
+      "for": "phone"
+    }
+  }, [_vm._v("Numero di telefono")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.customer_phone,
+      expression: "form.customer_phone"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "phone",
+      id: "phone"
+    },
+    domProps: {
+      value: _vm.form.customer_phone
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "customer_phone", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "address"
+    }
+  }, [_vm._v("Indirizzo completo")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.customer_address,
+      expression: "form.customer_address"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "address"
+    },
+    domProps: {
+      value: _vm.form.customer_address
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "customer_address", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "submit"
@@ -2858,68 +2955,6 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Totale")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "name"
-    }
-  }, [_vm._v("Nome e cognome")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "name"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-row"
-  }, [_c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    attrs: {
-      "for": "email"
-    }
-  }, [_vm._v("Indirizzo email")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "email",
-      id: "email"
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    attrs: {
-      "for": "phone"
-    }
-  }, [_vm._v("Numero di telefono")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "phone",
-      id: "phone"
-    }
-  })])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "address"
-    }
-  }, [_vm._v("Indirizzo completo")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "address"
-    }
-  })]);
 }];
 render._withStripped = true;
 
