@@ -46,6 +46,7 @@ class OrderController extends Controller
         $order->amount = $request->get('amount');
         $order->save();
         $order->dishes()->attach($data['dish_id']);
+        $order->dishes()->attach($data['quantity']);
         //var_dump($request);
         //$order->dishes()->attach($data->$order_id);
         //$order->dishes()->attach($quantity['quantity']);

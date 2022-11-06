@@ -166,7 +166,7 @@ export default{
                 customer_address: this.form.customer_address,
                 restaurant_id: this.restaurant_id,
                 dish_id: this.dish_id,
-               // quanity: this.quantity,
+                quanity: this.quantity,
                 amount: this.amount,
                 
                 
