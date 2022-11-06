@@ -19,7 +19,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
 
-
+        
 
         return Order::all();
 
@@ -45,14 +45,20 @@ class OrderController extends Controller
         $order->restaurant_id = $request->get('restaurant_id');
         $order->amount = $request->get('amount');
         $order->save();
+        //ciclare gli id e le quantità
+       // $order->dishes()->attach($data['cart_dishes']);
+       $dishes = json_decode($data['cart_dishes']);
+        foreach ($dishes as $dish) {
+         $order->dishes()->attach(['dish_id' => $dish->id], [ 'quantity' => $dish->quantity]);
+    };
+        //var_dump($data['cart_dishes']);
+       // $order->dishes()->attach([[ 'dish_id' => $data['dish_id'], 'quantity' => $data['quantity']]]);
         //$order->dishes()->attach($order->id);
         //$order->dishes()->sync(['quantity' => $data['quantity']]);
         //  foreach ($order->dishes as $dish) {
         //     $dish()->attach($data['dish_id'], ['quantity' => $data['quantity']]);
         //  };
-         $order->dishes()->attach([[ 'dish_id' => $data['dish_id'], 'quantity' => $data['quantity']]]);
             
-        //var_dump();
 
         return response()->json([
             'message' => 'creato nuovo ordine'

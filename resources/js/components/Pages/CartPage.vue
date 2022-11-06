@@ -69,7 +69,7 @@
 </template>
 
 <script>
-//import axios from 'axios';
+import axios from 'axios';
 export default{
     name: 'CartPage',
     data(){
@@ -83,7 +83,8 @@ export default{
             },
             amount: 0,
             restaurant_id: 0,
-            // dish_id: [],
+            dishes: [],
+            dish_ids: [],
             dish_id: 0,
             quantity: 0,
         }
@@ -145,27 +146,27 @@ export default{
      
             //axios
             // this.getPivotData();
-            const dishes = [];
+            // const dishes = [];
             
             this.cart.forEach(item => {
                 const dish = {
                     'id': item.dish,
                     'quantity': item.quantity
                 }
-                dishes.push(dish);
+                this.dishes.push(dish);
                 this.restaurant_id = item.restaurant;
                 this.dish_id = item.dish;
-                // this.dish_id.push(item.dish);
+                this.dish_ids.push(item.dish);
                 this.quantity = item.quantity;
-                console.log(item.dish);
+                //console.log(item.dish);
             });
             // this.dish_id.forEach(item => {
             //     this.dish = item
             // });
             // console.log(this.dish);
-            console.log(this.dish_id);
+            console.log(this.dishes);
           
-            this.$http.post('http://127.0.0.1:8000/api/orders-store', {
+            axios.post('http://127.0.0.1:8000/api/orders-store', {
                 
                 customer_name: this.form.customer_name,
                 customer_email: this.form.customer_email,
@@ -173,8 +174,9 @@ export default{
                 customer_address: this.form.customer_address,
                 restaurant_id: this.restaurant_id,
                 amount: this.amount,
-                dish_id: this.dish_id,
-                quantity: this.quantity,
+                cart_dishes: JSON.stringify(this.dishes)
+                // dish_id: this.dish_id,
+                // quantity: this.quantity,
                 
                 
             }).then(() => {
