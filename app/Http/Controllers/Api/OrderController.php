@@ -47,10 +47,13 @@ class OrderController extends Controller
         $order->save();
         //$order->dishes()->attach($order->id);
         //$order->dishes()->sync(['quantity' => $data['quantity']]);
-        $order->dishes()->attach([0 => [ 'dish_id' => $data['dish_id'], 'quantity' => $data['quantity']]]);
-        //var_dump($order->id);
-        //$order->dishes()->attach($data->$order_id);
-        //$order->dishes()->attach($quantity['quantity']);
+        //  foreach ($order->dishes as $dish) {
+        //     $dish()->attach($data['dish_id'], ['quantity' => $data['quantity']]);
+        //  };
+         $order->dishes()->attach([[ 'dish_id' => $data['dish_id'], 'quantity' => $data['quantity']]]);
+            
+        //var_dump();
+
         return response()->json([
             'message' => 'creato nuovo ordine'
         ]);

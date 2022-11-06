@@ -83,6 +83,7 @@ export default{
             },
             amount: 0,
             restaurant_id: 0,
+            // dish_id: [],
             dish_id: 0,
             quantity: 0,
         }
@@ -154,8 +155,14 @@ export default{
                 dishes.push(dish);
                 this.restaurant_id = item.restaurant;
                 this.dish_id = item.dish;
+                // this.dish_id.push(item.dish);
                 this.quantity = item.quantity;
+                console.log(item.dish);
             });
+            // this.dish_id.forEach(item => {
+            //     this.dish = item
+            // });
+            // console.log(this.dish);
             console.log(this.dish_id);
           
             this.$http.post('http://127.0.0.1:8000/api/orders-store', {
@@ -165,9 +172,9 @@ export default{
                 customer_phone: this.form.customer_phone,
                 customer_address: this.form.customer_address,
                 restaurant_id: this.restaurant_id,
+                amount: this.amount,
                 dish_id: this.dish_id,
                 quantity: this.quantity,
-                amount: this.amount,
                 
                 
             }).then(() => {
@@ -180,27 +187,7 @@ export default{
                 
                 
                 this.amount = ''
-                });
-
-
-            //     //filling pivot to
-            // this.$http.post('http://127.0.0.1:8000/api/pivot', {
-            //     dish_id: dishes[0].id,
-            //     quantity: dishes[0].quantity,
-            //     order_id: this.order_id,
-
-
-
-            // }).then(() => {
-            // });
-                
-                
-                
-                
-        
-              
-           
-               
+            });               
         },
     },
     mounted(){
@@ -209,16 +196,7 @@ export default{
         };
     },
    
-    //     this.$http.get('http://127.0.0.1:8000/api/user-details', {
-    //         name: this.form.name,
-    //         email: this.form.email,
-    //         phone: this.form.phone,
-    //         address: this.form.address,
-    //     }).then(function (data) {
-    //         console.log(data)
-    //     });
 
-     //},
     watch:{
         cart(newCart){
             localStorage.cart = JSON.stringify(newCart);
