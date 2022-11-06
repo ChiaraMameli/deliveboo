@@ -164,7 +164,7 @@ export default{
             //     this.dish = item
             // });
             // console.log(this.dish);
-            console.log(this.dishes);
+            console.log(this.dishes); 
           
             axios.post('http://127.0.0.1:8000/api/orders-store', {
                 

@@ -2036,7 +2036,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//import axios from 'axios';
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CartPage',
   data: function data() {
@@ -2050,6 +2052,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       amount: 0,
       restaurant_id: 0,
+      dishes: [],
+      dish_ids: [],
       dish_id: 0,
       quantity: 0
     };
@@ -2107,41 +2111,40 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
       //axios
       // this.getPivotData();
-      var dishes = [];
+      // const dishes = [];
+
       this.cart.forEach(function (item) {
         var dish = {
           'id': item.dish,
           'quantity': item.quantity
         };
-        dishes.push(dish);
+        _this2.dishes.push(dish);
         _this2.restaurant_id = item.restaurant;
         _this2.dish_id = item.dish;
+        _this2.dish_ids.push(item.dish);
         _this2.quantity = item.quantity;
+        //console.log(item.dish);
       });
-      console.log(this.dish_id);
-      this.$http.post('http://127.0.0.1:8000/api/orders-store', {
+      // this.dish_id.forEach(item => {
+      //     this.dish = item
+      // });
+      // console.log(this.dish);
+      console.log(this.dishes);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/orders-store', {
         customer_name: this.form.customer_name,
         customer_email: this.form.customer_email,
         customer_phone: this.form.customer_phone,
         customer_address: this.form.customer_address,
         restaurant_id: this.restaurant_id,
-        dish_id: this.dish_id,
-        quantity: this.quantity,
-        amount: this.amount
+        amount: this.amount,
+        cart_dishes: JSON.stringify(this.dishes)
+        // dish_id: this.dish_id,
+        // quantity: this.quantity,
       }).then(function () {
         // console.log(data)
 
         _this2.form.customer_name = '', _this2.form.customer_email = '', _this2.form.customer_phone = '', _this2.form.customer_address = '', _this2.amount = '';
       });
-
-      //     //filling pivot to
-      // this.$http.post('http://127.0.0.1:8000/api/pivot', {
-      //     dish_id: dishes[0].id,
-      //     quantity: dishes[0].quantity,
-      //     order_id: this.order_id,
-
-      // }).then(() => {
-      // });
     }
   },
   mounted: function mounted() {
@@ -2150,16 +2153,6 @@ __webpack_require__.r(__webpack_exports__);
     }
     ;
   },
-  //     this.$http.get('http://127.0.0.1:8000/api/user-details', {
-  //         name: this.form.name,
-  //         email: this.form.email,
-  //         phone: this.form.phone,
-  //         address: this.form.address,
-  //     }).then(function (data) {
-  //         console.log(data)
-  //     });
-
-  //},
   watch: {
     cart: function cart(newCart) {
       localStorage.cart = JSON.stringify(newCart);

@@ -37,7 +37,7 @@ class OrderController extends Controller
         // dd($data);
         $order = new Order;
         //Order::create($request->all());
-    //var_dump($data);
+    //var_dump($data); 
         $order->customer_name = $request->get('customer_name');
         $order->customer_email = $request->get('customer_email');
         $order->customer_phone = $request->get('customer_phone');
