@@ -11,7 +11,7 @@ class Order extends Model
     }
 
         public function dishes(){
-        return $this->belongsToMany('App\Models\Dish')->withPivot(['quantity']);
+        return $this->belongsToMany('App\Models\Dish')->withTimestamps()->withPivot('quantity');
     }
 
     protected $fillable = ['customer_name','customer_email','costumer_phone','costumer_address','amount','restaurant_id'];

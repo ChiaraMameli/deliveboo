@@ -18,11 +18,11 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-       
-       
+
         
+
         return Order::all();
-      
+
     }
 
     /**
@@ -33,19 +33,53 @@ class OrderController extends Controller
      */
     public function store(Request $request )
     {
+                $data = $request->all();
+        // dd($data);
         $order = new Order;
         //Order::create($request->all());
-         $order->customer_name = $request->get('customer_name');
-         $order->customer_email = $request->get('customer_email');
-         $order->customer_phone = $request->get('customer_phone');
-         $order->customer_address = $request->get('customer_address');
-         $order->restaurant_id = $request->get('restaurant_id');
-         $order->amount = $request->get('amount');
-         $order->save();
+    //var_dump($data); 
+        $order->customer_name = $request->get('customer_name');
+        $order->customer_email = $request->get('customer_email');
+        $order->customer_phone = $request->get('customer_phone');
+        $order->customer_address = $request->get('customer_address');
+        $order->restaurant_id = $request->get('restaurant_id');
+        $order->amount = $request->get('amount');
+        $order->save();
+        //ciclare gli id e le quantità
+       // $order->dishes()->attach($data['cart_dishes']);
+       $dishes = json_decode($data['cart_dishes']);
+        foreach ($dishes as $dish) {
+         $order->dishes()->attach(['dish_id' => $dish->id], [ 'quantity' => $dish->quantity]);
+    };
+        //var_dump($data['cart_dishes']);
+       // $order->dishes()->attach([[ 'dish_id' => $data['dish_id'], 'quantity' => $data['quantity']]]);
+        //$order->dishes()->attach($order->id);
+        //$order->dishes()->sync(['quantity' => $data['quantity']]);
+        //  foreach ($order->dishes as $dish) {
+        //     $dish()->attach($data['dish_id'], ['quantity' => $data['quantity']]);
+        //  };
+            
+
         return response()->json([
             'message' => 'creato nuovo ordine'
         ]);
     }
+        // $data = $request->all();
+        // // dd($data);
+        // $order = new Order;
+        // //Order::create($request->all());
+        //  $order->customer_name = $request->get('customer_name');
+        //  $order->customer_email = $request->get('customer_email');
+        //  $order->customer_phone = $request->get('customer_phone');
+        //  $order->customer_address = $request->get('customer_address');
+        //  $order->restaurant_id = $request->get('restaurant_id');
+        //  $order->amount = $request->get('amount');
+        //  $order->save();
+        //    $order->dishes()->attach($data['order_id']);
+        // return response()->json([
+        //     'message' => 'creato nuovo ordine'
+        // ]);
+    
 
     /**
      * Display the specified resource.
@@ -53,9 +87,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+     public function show(Order $order)
     {
-       
+
     }
 
     /**

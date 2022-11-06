@@ -55,26 +55,27 @@
             </div>
 
             <div class="card cart p-5 mt-5">
-                <form>
+                <!-- @submit.prevent="getPivotData()" -->
+                <form  action="http://127.0.0.1:8000/payment" >
                     <div class="form-group">
                         <label for="name">Nome e cognome</label>
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" v-model="form.customer_name" class="form-control" id="name">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email">Indirizzo email</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" v-model="form.customer_email" class="form-control" id="email">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone">Numero di telefono</label>
-                            <input type="phone" class="form-control" id="phone">
+                            <input type="phone" v-model="form.customer_phone" class="form-control" id="phone">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="address">Indirizzo completo</label>
-                        <input type="text" class="form-control" id="address">
+                        <input type="text" v-model="form.customer_address" class="form-control" id="address">
                     </div>
-                    <button type="submit" class="btn btn-primary">Ordina</button>
+                    <button @click.prevent="getData()" type="submit" class="btn btn-primary">Ordina</button>
                 </form>
             </div>
         </div>
@@ -82,7 +83,8 @@
 </template>
 
 <script>
-export default {
+import axios from 'axios';
+export default{
     name: 'CartPage',
     data() {
         return {
@@ -95,8 +97,10 @@ export default {
             },
             amount: 0,
             restaurant_id: 0,
-            pippo: [],
-            // order: [], //deve diventare cart
+            dishes: [],
+            dish_ids: [],
+            dish_id: 0,
+            quantity: 0,
         }
     },
     methods: {
@@ -137,8 +141,8 @@ export default {
             localStorage.cart = JSON.stringify(this.cart);
             // window.scrollTo(0, 1000);
         },
-        // getPivotData(){
-        //     const dishes = [];
+        getPivotData(){
+            const dishes = [];
 
         //     this.cart.forEach(item => {
         //         const dish = {
@@ -149,19 +153,20 @@ export default {
         //         this.restaurant_id = item.restaurant;
         //     });
         //     console.log(dishes);
-
+            
         //      this.$http.post('http://127.0.0.1:8000/api/pivot', {
         //         dish_id: dishes[0].id,
         //         order_id: this.order_id,
         //         quantity: dishes[0].quantity,
+               
 
-
+       }, 
 
         //     }).then(() => {
         //     });
 
-        // }, 
-        // saveData(){
+       // }, 
+            // saveData(){
         //     axios.post('http://127.0.0.1:8000/api/orders-store', {
         //         customer_name: this.form.customer_name,
         //         customer_email: this.form.customer_email,
@@ -170,62 +175,51 @@ export default {
         //         restaurant_id: this.restaurant_id,
         //         amount: this.amount,
 
+      // },
 
-        //     }).then(() => {
-        //     });
-        // },
-        getData() {
-            const dishes = [];
-
+        getData(){
             this.cart.forEach(item => {
                 const dish = {
                     'id': item.dish,
                     'quantity': item.quantity
                 }
-                dishes.push(dish);
+                this.dishes.push(dish);
                 this.restaurant_id = item.restaurant;
+                this.dish_id = item.dish;
+                this.dish_ids.push(item.dish);
+                this.quantity = item.quantity;
+                //console.log(item.dish);
             });
-            //axios
-            // this.getPivotData();
-            this.$http.post('http://127.0.0.1:8000/api/orders-store', {
+            // this.dish_id.forEach(item => {
+            //     this.dish = item
+            // });
+            // console.log(this.dish);
+            console.log(this.dishes); 
+          
+            axios.post('http://127.0.0.1:8000/api/orders-store', {
+                
                 customer_name: this.form.customer_name,
                 customer_email: this.form.customer_email,
                 customer_phone: this.form.customer_phone,
                 customer_address: this.form.customer_address,
                 restaurant_id: this.restaurant_id,
                 amount: this.amount,
-
-
+                cart_dishes: JSON.stringify(this.dishes)
+                // dish_id: this.dish_id,
+                // quantity: this.quantity,
+                
+                
             }).then(() => {
                 // console.log(data)
-
+                
                 this.form.customer_name = '',
-                    this.form.customer_email = '',
-                    this.form.customer_phone = '',
-                    this.form.customer_address = '',
-                    this.amount = ''
-            });
-
-
-
-
-            //     //dati del form
-            //     const formData = res.config['data'];
-            //     const parsedData = JSON.parse(formData);
-            //     //array del new_order che arriva da db
-            //      console.log(res);
-            //      console.log(res.data);
-            //     //console.log(res.data[0]);
-            //     console.log(res.data['new_order']);
-            //     // ci carico i dati 
-            //     newOrder.push(parsedData);
-            // this.order.push(newOrder);
-            // console.log(this.order);
-            //fill the order with the form data, way2
-            //     const data = res.data;
-
-            //ora ho un oggett nell'ordine contenente il nuovo ordine, vuoto
-
+                this.form.customer_email = '',
+                this.form.customer_phone = '',
+                this.form.customer_address = '',
+                
+                
+                this.amount = ''
+            });               
         },
     },
     mounted() {
@@ -233,19 +227,10 @@ export default {
             this.cart = JSON.parse(localStorage.cart);
         };
     },
+   
 
-    //     this.$http.get('http://127.0.0.1:8000/api/user-details', {
-    //         name: this.form.name,
-    //         email: this.form.email,
-    //         phone: this.form.phone,
-    //         address: this.form.address,
-    //     }).then(function (data) {
-    //         console.log(data)
-    //     });
-
-    //},
-    watch: {
-        cart(newCart) {
+    watch:{
+        cart(newCart){
             localStorage.cart = JSON.stringify(newCart);
         },
         amount(newAmount) {
