@@ -165,7 +165,7 @@ export default{
                 customer_phone: this.form.customer_phone,
                 customer_address: this.form.customer_address,
                 restaurant_id: this.restaurant_id,
-                dish_id: this.dishes_id,
+                dish_id: this.dish_id,
                // quanity: this.quantity,
                 amount: this.amount,
                 
