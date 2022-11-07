@@ -63,7 +63,6 @@
                 </div>
               </div>
 
-            <div id="id" class="card cart p-5 mt-5">
             <div class="card cart p-5 mt-5" id="personal-data">
                 <!-- @submit.prevent="getPivotData()" -->
                 <form  action="http://127.0.0.1:8000/payment" >
