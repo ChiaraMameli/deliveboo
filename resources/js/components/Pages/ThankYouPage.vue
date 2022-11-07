@@ -1,16 +1,13 @@
 <template>
     <main id="thank-you">
-        <div class="container">
+        <div class="container pb-5">
             <h2 class="text-center">Grazie per aver ordinato su Deliveboo!</h2>
             <p class="text-center mb-5">A breve riceverai una mail di conferma.</p>
             <h3 class="text-center">Questo è il riepilogo del tuo ordine:</h3>
             <div class="card p-4">
                 <strong>Piatti ordinati:</strong>
                 <ul class="list-unstyled">
-                    <li>Pappa al pomodoro</li>
-                    <li>Penne agli scampi</li>
-                    <li>Orata al forno</li>
-                    <li>Kebab</li>
+                    <li v-for="dish in order">{{dish.name}}</li>
                 </ul>
             </div>
         </div>
@@ -22,9 +19,24 @@ export default{
     name: 'ThankYouPage',
     data(){
         return{
-            cart: [],
+            order: [],
         }
-    }
+    },
+    mounted() {
+        if (localStorage.cart) {
+            this.order = JSON.parse(localStorage.cart);
+        };
+    },
+   
+
+    watch:{
+        cart(newCart){
+            localStorage.order = JSON.stringify(newCart);
+        },
+        amount(newAmount) {
+            localStorage.amount = JSON.stringify(newAmount);
+        }
+    },
 }
 </script>
 

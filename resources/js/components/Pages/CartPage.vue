@@ -4,12 +4,12 @@
             <img src="../../../image/deliveboo-cart.png" alt="">
         </div>
         <div class="container pt-3 pb-5">
-            <router-link v-if="!cart.length == 0" class="btn btn-secondary"
+            <router-link v-if="!cart.length == 0"
                 :to="{ name: 'restaurant-details', params: { id: goToRestaurantMenu() } }">
-                <a class="btn btn-secondary">Torna al menu</a>
+                <a class="btn btn-danger p-3"><i class="fa-solid fa-utensils"></i> Torna al menu</a>
             </router-link>
-            <router-link v-else class="btn btn-secondary" :to="{ name: 'home' }">
-                <a class="btn btn-secondary">Torna all Home</a>
+            <router-link v-else :to="{ name: 'home' }">
+                <a class="btn btn-danger p-3"><i class="fa-solid fa-house"></i> Torna all Home</a>
             </router-link>
             <div class="card cart p-5 mt-5">
                 <table class="table">
@@ -29,7 +29,7 @@
                             <td>{{ dish.price }}€</td>
                             <td>
                                 <button @click="dish.quantity -= 1"  class="btn btn-outline">-</button>
-                                <input type="number" step="1" min="1" max="50" id="quantity" :value="dish.quantity">
+                                <input type="number" step="1" min="1" max="50" id="quantity" :value="dish.quantity" disabled>
                                 <button @click="dish.quantity += 1" class="btn btn-outline">+</button>
                             </td>
                             <td>{{ getSubTotal(dish) }}€</td>
@@ -49,12 +49,21 @@
                         <i class="fa-solid fa-trash"> Svuota carrello</i>
                     </button>
                     <button @click="buy()" class="btn btn-primary updated">
-                        <i class="fa-solid fa-cart-shopping"> Procedi all'acquisto</i>
+                        <i class="fa-solid fa-rotate-right"> Aggiorna il carrello</i>
                     </button>
                 </div>
             </div>
 
-            <div class="card cart p-5 mt-5">
+            <!-- modale -->
+            <div id="overlay" class="d-none">
+                <div id="modale" class="bg-white p-5 rounded d-none">
+                  <p>Sei sicuro di voler svuotare il carrello?</p>
+                  <a id="modale-button-no" class="btn btn-primary">Annulla</a>
+                  <a id="modale-button-yes" href="" class="btn btn-primary">Ok</a>
+                </div>
+              </div>
+
+            <div id="id" class="card cart p-5 mt-5">
                 <!-- @submit.prevent="getPivotData()" -->
                 <form  action="http://127.0.0.1:8000/payment" >
                     <div class="form-group">
@@ -129,16 +138,30 @@ export default{
             return totalPrice + '€';
         },
         removeAll() {
-            const hasConfirmed = confirm("Sei sicuro di voler svuotare il carrello?");
-            if (hasConfirmed) {
-                localStorage.cart = [];
-                this.cart = [];
-            } else {
-                die();
-            }
+            // Recupero gli elementi per mostrare la modale
+            const modale = document.getElementById('modale');
+            const overlay = document.getElementById('overlay');
+            const modaleButtonNo = document.getElementById('modale-button-no');
+            const modaleButtonYes = document.getElementById('modale-button-yes');
+
+            // mostro la modale in pagina
+            overlay.classList.remove('d-none');
+            modale.classList.remove('d-none');
+            
+            modaleButtonNo.addEventListener('click', function(){
+              overlay.classList.add('d-none');
+              modale.classList.add('d-none');
+            })
+
+            modaleButtonYes.addEventListener('click', function(){
+              localStorage.cart = [];
+              this.cart = []
+            })
         },
         buy(){
             localStorage.cart = JSON.stringify(this.cart);
+
+            this.$emit('populated-cart', this.cart);
             // window.scrollTo(0, 1000);
         },
         getPivotData(){
@@ -245,12 +268,43 @@ export default{
     min-height: calc(100vh - 50px);
     background-color: #F6E7C1;
 
-    thead {
-        border-radius: 20px;
+    #overlay {
+      position: fixed; /* Sit on top of the page content */
+      width: 100%; /* Full width (cover the whole page) */
+      height: 100%; /* Full height (cover the whole page) */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+      z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+      cursor: pointer; /* Add a pointer on hover */
 
-        th {
-            border: none;
+        #modale{
+        position: absolute;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+    }
+
+    table{
+
+        thead {
+            border-radius: 20px;
+
+            th {
+                border: none;
+            }
         }
+
+        #quantity{
+            color: black;
+            border: 2px solid red;
+            border-radius: 10px;
+        }
+
     }
 
     .jumbotron {
