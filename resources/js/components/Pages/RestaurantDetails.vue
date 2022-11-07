@@ -2,7 +2,8 @@
 
   <AppLoader v-if="isLoading" />
   <main v-else id="restaurant-details">
-    <div id="jumbotron" v-bind:style="{ backgroundImage: 'url(' + restaurant.image + ')' }">
+    <div id="jumbotron">
+      <img :src="'../storage/' + restaurant.image" alt="">
       <h2 class="text-white text-center p-5">{{ restaurant.name }}</h2>
     </div>
     <p class="text-center p-1">Indirizzo: {{ restaurant.address }}</p>
@@ -230,19 +231,35 @@ export default {
     }
   }
 
-
-  h2 {
-    min-width: 500px;
-    font-size: 76px;
-    text-shadow: 0 0 6px rgb(16, 16, 16);
-  }
-
   #jumbotron {
     padding-top: 150px;
     height: 500px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    position: relative;
+
+    img{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+      h2 {
+      min-width: 500px;
+      font-size: 76px;
+      text-shadow: 0 0 6px rgb(16, 16, 16);
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -80%);
+      z-index: 2;
+    }
   }
 
   p {

@@ -32,7 +32,7 @@
         <li v-if="!currentCart.length" v-for="dish in cart">
           <div class="cart-container d-flex align-items-center justify-content-between">
             <div class="dish-card d-flex align-items-center">
-              <img :src="dish.image" alt="">
+              <img :src="'/storage/' + dish.image" alt="">
               <div class="description">
                 <h5 class="d-block">{{dish.name}}</h5>
                 <strong class="d-block">{{dish.price}}€</strong>
@@ -109,7 +109,7 @@ header{
   top: 10px;
   left: 10px;
   right: 10px;
-  z-index: 3;
+  z-index: 4;
 
   nav{
     position: relative;
