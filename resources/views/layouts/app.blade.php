@@ -30,7 +30,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    <img src="{{ asset('images/deliveboo-title-logo.png') }}" alt="" width="70px">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -43,10 +44,12 @@
                     <ul class="navbar-nav mr-auto">
                         @if (isset($restaurant_details))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.dishes.index') }}">I miei piatti</a>
+                                <a class="nav-link @if (Route::is('admin.dishes.index')) active @endif"
+                                    href="{{ route('admin.dishes.index') }}">I miei piatti</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.orders.index') }}">I miei ordini</a>
+                                <a class="nav-link @if (Route::is('admin.orders.index')) active @endif"
+                                    href="{{ route('admin.orders.index') }}">I miei ordini</a>
                             </li>
                         @endif
                     </ul>
