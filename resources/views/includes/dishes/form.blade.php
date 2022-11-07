@@ -63,7 +63,7 @@
 
         <div class="col-12 d-flex justify-content-between">
             <a href="{{route('admin.dishes.index', $dish)}}" class="btn btn-dark"><i class="fa-solid fa-rotate-left"></i> Torna indietro</a>
-            <button type="submit" class="btn btn-primary align-self-end"><i class="fa-solid fa-{{$dish->exists ? 'pencil' : 'floppy-disk'}}"></i> {{$dish->exists ? 'Modifica' : 'Salva'}}</button>
+            <button type="submit" class="btn btn-primary align-self-end mt-2"><i class="fa-solid fa-floppy-disk"></i> {{$dish->exists ? 'Salva modifiche' : 'Salva'}}</button>
         </div>
     </div>
     </form>

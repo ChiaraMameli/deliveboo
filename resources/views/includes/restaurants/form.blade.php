@@ -90,10 +90,10 @@
 
     </div>
 
-    <footer class="d-flex justify-content-between align items-center">
+    <footer class="d-flex justify-content-between align-items-center">
         <div class="col-12 d-flex justify-content-between">
             <a href="{{ $restaurant->exists ? route('admin.restaurants.show', $restaurant) : route('admin.home') }}" class="btn btn-dark"><i class="fa-solid fa-rotate-left"></i> Torna indietro</a>
-            <button type="submit" class="btn btn-primary align-self-end"><i class="fa-solid fa-{{$restaurant->exists ? 'pencil' : 'floppy-disk'}}"></i> {{$restaurant->exists ? 'Modifica' : 'Salva'}}</button>
+            <button type="submit" class="btn btn-primary align-self-end mt-2"><i class="fa-solid fa-floppy-disk"></i> {{$restaurant->exists ? 'Salva modifiche' : 'Salva'}}</button>
         </div>
     </footer>
 

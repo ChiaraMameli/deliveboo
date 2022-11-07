@@ -36,11 +36,11 @@
                     <td>
                         <div class="d-flex">
                             <a class="btn btn-primary btn-sm ml-1" href="{{route('admin.orders.show', $order)}}"><i class="fa-solid fa-eye"></i></a>
-                            <form action="{{route('admin.orders.destroy', $order->id)}}" method="POST" class="delete-form">
+                            {{--<form action="{{route('admin.orders.destroy', $order->id)}}" method="POST" class="delete-form">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm ml-1"><i class="fa-solid fa-trash"></i></button>
-                            </form>
+                            </form>--}}
                         </div>
                     </td>
                 </tr>

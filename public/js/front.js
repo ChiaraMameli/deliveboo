@@ -2774,7 +2774,7 @@ var render = function render() {
       staticClass: "dish-card d-flex align-items-center"
     }, [_c("img", {
       attrs: {
-        src: dish.image,
+        src: "/storage/" + dish.image,
         alt: ""
       }
     }), _vm._v(" "), _c("div", {
@@ -2791,7 +2791,7 @@ var render = function render() {
       staticClass: "dish-card d-flex align-items-center"
     }, [_c("img", {
       attrs: {
-        src: dish.image,
+        src: "/storage/" + dish.image,
         alt: ""
       }
     }), _vm._v(" "), _c("div", {
@@ -3402,13 +3402,15 @@ var render = function render() {
       id: "restaurant-details"
     }
   }, [_c("div", {
-    style: {
-      backgroundImage: "url(" + _vm.restaurant.image + ")"
-    },
     attrs: {
       id: "jumbotron"
     }
-  }, [_c("h2", {
+  }, [_c("img", {
+    attrs: {
+      src: "../storage/" + _vm.restaurant.image,
+      alt: ""
+    }
+  }), _vm._v(" "), _c("h2", {
     staticClass: "text-white text-center p-5"
   }, [_vm._v(_vm._s(_vm.restaurant.name))])]), _vm._v(" "), _c("p", {
     staticClass: "text-center p-1"
@@ -7947,7 +7949,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "header[data-v-0851419a] {\n  position: fixed;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  z-index: 3;\n}\nheader nav[data-v-0851419a] {\n  position: relative;\n  border-radius: 40px;\n  padding: 15px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nheader nav img[data-v-0851419a] {\n  height: 30px;\n}\nheader nav i.fa-bag-shopping[data-v-0851419a] {\n  height: 50px;\n  width: 50px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  background-color: #E84342;\n  color: white;\n  cursor: pointer;\n}\nheader nav i.fa-bag-shopping span[data-v-0851419a] {\n  margin-left: 5px;\n}\nheader nav #tendina[data-v-0851419a] {\n  display: none;\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  transform: translate(0, 100%);\n  padding: 20px;\n  background-color: white;\n  width: 320px;\n  min-height: 100px;\n  border-radius: 20px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nheader nav #tendina.open[data-v-0851419a] {\n  display: block;\n}\nheader nav #tendina .cart-container[data-v-0851419a] {\n  margin-top: 5px;\n}\nheader nav #tendina .cart-container h5[data-v-0851419a] {\n  font-size: 16px;\n}\nheader nav #tendina .cart-container img[data-v-0851419a] {\n  width: 80px;\n  height: 80px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 50%;\n  border: 2px solid #E84342;\n  margin-right: 10px;\n}", ""]);
+exports.push([module.i, "header[data-v-0851419a] {\n  position: fixed;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  z-index: 4;\n}\nheader nav[data-v-0851419a] {\n  position: relative;\n  border-radius: 40px;\n  padding: 15px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nheader nav img[data-v-0851419a] {\n  height: 30px;\n}\nheader nav i.fa-bag-shopping[data-v-0851419a] {\n  height: 50px;\n  width: 50px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  background-color: #E84342;\n  color: white;\n  cursor: pointer;\n}\nheader nav i.fa-bag-shopping span[data-v-0851419a] {\n  margin-left: 5px;\n}\nheader nav #tendina[data-v-0851419a] {\n  display: none;\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  transform: translate(0, 100%);\n  padding: 20px;\n  background-color: white;\n  width: 320px;\n  min-height: 100px;\n  border-radius: 20px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}\nheader nav #tendina.open[data-v-0851419a] {\n  display: block;\n}\nheader nav #tendina .cart-container[data-v-0851419a] {\n  margin-top: 5px;\n}\nheader nav #tendina .cart-container h5[data-v-0851419a] {\n  font-size: 16px;\n}\nheader nav #tendina .cart-container img[data-v-0851419a] {\n  width: 80px;\n  height: 80px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 50%;\n  border: 2px solid #E84342;\n  margin-right: 10px;\n}", ""]);
 
 // exports
 
@@ -8025,7 +8027,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#restaurant-details[data-v-4edb6cff] {\n  background-color: #E84342;\n  padding-bottom: 50px;\n  position: relative;\n}\n#restaurant-details #overlay[data-v-4edb6cff] {\n  position: fixed;\n  /* Sit on top of the page content */\n  width: 100%;\n  /* Full width (cover the whole page) */\n  height: 100%;\n  /* Full height (cover the whole page) */\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.8);\n  /* Black background with opacity */\n  z-index: 2;\n  /* Specify a stack order in case you're using a different order for other elements */\n  cursor: pointer;\n  /* Add a pointer on hover */\n}\n#restaurant-details #overlay #modale[data-v-4edb6cff] {\n  position: absolute;\n  top: 50vh;\n  left: 50vw;\n  transform: translate(-50%, -50%);\n  z-index: 1;\n}\n#restaurant-details h2[data-v-4edb6cff] {\n  min-width: 500px;\n  font-size: 76px;\n  text-shadow: 0 0 6px rgb(16, 16, 16);\n}\n#restaurant-details #jumbotron[data-v-4edb6cff] {\n  padding-top: 150px;\n  height: 500px;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n}\n#restaurant-details p[data-v-4edb6cff] {\n  background-color: white;\n}\n#restaurant-details ul li .card.dish[data-v-4edb6cff] {\n  border-radius: 20px;\n  border: none;\n}\n#restaurant-details ul li .card.dish img[data-v-4edb6cff] {\n  border-radius: 20px;\n  width: 500px;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n#restaurant-details ul li .card.dish strong[data-v-4edb6cff] {\n  font-size: 22px;\n}\n#restaurant-details ul li .card.dish i[data-v-4edb6cff] {\n  cursor: pointer;\n  border-radius: 50%;\n  border: 2px solid #E84342;\n  color: #E84342;\n  display: inline-block;\n  width: 50px;\n  height: 50px;\n  font-size: 20px;\n  transition: 0.5s;\n}\n#restaurant-details ul li .card.dish i[data-v-4edb6cff]:hover {\n  background-color: #E84342;\n  color: white;\n}", ""]);
+exports.push([module.i, "#restaurant-details[data-v-4edb6cff] {\n  background-color: #E84342;\n  padding-bottom: 50px;\n  position: relative;\n}\n#restaurant-details #overlay[data-v-4edb6cff] {\n  position: fixed;\n  /* Sit on top of the page content */\n  width: 100%;\n  /* Full width (cover the whole page) */\n  height: 100%;\n  /* Full height (cover the whole page) */\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.8);\n  /* Black background with opacity */\n  z-index: 2;\n  /* Specify a stack order in case you're using a different order for other elements */\n  cursor: pointer;\n  /* Add a pointer on hover */\n}\n#restaurant-details #overlay #modale[data-v-4edb6cff] {\n  position: absolute;\n  top: 50vh;\n  left: 50vw;\n  transform: translate(-50%, -50%);\n  z-index: 1;\n}\n#restaurant-details #jumbotron[data-v-4edb6cff] {\n  padding-top: 150px;\n  height: 500px;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  position: relative;\n}\n#restaurant-details #jumbotron img[data-v-4edb6cff] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  width: 100%;\n  height: 500px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: 1;\n}\n#restaurant-details #jumbotron h2[data-v-4edb6cff] {\n  min-width: 500px;\n  font-size: 76px;\n  text-shadow: 0 0 6px rgb(16, 16, 16);\n  position: relative;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -80%);\n  z-index: 2;\n}\n#restaurant-details p[data-v-4edb6cff] {\n  background-color: white;\n}\n#restaurant-details ul li .card.dish[data-v-4edb6cff] {\n  border-radius: 20px;\n  border: none;\n}\n#restaurant-details ul li .card.dish img[data-v-4edb6cff] {\n  border-radius: 20px;\n  width: 500px;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n#restaurant-details ul li .card.dish strong[data-v-4edb6cff] {\n  font-size: 22px;\n}\n#restaurant-details ul li .card.dish i[data-v-4edb6cff] {\n  cursor: pointer;\n  border-radius: 50%;\n  border: 2px solid #E84342;\n  color: #E84342;\n  display: inline-block;\n  width: 50px;\n  height: 50px;\n  font-size: 20px;\n  transition: 0.5s;\n}\n#restaurant-details ul li .card.dish i[data-v-4edb6cff]:hover {\n  background-color: #E84342;\n  color: white;\n}", ""]);
 
 // exports
 
