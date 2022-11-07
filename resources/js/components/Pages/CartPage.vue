@@ -98,6 +98,7 @@ export default{
     data() {
         return {
             cart: [],
+            order: [],
             form: {
                 customer_name: '',
                 customer_email: '',
@@ -221,7 +222,7 @@ export default{
             // console.log(this.dish);
             console.log(this.dishes); 
           
-            axios.post('http://127.0.0.1:8001/api/orders-store', {
+            axios.post('http://127.0.0.1:8000/api/orders-store', {
                 
                 customer_name: this.form.customer_name,
                 customer_email: this.form.customer_email,
@@ -246,7 +247,19 @@ export default{
                 this.amount = ''
 
                 window.location.href = "/payment";
-            });               
+                
+            });  
+            
+            this.order = this.cart;
+            
+            this.cart = [];
+
+            let totalPrice = 0;
+            this.order.forEach(dish => {
+                totalPrice += dish.price * dish.quantity;
+            });
+            this.amount = totalPrice;
+            return totalPrice + '€';
         },
     },
     mounted() {
@@ -262,7 +275,10 @@ export default{
         },
         amount(newAmount) {
             localStorage.amount = JSON.stringify(newAmount);
-        }
+        },
+        order(newOrder) {
+            localStorage.order = JSON.stringify(newOrder);
+        },
     },
 }
 </script>

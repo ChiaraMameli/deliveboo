@@ -23,15 +23,15 @@ export default{
         }
     },
     mounted() {
-        if (localStorage.cart) {
-            this.order = JSON.parse(localStorage.cart);
+        if (localStorage.order) {
+            this.order = JSON.parse(localStorage.order);
         };
     },
    
 
     watch:{
-        cart(newCart){
-            localStorage.order = JSON.stringify(newCart);
+        order(newOrder){
+            localStorage.order = JSON.stringify(newOrder);
         },
         amount(newAmount) {
             localStorage.amount = JSON.stringify(newAmount);

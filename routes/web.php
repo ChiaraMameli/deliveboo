@@ -84,7 +84,7 @@ Route::post('/checkout', function(Request $request){
     if ($result->success) {
         $transaction = $result->transaction;
 
-        header('Location: ' . 'http://127.0.0.1:8001/thank-you-page');
+        header('Location: ' . 'http://127.0.0.1:8000/thank-you-page');
         die();
     
     } else {

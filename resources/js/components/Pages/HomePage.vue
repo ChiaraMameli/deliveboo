@@ -104,7 +104,7 @@ export default {
         fetchData() {
             this.isLoading = true;
             axios
-                .get("http://127.0.0.1:8001/api/restaurants")
+                .get("http://127.0.0.1:8000/api/restaurants")
                 .then((res) => {
                     this.restaurants = res.data.restaurants;
                     this.categories = res.data.categories;
