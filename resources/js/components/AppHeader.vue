@@ -1,127 +1,134 @@
 <template>
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <!-- logo -->
-    <router-link :to="{name:'home'}" class="nav-link">
-      <img src="../../image/logo-deliveboo.png" alt="" @click="closeTendina()">
-    </router-link>
+      <!-- logo -->
+      <router-link :to="{ name: 'home' }" class="nav-link">
+        <img src="../../image/logo-deliveboo.png" alt="" @click="closeTendina()">
+      </router-link>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarNav">
-      <div class="left-menu">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{name:'cart'}"><span @click="closeTendina()">Cart</span></router-link>
+      <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarNav">
+        <div class="left-menu">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'cart' }"><span @click="closeTendina()">Carrello</span>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+        <div class="right-menu d-lg-flex align-items-center">
+          <div id="login-btn">
+            <p class="d-inline">Sei un ristoratore? </p>
+            <a href="/register" class="btn btn-primary">Registrati</a>
+            <p class="d-inline">o</p> <a href="/login" class="btn btn-warning">Accedi</a>
+          </div>
+          <i @click="toggleTendina()"
+            class="fa-sharp fa-solid fa-bag-shopping ml-4 mr-2"><span>{{ getTotalQuantity(currentCart.length > 0 ?
+                currentCart : cart)
+            }}</span></i>
+        </div>
+      </div>
+
+      <div id="tendina" :class="{ 'open': clicked }">
+        <ul class="list-unstyled">
+          <li v-if="!currentCart.length" v-for="dish in cart">
+            <div class="cart-container d-flex align-items-center justify-content-between">
+              <div class="dish-card d-flex align-items-center">
+                <img :src="dish.image" alt="">
+                <div class="description">
+                  <h5 class="d-block">{{ dish.name }}</h5>
+                  <strong class="d-block">{{ dish.price }}€</strong>
+                  <span>Quantità: {{ dish.quantity }}</span>
+                </div>
+              </div>
+              <!-- <i @click="removeDish(dish)" class="fa-solid fa-xmark"></i> -->
+            </div>
+          </li>
+          <li v-if="currentCart.length" v-for="dish in currentCart">
+            <div class="cart-container d-flex align-items-center justify-content-between">
+              <div class="dish-card d-flex align-items-center">
+                <img :src="dish.image" alt="">
+                <div class="description">
+                  <h5 class="d-block">{{ dish.name }}</h5>
+                  <strong class="d-block">{{ dish.price }}€</strong>
+                  <span>Quantità: {{ dish.quantity }}</span>
+                </div>
+              </div>
+              <!-- <i @click="removeDish(dish)" class="fa-solid fa-xmark"></i> -->
+            </div>
           </li>
         </ul>
+        <router-link class="nav-link" :to="{ name: 'cart' }"><a class="btn btn-danger" @click="closeTendina()">Vai al
+            carrello</a></router-link>
       </div>
-      <div class="right-menu d-lg-flex align-items-center">
-        <div id="login-btn">
-          <p class="d-inline">Sei un ristoratore? </p>
-          <a href="/register" class="btn btn-primary">Registrati</a> <p class="d-inline">o</p> <a href="/login" class="btn btn-warning">Accedi</a>
-        </div>
-        <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping ml-4 mr-2"><span>{{getTotalQuantity(currentCart.length > 0 ? currentCart : cart)}}</span></i>
-      </div>
-    </div>
 
-    <div id="tendina" :class="{ 'open': clicked }">
-      <ul class="list-unstyled">
-        <li v-if="!currentCart.length" v-for="dish in cart">
-          <div class="cart-container d-flex align-items-center justify-content-between">
-            <div class="dish-card d-flex align-items-center">
-              <img :src="dish.image" alt="">
-              <div class="description">
-                <h5 class="d-block">{{dish.name}}</h5>
-                <strong class="d-block">{{dish.price}}€</strong>
-                <span>Quantità: {{dish.quantity}}</span>
-              </div>
-            </div>
-            <!-- <i @click="removeDish(dish)" class="fa-solid fa-xmark"></i> -->
-          </div>
-        </li>
-        <li v-if="currentCart.length" v-for="dish in currentCart">
-          <div class="cart-container d-flex align-items-center justify-content-between">
-            <div class="dish-card d-flex align-items-center">
-              <img :src="dish.image" alt="">
-              <div class="description">
-                <h5 class="d-block">{{dish.name}}</h5>
-                <strong class="d-block">{{dish.price}}€</strong>
-                <span>Quantità: {{dish.quantity}}</span>
-              </div>
-            </div>
-            <!-- <i @click="removeDish(dish)" class="fa-solid fa-xmark"></i> -->
-          </div>
-        </li>
-      </ul>
-      <router-link class="nav-link" :to="{name:'cart'}"><a class="btn btn-danger" @click="closeTendina()">Vai al carrello</a></router-link>
-    </div>
-    
-  </nav>
+    </nav>
   </header>
 </template>
 
 <script>
 export default {
-    name:'AppHeader',
-    data(){
-      return{
-        cart: [],
+  name: 'AppHeader',
+  data() {
+    return {
+      cart: [],
+    }
+  },
+  mounted() {
+    if (localStorage.cart) {
+      this.cart = JSON.parse(localStorage.cart);
+    }
+  },
+  methods: {
+    toggleTendina() {
+      const tendina = document.getElementById('tendina');
+      tendina.classList.toggle('open')
+    },
+    closeTendina() {
+      const tendina = document.getElementById('tendina');
+      if (tendina.classList.contains('open')) {
+        tendina.classList.remove('open');
       }
     },
-    mounted(){
-        if(localStorage.cart){
-            this.cart = JSON.parse(localStorage.cart);
-        }
-    },
-    methods:{
-      toggleTendina(){
-        const tendina = document.getElementById('tendina');
-        tendina.classList.toggle('open')
-      },
-      closeTendina(){
-        const tendina = document.getElementById('tendina');
-        if(tendina.classList.contains('open')){
-          tendina.classList.remove('open');
-        }
-      },
-      getTotalQuantity(cart){
-        let totalQuantity = 0;
-          cart.forEach(dish => {
-            totalQuantity += dish.quantity;
-          });
-          return totalQuantity;
-      }
-    },
-    props:{
-        currentCart: Array,
-        clicked: Boolean,
-    },
+    getTotalQuantity(cart) {
+      let totalQuantity = 0;
+      cart.forEach(dish => {
+        totalQuantity += dish.quantity;
+      });
+      return totalQuantity;
+    }
+  },
+  props: {
+    currentCart: Array,
+    clicked: Boolean,
+  },
 
 }
 </script>
 
 <style lang="scss" scoped>
-header{
+header {
   position: fixed;
   top: 10px;
   left: 10px;
   right: 10px;
   z-index: 3;
 
-  nav{
+  nav {
     position: relative;
     border-radius: 40px;
     padding: 15px;
     box-shadow: 0 0 5px rgb(146, 146, 146);
 
-    img{
+    img {
       height: 30px;
     }
 
-    i.fa-bag-shopping{
+    i.fa-bag-shopping {
       height: 40px;
       width: 40px;
       display: flex;
@@ -132,11 +139,12 @@ header{
       color: white;
       cursor: pointer;
 
-      span{
+      span {
         margin-left: 5px;
       }
     }
-    #tendina{
+
+    #tendina {
       display: none;
       position: absolute;
       bottom: 0;
@@ -149,18 +157,18 @@ header{
       border-radius: 20px;
       box-shadow: 0 0 5px rgb(146, 146, 146);
 
-      &.open{
+      &.open {
         display: block;
       }
 
-      .cart-container{
+      .cart-container {
         margin-top: 5px;
 
-        h5{
+        h5 {
           font-size: 16px;
         }
 
-        img{
+        img {
           width: 80px;
           height: 80px;
           object-fit: cover;
@@ -172,5 +180,4 @@ header{
     }
   }
 }
-
 </style>
