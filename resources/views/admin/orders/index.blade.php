@@ -21,6 +21,7 @@
             <th scope="col">Numero di telefono</th>
             <th scope="col">Email</th>
             <th scope="col">Indirizzo</th>
+            <th scope="col">Azioni</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,7 @@
                     <td>{{$order->customer_name}}</td>
                     <td>{{$order->customer_phone}}</td>
                     <td>{{$order->customer_email}}</td>
+                    <td>{{$order->customer_address}}</td>
                     <td>
                         <div class="d-flex">
                             <a class="btn btn-primary btn-sm ml-1" href="{{route('admin.orders.show', $order)}}"><i class="fa-solid fa-eye"></i></a>

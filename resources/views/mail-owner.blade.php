@@ -116,7 +116,7 @@
 																	<div class style="font-size: 14px; text-align: center; font-family: 'Oswald', Arial, 'Helvetica Neue', Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #000; line-height: 1.2;">
 																		<p style="margin: 0; mso-line-height-alt: 16.8px;" class="pb-1"><span style="font-size:26px;"><strong>Buone notizie!</strong></span></p>
 																		<p style="margin: 0; mso-line-height-alt: 31.2px;" class="pb-1"><span style="font-size:26px;"><strong>Hai appena ricevuto un ordine per il tuo ristorante,<br />puoi visualizzarlo nella tua pagina personale. </strong></span></p>
-																		<p style="margin: 0; mso-line-height-alt: 31.2px;" class="pb-1"><span style="font-size:26px;"><strong>Clicca <a href="{{ route('login') }}" class="color-red">qui</a> per accedervi.</strong></span></p>
+																		<p style="margin: 0; mso-line-height-alt: 31.2px;" class="pb-1"><span style="font-size:26px;"><strong>Clicca <a href="{{ route('admin.orders.index') }}" class="color-red">qui</a> per accedervi.</strong></span></p>
 																	</div>
 																</div>
 															</td>

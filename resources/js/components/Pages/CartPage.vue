@@ -5,7 +5,7 @@
         </div>
         <div class="container pt-3 pb-5">
             <router-link v-if="!cart.length == 0"
-                :to="{ name: 'restaurant-details', params: { id: goToRestaurantMenu() } }">
+                :to="{ name: 'restaurant-details', params: { slug: goToRestaurantMenu() } }">
                 <a class="btn btn-danger p-3"><i class="fa-solid fa-utensils"></i> Torna al menu</a>
             </router-link>
             <router-link v-else :to="{ name: 'home' }">
