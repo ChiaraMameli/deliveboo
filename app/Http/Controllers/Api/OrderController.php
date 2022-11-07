@@ -8,9 +8,9 @@ use App\User;
 use App\Mail\OrderMail;
 use App\Mail\CustomerOrderMail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Models\Order;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 
 class OrderController extends Controller
@@ -40,8 +40,30 @@ class OrderController extends Controller
         $data = $request->all();
         // dd($data);
         $order = new Order;
+        //valido
+        //var_dump($data);
+        $validator = Validator::make($data , [
+            'costumer_name' => 'required|string|min:2',
+            'costumer_email' => 'required|email',
+            'costumer_phone' => 'required|numeirc|max:15',
+            'costumer_address' => 'required',
+        ],[
+            'costumer_name.required' => 'Inserisci il tuo nome e cognome per procedere',
+            'costumer_name.string' => 'Il nome e il cognome non devono contenere numeri',
+            'costumer_name.min' => 'Il nome e il cognome devono essere veri',
+            'costumer_email.required' => 'Inserisci la tua email per procedere',
+            'costumer_email.email' => 'Ops! La mail non è stata inserita correttamente. Controlla e riprova',
+            'costumer_phone.required' => 'Inserisci il tuo numero di telefono per procedere',
+            'costumer_phone.numeric' => 'Il numero di telefono deve essere composto da soli numeri',
+            'costumer_phone.max' => 'Il numero di telefono inserito è troppo lungo',
+            'costumer_address.required' => 'Inserisci il tuo indirizzo per procedere',
+        ]);
+        //se non passa, li mando indietro
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
         //Order::create($request->all());
-    //var_dump($data); 
+        //var_dump($data); 
         $order->customer_name = $request->get('customer_name');
         $order->customer_email = $request->get('customer_email');
         $order->customer_phone = $request->get('customer_phone');
@@ -49,19 +71,12 @@ class OrderController extends Controller
         $order->restaurant_id = $request->get('restaurant_id');
         $order->amount = $request->get('amount');
         $order->save();
-        //ciclare gli id e le quantità
-       // $order->dishes()->attach($data['cart_dishes']);
+     
        $dishes = json_decode($data['cart_dishes']);
         foreach ($dishes as $dish) {
          $order->dishes()->attach(['dish_id' => $dish->id], [ 'quantity' => $dish->quantity]);
     };
-        //var_dump($data['cart_dishes']);
-       // $order->dishes()->attach([[ 'dish_id' => $data['dish_id'], 'quantity' => $data['quantity']]]);
-        //$order->dishes()->attach($order->id);
-        //$order->dishes()->sync(['quantity' => $data['quantity']]);
-        //  foreach ($order->dishes as $dish) {
-        //     $dish()->attach($data['dish_id'], ['quantity' => $data['quantity']]);
-        //  };
+   
 
         $restaurant_id = $request->get('restaurant_id');
         $restaurant = Restaurant::where('id', $restaurant_id)->get();
@@ -77,26 +92,9 @@ class OrderController extends Controller
         Mail::to($customer)->send($mail_customer);
 
 
-        return response()->json([
-            'message' => 'creato nuovo ordine'
-        ]);
+        return response('Mail inviata' , 204);
     }
-        // $data = $request->all();
-        // // dd($data);
-        // $order = new Order;
-        // //Order::create($request->all());
-        //  $order->customer_name = $request->get('customer_name');
-        //  $order->customer_email = $request->get('customer_email');
-        //  $order->customer_phone = $request->get('customer_phone');
-        //  $order->customer_address = $request->get('customer_address');
-        //  $order->restaurant_id = $request->get('restaurant_id');
-        //  $order->amount = $request->get('amount');
-        //  $order->save();
-        //    $order->dishes()->attach($data['order_id']);
-        // return response()->json([
-        //     'message' => 'creato nuovo ordine'
-        // ]);
-    
+ 
 
     /**
      * Display the specified resource.
