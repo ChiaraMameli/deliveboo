@@ -62,7 +62,7 @@ class DishController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|min:1|max:30|string|alpha',
+            'name' => 'required|string|min:1|max:30|string|regex:/^[a-zA-Z ]+$/',
             'ingredients' => 'required',
             'price' => 'required',
             'image' => 'nullable|image',
@@ -73,7 +73,7 @@ class DishController extends Controller
             'string' => 'Il formato non è valido',
             'name.min' => "$request->name è troppo corto",
             'name.max' => "$request->name è troppo lungo",
-            'name.alpha' => "Il nome del piatto non può essere formato da soli numeri",
+            'name.regex' => "Il nome del piatto non può essere formato da soli numeri",
             'image.image' => 'Il formato non è valido',
         ]);
 
@@ -138,7 +138,7 @@ class DishController extends Controller
     public function update(Request $request, Dish $dish)
     {
         $validated = $request->validate([
-            'name' => 'required|string|min:1|max:30|string|alpha',
+            'name' => 'required|string|min:1|max:30|string|regex:/^[a-zA-Z ]+$/',
             'ingredients' => 'required',
             'price' => 'required',
             'image' => 'nullable|image',
@@ -149,7 +149,7 @@ class DishController extends Controller
             'string' => 'Il formato non è valido',
             'name.min' => "$request->name è troppo corto",
             'name.max' => "$request->name è troppo lungo",
-            'name.alpha' => "Il nome del piatto non può contenere numeri",
+            'name.regex' => "Il nome del piatto non può contenere numeri",
             'image.image' => 'Il formato non è valido',
         ]);
 

@@ -16,7 +16,7 @@ class CreateRestaurantsTable extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('slug');
+            $table->string('slug')->default('pippo');
             $table->foreign('user_id')->unique()->references('id')->on('users')->onDelete('cascade');
             $table->string('name', 50)->unique();
             $table->char('p_iva', 13)->unique();

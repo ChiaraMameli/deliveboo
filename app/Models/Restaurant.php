@@ -22,5 +22,5 @@ class Restaurant extends Model
         return $this->hasMany('App\Models\Order');
     }
 
-    protected $fillable = [ 'name' , 'p_iva' , 'address'];
+    protected $fillable = [ 'name' , 'p_iva' , 'address', 'slug'];
 }
