@@ -84,9 +84,9 @@ Route::post('/checkout', function(Request $request){
     if ($result->success) {
         $transaction = $result->transaction;
 
-        // header("Location: " . $baseUrl . "transaction.php?id=" . $transaction->id);
-
-        return back()->with('success_message', 'Transazione avvenuta con successo. Il codice di transazione è:' . $transaction->id);
+        header('Location: ' . 'http://127.0.0.1:8001/thank-you-page');
+        die();
+    
     } else {
         $errorString = "";
 
@@ -101,7 +101,6 @@ Route::post('/checkout', function(Request $request){
 
     }
 });
-
 
 //Guest routes
 Route::get('/{any?}', function () {

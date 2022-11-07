@@ -75,7 +75,7 @@ methods: {
         fetchRestaurant() {
             this.isLoading = true;
 
-            axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.slug).then((res) => {
+            axios.get("http://localhost:8001/api/restaurants/" + this.$route.params.slug).then((res) => {
                 this.restaurant = res.data.restaurant;
                 const dishes = res.data.restaurant.dishes;
 

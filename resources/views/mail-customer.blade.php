@@ -105,21 +105,21 @@
 										<tbody>
 											<tr>
 												<td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
-													<table class="heading_block block-2" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+													<table class="image_block block-2" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
-															<td class="pad" style="width:100%;text-align:center;padding-top:40px;">
-																<h1 style="margin: 0; color: #bc2121; font-size: 65px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; line-height: 120%; text-align: center; direction: ltr; font-weight: 700; letter-spacing: normal; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder">DELIVEBOO</span></h1>
+															<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;padding-top:30px;">
+																<div class="alignment" align="center" style="line-height:10px"><img class="big" src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/893714_877971/logo-deliveboo.png" style="display: block; height: auto; border: 0; width: 600px; max-width: 100%;" width="600"></div>
 															</td>
 														</tr>
 													</table>
-													<table class="heading_block block-5" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+													<table class="heading_block block-4" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
-															<td class="pad" style="padding-left:10px;padding-right:10px;text-align:center;width:100%;padding-top:80px;">
+															<td class="pad" style="padding-left:10px;padding-right:10px;text-align:center;width:100%;padding-top:30px;">
 																<h1 style="margin: 0; color: #000000; direction: ltr; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 46px; font-weight: 400; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><strong>Hai effettuato l'ordine &nbsp;con successo!<br></strong></h1>
 															</td>
 														</tr>
 													</table>
-													<table class="text_block block-6" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+													<table class="text_block block-5" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad" style="padding-left:10px;padding-right:10px;padding-top:15px;">
 																<div style="font-family: Arial, sans-serif">
@@ -130,30 +130,22 @@
 															</td>
 														</tr>
 													</table>
-													<table class="image_block block-8" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+													<table class="image_block block-7" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;padding-top:30px;">
-																<div class="alignment" align="center" style="line-height:10px"><img class="big" src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/7266/burger_promo.png" style="display: block; height: auto; border: 0; width: 600px; max-width: 100%;" width="600" alt="Image of three burgers" title="Image of three burgers"></div>
+																<div class="alignment" align="center" style="line-height:10px"><img class="big" src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/893714_877971/hamburger-3.png" style="display: block; height: auto; border: 0; width: 540px; max-width: 100%;" width="540" alt="Image of three burgers" title="Image of three burgers"></div>
 															</td>
 														</tr>
 													</table>
 													<div class="spacer_block mobile_hide" style="height:30px;line-height:30px;font-size:1px;">&#8202;</div>
-													<div class="spacer_block desktop_hide" style="mso-hide: all; display: none; max-height: 0; overflow: hidden; height: 100px; line-height: 100px; font-size: 1px;">&#8202;</div>
-													<table class="heading_block block-11" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+													<table class="heading_block block-9" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
-															<td class="pad" style="text-align:center;width:100%;">
-																<h1 style="margin: 0; color: #ffffff; direction: ltr; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 23px; font-weight: 400; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><span style="background-color: #f6b909;">&nbsp; Order No: 123456&nbsp;&nbsp;</span></h1>
+															<td class="pad" style="padding-left:25px;padding-right:25px;padding-top:20px;text-align:center;width:100%;">
+																<h1 style="margin: 0; color: #000000; direction: ltr; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 46px; font-weight: 400; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><strong>Ottima Scelta!<br></strong></h1>
 															</td>
 														</tr>
 													</table>
-													<table class="heading_block block-12" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
-														<tr>
-															<td class="pad" style="padding-left:10px;padding-right:10px;padding-top:20px;text-align:center;width:100%;">
-																<h1 style="margin: 0; color: #000000; direction: ltr; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 46px; font-weight: 400; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><strong>Ottima scelta!<br></strong></h1>
-															</td>
-														</tr>
-													</table>
-													<table class="text_block block-13" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+													<table class="text_block block-10" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad" style="padding-left:10px;padding-right:10px;">
 																<div style="font-family: Arial, sans-serif">
@@ -164,7 +156,7 @@
 															</td>
 														</tr>
 													</table>
-													<table class="text_block block-14" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+													<table class="text_block block-11" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad" style="padding-bottom:40px;padding-left:10px;padding-right:10px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">

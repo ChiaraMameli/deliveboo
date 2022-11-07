@@ -196,7 +196,7 @@ export default{
             // console.log(this.dish);
             console.log(this.dishes); 
           
-            axios.post('http://127.0.0.1:8000/api/orders-store', {
+            axios.post('http://127.0.0.1:8001/api/orders-store', {
                 
                 customer_name: this.form.customer_name,
                 customer_email: this.form.customer_email,

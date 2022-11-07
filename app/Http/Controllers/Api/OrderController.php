@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use App\User;
+use App\Mail\OrderMail;
+use App\Mail\CustomerOrderMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Order;
+use Illuminate\Support\Facades\Mail;
 
 
 class OrderController extends Controller
@@ -33,7 +37,7 @@ class OrderController extends Controller
      */
     public function store(Request $request )
     {
-                $data = $request->all();
+        $data = $request->all();
         // dd($data);
         $order = new Order;
         //Order::create($request->all());
@@ -58,7 +62,20 @@ class OrderController extends Controller
         //  foreach ($order->dishes as $dish) {
         //     $dish()->attach($data['dish_id'], ['quantity' => $data['quantity']]);
         //  };
-            
+
+        $restaurant_id = $request->get('restaurant_id');
+        $restaurant = Restaurant::where('id', $restaurant_id)->get();
+        $user_id = $restaurant[0]->user_id;
+        $user = User::where('id', $user_id)->get();
+        $user_email = $user[0]->email;
+
+        $mail_owner = new OrderMail();
+        $mail_customer = new CustomerOrderMail();
+        $restaurant_owner = $user_email;
+        $customer = $request->get('customer_email');
+        Mail::to($restaurant_owner)->send($mail_owner);
+        Mail::to($customer)->send($mail_customer);
+
 
         return response()->json([
             'message' => 'creato nuovo ordine'
