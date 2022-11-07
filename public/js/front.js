@@ -2276,6 +2276,7 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(data)
 
         _this.form.customer_name = '', _this.form.customer_email = '', _this.form.customer_phone = '', _this.form.customer_address = '', _this.amount = '';
+        window.location.href = "/payment";
       });
     }
   },
