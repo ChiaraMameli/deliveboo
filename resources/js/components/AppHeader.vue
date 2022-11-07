@@ -23,7 +23,7 @@
           <p class="d-inline">Sei un ristoratore? </p>
           <a href="/register" class="btn btn-primary">Registrati</a> <p class="d-inline">o</p> <a href="/login" class="btn btn-warning">Accedi</a>
         </div>
-        <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping ml-4 mr-2"><span>{{getTotalQuantity(currentCart.length > 0 ? currentCart : cart)}}</span></i>
+        <i @click="toggleTendina()" class="fa-sharp fa-solid fa-bag-shopping ml-4"><span>{{getTotalQuantity(currentCart.length > 0 ? currentCart : cart)}}</span></i>
       </div>
     </div>
 
@@ -122,8 +122,8 @@ header{
     }
 
     i.fa-bag-shopping{
-      height: 40px;
-      width: 40px;
+      height: 50px;
+      width: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
