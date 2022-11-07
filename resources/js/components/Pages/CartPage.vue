@@ -242,6 +242,8 @@ export default{
                 
                 
                 this.amount = ''
+
+                window.location.href = "/payment";
             });               
         },
     },
