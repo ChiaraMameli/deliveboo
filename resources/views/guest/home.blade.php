@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel</title>
+    <title>Deliveboo</title>
+    <link rel="icon" href="{{ asset('images/deliveboo-title-logo.png') }}" type="image/png" />
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -19,7 +20,7 @@
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script src="{{asset('js/front.js')}}" defer></script>
+    <script src="{{ asset('js/front.js') }}" defer></script>
 </head>
 
 <body>
@@ -27,7 +28,6 @@
     <div id="app"></div>
 </body>
 
-<script>
-</script>
+<script></script>
 
 </html>
