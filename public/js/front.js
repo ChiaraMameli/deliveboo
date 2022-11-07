@@ -2211,7 +2211,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     buy: function buy() {
       localStorage.cart = JSON.stringify(this.cart);
-      // window.scrollTo(0, 1000);
+      var element = document.getElementById("personal-data");
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center"
+      });
     },
     getPivotData: function getPivotData() {
       var dishes = [];
@@ -2972,7 +2977,10 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "fa-solid fa-cart-shopping"
   }, [_vm._v(" Procedi all'acquisto")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "card cart p-5 mt-5"
+    staticClass: "card cart p-5 mt-5",
+    attrs: {
+      id: "personal-data"
+    }
   }, [_c("form", {
     attrs: {
       action: "http://127.0.0.1:8000/payment"

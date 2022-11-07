@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="card cart p-5 mt-5">
+            <div class="card cart p-5 mt-5" id="personal-data">
                 <!-- @submit.prevent="getPivotData()" -->
                 <form  action="http://127.0.0.1:8000/payment" >
                     <div class="form-group">
@@ -139,7 +139,8 @@ export default{
         },
         buy(){
             localStorage.cart = JSON.stringify(this.cart);
-            // window.scrollTo(0, 1000);
+            const element = document.getElementById("personal-data");
+            element.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
         },
         getPivotData(){
             const dishes = [];
