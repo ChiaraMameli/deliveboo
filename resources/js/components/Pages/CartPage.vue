@@ -84,7 +84,7 @@
                         <label for="address">Indirizzo completo</label>
                         <input type="text" v-model="form.customer_address" class="form-control" id="address">
                     </div>
-                    <button @click.prevent="getData()" type="submit" class="btn btn-primary">Ordina</button>
+                    <button @click="getData()" type="submit" class="btn btn-primary">Ordina</button>
                 </form>
             </div>
         </div>

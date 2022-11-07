@@ -63,10 +63,12 @@ class OrderController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response@
      */
     public function show(Order $order)
     {
+         
+        
         $my_restaurant = Restaurant::where('user_id', Auth::id())->get();
         if($order->restaurant_id !== $my_restaurant[0]['id']){
             return redirect()->route('admin.orders.index')->with('message', 'Non puoi visualizzare questo ordine')->with('type', 'warning');

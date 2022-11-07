@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use App\Models\Order;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,7 +56,9 @@ Route::get('/payment', function(){
 
     $token = $gateway->ClientToken()->generate();
 
-    $amount = 20;
+   $amount = Order::all()->last()->amount;
+
+  
     return view('braintree', ['token' => $token, 'amount' => $amount]);
 
 });
