@@ -20,8 +20,9 @@
               <div class="col-md-8">
                 <div class="card-body d-flex flex-column justify-content-between h-100">
                   <div class="description">
-                    <h5 class="card-title">{{ dish.name }}</h5>
-                    <p class="card-text">{{ dish.description }}</p>
+                    <h3 class="card-title">{{ dish.name }}</h3>
+                    <p class="card-text"><strong>Ingredienti: </strong>{{ dish.ingredients }}</p>
+                    <p class="card-text"><strong>Descrizione: </strong>{{ dish.description }}</p>
                   </div>
 
                   <!-- modale -->

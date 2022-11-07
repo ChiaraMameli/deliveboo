@@ -33,7 +33,7 @@
 
                 <!-- prova lista ristoranti-->
                 <!-- if -->
-                <div v-if="showAllRestaurants" class="d-flex justify-content-between flex-wrap pb-5 col-12">
+                <div v-if="showAllRestaurants" class="d-flex flex-wrap pb-5 col-12">
                     <div class="card restaurant p-2 col-12 col-md-6 col-lg-3" v-for="restaurant in restaurants"
                         :key="restaurant.id">
                         <div class="inside-card p-2">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <!-- else -->
-                <div v-else class="d-flex justify-content-between flex-wrap pb-5 col-12">
+                <div v-else class="d-flex flex-wrap pb-5 col-12">
                     <div class="card restaurant p-2 col-12 col-md-6 col-lg-3"
                         v-for="restaurant in restaurantWithSelected" :key="restaurant.id">
                         <div class="inside-card p-2">
