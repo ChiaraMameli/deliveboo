@@ -2161,6 +2161,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       cart: [],
+      order: [],
       form: {
         customer_name: '',
         customer_email: '',
@@ -2201,17 +2202,34 @@ __webpack_require__.r(__webpack_exports__);
       return totalPrice + '€';
     },
     removeAll: function removeAll() {
-      var hasConfirmed = confirm("Sei sicuro di voler svuotare il carrello?");
-      if (hasConfirmed) {
+      // Recupero gli elementi per mostrare la modale
+      var modale = document.getElementById('modale');
+      var overlay = document.getElementById('overlay');
+      var modaleButtonNo = document.getElementById('modale-button-no');
+      var modaleButtonYes = document.getElementById('modale-button-yes');
+
+      // mostro la modale in pagina
+      overlay.classList.remove('d-none');
+      modale.classList.remove('d-none');
+      modaleButtonNo.addEventListener('click', function () {
+        overlay.classList.add('d-none');
+        modale.classList.add('d-none');
+      });
+      modaleButtonYes.addEventListener('click', function () {
         localStorage.cart = [];
         this.cart = [];
-      } else {
-        die();
-      }
+      });
     },
     buy: function buy() {
       localStorage.cart = JSON.stringify(this.cart);
+      this.$emit('populated-cart', this.cart);
       // window.scrollTo(0, 1000);
+      var element = document.getElementById("personal-data");
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center"
+      });
     },
     getPivotData: function getPivotData() {
       var dishes = [];
@@ -2262,7 +2280,7 @@ __webpack_require__.r(__webpack_exports__);
       // });
       // console.log(this.dish);
       console.log(this.dishes);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8001/api/orders-store', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/orders-store', {
         customer_name: this.form.customer_name,
         customer_email: this.form.customer_email,
         customer_phone: this.form.customer_phone,
@@ -2278,6 +2296,14 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.customer_name = '', _this.form.customer_email = '', _this.form.customer_phone = '', _this.form.customer_address = '', _this.amount = '';
         window.location.href = "/payment";
       });
+      this.order = this.cart;
+      this.cart = [];
+      var totalPrice = 0;
+      this.order.forEach(function (dish) {
+        totalPrice += dish.price * dish.quantity;
+      });
+      this.amount = totalPrice;
+      return totalPrice + '€';
     }
   },
   mounted: function mounted() {
@@ -2292,6 +2318,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     amount: function amount(newAmount) {
       localStorage.amount = JSON.stringify(newAmount);
+    },
+    order: function order(newOrder) {
+      localStorage.order = JSON.stringify(newOrder);
     }
   }
 });
@@ -2330,7 +2359,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     fetchData: function fetchData() {
       var _this = this;
       this.isLoading = true;
-      axios.get("http://127.0.0.1:8001/api/restaurants").then(function (res) {
+      axios.get("http://127.0.0.1:8000/api/restaurants").then(function (res) {
         _this.restaurants = res.data.restaurants;
         _this.categories = res.data.categories;
         console.log(_this.restaurants);
@@ -2431,7 +2460,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchRestaurant: function fetchRestaurant() {
       var _this = this;
       this.isLoading = true;
-      axios.get("http://localhost:8001/api/restaurants/" + this.$route.params.slug).then(function (res) {
+      axios.get("http://localhost:8000/api/restaurants/" + this.$route.params.slug).then(function (res) {
         _this.restaurant = res.data.restaurant;
         var dishes = res.data.restaurant.dishes;
         dishes.forEach(function (dish) {
@@ -2559,8 +2588,22 @@ __webpack_require__.r(__webpack_exports__);
   name: 'ThankYouPage',
   data: function data() {
     return {
-      cart: []
+      order: []
     };
+  },
+  mounted: function mounted() {
+    if (localStorage.order) {
+      this.order = JSON.parse(localStorage.order);
+    }
+    ;
+  },
+  watch: {
+    order: function order(newOrder) {
+      localStorage.order = JSON.stringify(newOrder);
+    },
+    amount: function amount(newAmount) {
+      localStorage.amount = JSON.stringify(newAmount);
+    }
   }
 });
 
@@ -2873,7 +2916,6 @@ var render = function render() {
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "container pt-3 pb-5"
   }, [!_vm.cart.length == 0 ? _c("router-link", {
-    staticClass: "btn btn-secondary",
     attrs: {
       to: {
         name: "restaurant-details",
@@ -2883,17 +2925,20 @@ var render = function render() {
       }
     }
   }, [_c("a", {
-    staticClass: "btn btn-secondary"
-  }, [_vm._v("Torna al menu")])]) : _c("router-link", {
-    staticClass: "btn btn-secondary",
+    staticClass: "btn btn-danger p-3"
+  }, [_c("i", {
+    staticClass: "fa-solid fa-utensils"
+  }), _vm._v(" Torna al menu")])]) : _c("router-link", {
     attrs: {
       to: {
         name: "home"
       }
     }
   }, [_c("a", {
-    staticClass: "btn btn-secondary"
-  }, [_vm._v("Torna all Home")])]), _vm._v(" "), _c("div", {
+    staticClass: "btn btn-danger p-3"
+  }, [_c("i", {
+    staticClass: "fa-solid fa-house"
+  }), _vm._v(" Torna all Home")])]), _vm._v(" "), _c("div", {
     staticClass: "card cart p-5 mt-5"
   }, [_c("table", {
     staticClass: "table"
@@ -2924,7 +2969,8 @@ var render = function render() {
         step: "1",
         min: "1",
         max: "50",
-        id: "quantity"
+        id: "quantity",
+        disabled: ""
       },
       domProps: {
         value: dish.quantity
@@ -2970,9 +3016,12 @@ var render = function render() {
       }
     }
   }, [_c("i", {
-    staticClass: "fa-solid fa-cart-shopping"
-  }, [_vm._v(" Procedi all'acquisto")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "card cart p-5 mt-5"
+    staticClass: "fa-solid fa-rotate-right"
+  }, [_vm._v(" Aggiorna il carrello")])])])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("div", {
+    staticClass: "card cart p-5 mt-5",
+    attrs: {
+      id: "personal-data"
+    }
   }, [_c("form", {
     attrs: {
       action: "http://127.0.0.1:8000/payment"
@@ -3094,7 +3143,6 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
-        $event.preventDefault();
         return _vm.getData();
       }
     }
@@ -3137,6 +3185,31 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Sub-totale")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "d-none",
+    attrs: {
+      id: "overlay"
+    }
+  }, [_c("div", {
+    staticClass: "bg-white p-5 rounded d-none",
+    attrs: {
+      id: "modale"
+    }
+  }, [_c("p", [_vm._v("Sei sicuro di voler svuotare il carrello?")]), _vm._v(" "), _c("a", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      id: "modale-button-no"
+    }
+  }, [_vm._v("Annulla")]), _vm._v(" "), _c("a", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      id: "modale-button-yes",
+      href: ""
+    }
+  }, [_vm._v("Ok")])])]);
 }];
 render._withStripped = true;
 
@@ -3243,7 +3316,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "card-img-top",
       attrs: {
-        src: restaurant.image,
+        src: "../storage/" + restaurant.image,
         alt: restaurant.name
       }
     }), _vm._v(" "), _c("div", {
@@ -3278,7 +3351,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "card-img-top",
       attrs: {
-        src: restaurant.image,
+        src: "../storage/" + restaurant.image,
         alt: restaurant.name
       }
     }), _vm._v(" "), _c("div", {
@@ -3358,7 +3431,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "img-fluid",
       attrs: {
-        src: dish.image,
+        src: "../storage/" + dish.image,
         alt: "..."
       }
     })]), _vm._v(" "), _c("div", {
@@ -3403,7 +3476,7 @@ var render = function render() {
       }
     }), _vm._v(" "), _c("span", {
       staticClass: "alert alert-primary d-none"
-    }, [_vm._v("\n                  Hai aggiunto il piatto al carrello\n                  ")])])])])])])]);
+    }, [_vm._v("\n                    Hai aggiunto il piatto al carrello\n                  ")])])])])])])]);
   }), 0)])]);
 };
 var staticRenderFns = [];
@@ -3426,17 +3499,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
   return _c("main", {
     attrs: {
       id: "thank-you"
     }
   }, [_c("div", {
-    staticClass: "container"
+    staticClass: "container pb-5"
   }, [_c("h2", {
     staticClass: "text-center"
   }, [_vm._v("Grazie per aver ordinato su Deliveboo!")]), _vm._v(" "), _c("p", {
@@ -3447,8 +3515,11 @@ var staticRenderFns = [function () {
     staticClass: "card p-4"
   }, [_c("strong", [_vm._v("Piatti ordinati:")]), _vm._v(" "), _c("ul", {
     staticClass: "list-unstyled"
-  }, [_c("li", [_vm._v("Pappa al pomodoro")]), _vm._v(" "), _c("li", [_vm._v("Penne agli scampi")]), _vm._v(" "), _c("li", [_vm._v("Orata al forno")]), _vm._v(" "), _c("li", [_vm._v("Kebab")])])])])]);
-}];
+  }, _vm._l(_vm.order, function (dish) {
+    return _c("li", [_vm._v(_vm._s(dish.name))]);
+  }), 0)])])]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -7891,7 +7962,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#cart[data-v-6c99fbf6] {\n  min-height: calc(100vh - 50px);\n  background-color: #F6E7C1;\n}\n#cart thead[data-v-6c99fbf6] {\n  border-radius: 20px;\n}\n#cart thead th[data-v-6c99fbf6] {\n  border: none;\n}\n#cart .jumbotron[data-v-6c99fbf6] {\n  height: 600px;\n  background-image: url(" + escape(__webpack_require__(/*! ../../../image/delivery-1.png */ "./resources/image/delivery-1.png")) + ");\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  position: relative;\n}\n#cart .jumbotron img[data-v-6c99fbf6] {\n  width: 50%;\n  position: absolute;\n  bottom: 50%;\n  left: 50%;\n  transform: translate(-50%, 50%);\n}\n#cart .card.cart[data-v-6c99fbf6] {\n  border: none;\n  border-radius: 20px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}", ""]);
+exports.push([module.i, "#cart[data-v-6c99fbf6] {\n  min-height: calc(100vh - 50px);\n  background-color: #F6E7C1;\n}\n#cart #overlay[data-v-6c99fbf6] {\n  position: fixed; /* Sit on top of the page content */\n  width: 100%; /* Full width (cover the whole page) */\n  height: 100%; /* Full height (cover the whole page) */\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */\n  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */\n  cursor: pointer; /* Add a pointer on hover */\n}\n#cart #overlay #modale[data-v-6c99fbf6] {\n  position: absolute;\n  top: 50vh;\n  left: 50vw;\n  transform: translate(-50%, -50%);\n  z-index: 1;\n}\n#cart table thead[data-v-6c99fbf6] {\n  border-radius: 20px;\n}\n#cart table thead th[data-v-6c99fbf6] {\n  border: none;\n}\n#cart table #quantity[data-v-6c99fbf6] {\n  color: black;\n  border: 2px solid red;\n  border-radius: 10px;\n}\n#cart .jumbotron[data-v-6c99fbf6] {\n  height: 600px;\n  background-image: url(" + escape(__webpack_require__(/*! ../../../image/delivery-1.png */ "./resources/image/delivery-1.png")) + ");\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  position: relative;\n}\n#cart .jumbotron img[data-v-6c99fbf6] {\n  width: 50%;\n  position: absolute;\n  bottom: 50%;\n  left: 50%;\n  transform: translate(-50%, 50%);\n}\n#cart .card.cart[data-v-6c99fbf6] {\n  border: none;\n  border-radius: 20px;\n  box-shadow: 0 0 5px rgb(146, 146, 146);\n}", ""]);
 
 // exports
 
@@ -7930,7 +8001,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#restaurant-details[data-v-4edb6cff] {\n  background-color: #E84342;\n  padding-bottom: 50px;\n  position: relative;\n}\n#restaurant-details #overlay[data-v-4edb6cff] {\n  position: fixed; /* Sit on top of the page content */\n  width: 100%; /* Full width (cover the whole page) */\n  height: 100%; /* Full height (cover the whole page) */\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */\n  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */\n  cursor: pointer; /* Add a pointer on hover */\n}\n#restaurant-details #overlay #modale[data-v-4edb6cff] {\n  position: absolute;\n  top: 50vh;\n  left: 50vw;\n  transform: translate(-50%, -50%);\n  z-index: 1;\n}\n#restaurant-details h2[data-v-4edb6cff] {\n  min-width: 500px;\n  font-size: 76px;\n  text-shadow: 0 0 6px rgb(16, 16, 16);\n}\n#restaurant-details #jumbotron[data-v-4edb6cff] {\n  padding-top: 150px;\n  height: 500px;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n}\n#restaurant-details p[data-v-4edb6cff] {\n  background-color: white;\n}\n#restaurant-details ul li .card.dish[data-v-4edb6cff] {\n  border-radius: 20px;\n  border: none;\n}\n#restaurant-details ul li .card.dish img[data-v-4edb6cff] {\n  border-radius: 20px;\n  width: 500px;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n#restaurant-details ul li .card.dish strong[data-v-4edb6cff] {\n  font-size: 22px;\n}\n#restaurant-details ul li .card.dish i[data-v-4edb6cff] {\n  cursor: pointer;\n  border-radius: 50%;\n  border: 2px solid #E84342;\n  color: #E84342;\n  display: inline-block;\n  width: 50px;\n  height: 50px;\n  font-size: 20px;\n  transition: 0.5s;\n}\n#restaurant-details ul li .card.dish i[data-v-4edb6cff]:hover {\n  background-color: #E84342;\n  color: white;\n}", ""]);
+exports.push([module.i, "#restaurant-details[data-v-4edb6cff] {\n  background-color: #E84342;\n  padding-bottom: 50px;\n  position: relative;\n}\n#restaurant-details #overlay[data-v-4edb6cff] {\n  position: fixed;\n  /* Sit on top of the page content */\n  width: 100%;\n  /* Full width (cover the whole page) */\n  height: 100%;\n  /* Full height (cover the whole page) */\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.8);\n  /* Black background with opacity */\n  z-index: 2;\n  /* Specify a stack order in case you're using a different order for other elements */\n  cursor: pointer;\n  /* Add a pointer on hover */\n}\n#restaurant-details #overlay #modale[data-v-4edb6cff] {\n  position: absolute;\n  top: 50vh;\n  left: 50vw;\n  transform: translate(-50%, -50%);\n  z-index: 1;\n}\n#restaurant-details h2[data-v-4edb6cff] {\n  min-width: 500px;\n  font-size: 76px;\n  text-shadow: 0 0 6px rgb(16, 16, 16);\n}\n#restaurant-details #jumbotron[data-v-4edb6cff] {\n  padding-top: 150px;\n  height: 500px;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n}\n#restaurant-details p[data-v-4edb6cff] {\n  background-color: white;\n}\n#restaurant-details ul li .card.dish[data-v-4edb6cff] {\n  border-radius: 20px;\n  border: none;\n}\n#restaurant-details ul li .card.dish img[data-v-4edb6cff] {\n  border-radius: 20px;\n  width: 500px;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n#restaurant-details ul li .card.dish strong[data-v-4edb6cff] {\n  font-size: 22px;\n}\n#restaurant-details ul li .card.dish i[data-v-4edb6cff] {\n  cursor: pointer;\n  border-radius: 50%;\n  border: 2px solid #E84342;\n  color: #E84342;\n  display: inline-block;\n  width: 50px;\n  height: 50px;\n  font-size: 20px;\n  transition: 0.5s;\n}\n#restaurant-details ul li .card.dish i[data-v-4edb6cff]:hover {\n  background-color: #E84342;\n  color: white;\n}", ""]);
 
 // exports
 
@@ -57557,7 +57628,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/chiaramameli/Desktop/laravel/deliveboo/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\laravel\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ }),
