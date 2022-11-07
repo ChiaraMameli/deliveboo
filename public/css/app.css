@@ -10934,6 +10934,8 @@ a.text-dark:focus {
 
 #payment-body {
   background-color: #E84342;
+  background-image: url(/images/logo-deliveboo.png?5b0f8e11ec69f9c80a0bf93dc9bce853);
+  background-position: center;
 }
 
 #dropin-container {

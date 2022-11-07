@@ -55,7 +55,7 @@
     @endif
 
     <div class="d-flex justify-content-center align-items-center text-center" style="height: 100vh">
-        <div id="dropin-container" style="width: 20rem">
+        <div id="dropin-container" style="width: 30rem">
             <form method="post" id="payment-form" action="/checkout">
                 @csrf
                 <section>
