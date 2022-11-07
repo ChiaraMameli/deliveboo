@@ -16,7 +16,6 @@
         <thead>
             <tr>
             <th scope="col">id</th>
-            <th scope="col">Status</th>
             <th scope="col">Totale</th>
             <th scope="col">Nome</th>
             <th scope="col">Numero di telefono</th>
@@ -28,8 +27,7 @@
             @forelse($orders as $order)
                 <tr>
                     <td>{{$order->id}}</td>
-                    <th scope="row">{{$order->status}}</th>
-                    <td>{{$order->amount}}</td>
+                    <td>{{$order->amount}}€</td>
                     <td>{{$order->customer_name}}</td>
                     <td>{{$order->customer_phone}}</td>
                     <td>{{$order->customer_email}}</td>

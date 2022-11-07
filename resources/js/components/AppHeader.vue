@@ -14,7 +14,7 @@
       <div class="left-menu">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name:'cart'}"><span @click="closeTendina()">Cart</span></router-link>
+            <router-link class="nav-link" :to="{name:'cart'}"><span @click="closeTendina()">Carello</span></router-link>
           </li>
         </ul>
       </div>

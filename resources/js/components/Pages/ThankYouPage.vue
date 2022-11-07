@@ -3,12 +3,24 @@
         <div class="container pb-5">
             <h2 class="text-center">Grazie per aver ordinato su Deliveboo!</h2>
             <p class="text-center mb-5">A breve riceverai una mail di conferma.</p>
-            <h3 class="text-center">Questo è il riepilogo del tuo ordine:</h3>
+            <h3 class="text-center">Questo è un breve riepilogo del tuo ordine:</h3>
             <div class="card p-4">
-                <strong>Piatti ordinati:</strong>
-                <ul class="list-unstyled">
-                    <li v-for="dish in order">{{dish.name}}</li>
-                </ul>
+                <table class="table">
+                    <thead class="bg-danger text-white">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Piatti ordinati</th>
+                            <th scope="col">Quantità</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="dish in order">
+                            <td scope="row"></td>
+                            <td>{{ dish.name }}</td>
+                            <td>{{ dish.quantity }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>

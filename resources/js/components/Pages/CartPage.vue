@@ -28,9 +28,9 @@
                             <td>{{ dish.name }}</td>
                             <td>{{ dish.price }}€</td>
                             <td>
-                                <button @click="dish.quantity -= 1"  class="btn btn-outline">-</button>
+                                <button @click="dish.quantity -= 1"  class="btn btn-outline p-0 p-md-2">-</button>
                                 <input type="number" step="1" min="1" max="50" id="quantity" :value="dish.quantity" disabled>
-                                <button @click="dish.quantity += 1" class="btn btn-outline">+</button>
+                                <button @click="dish.quantity += 1" class="btn btn-outline p-0 p-md-2">+</button>
                             </td>
                             <td>{{ getSubTotal(dish) }}€</td>
                         </tr>
